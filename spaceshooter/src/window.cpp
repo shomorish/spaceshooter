@@ -20,6 +20,6 @@ Window::~Window() {
     height_ = 0;
 }
 
-SDL_Window* Window::get_window() { return window_; }
+SDL_Window* Window::sdl() { return window_; }
 
 }; // namespace spaceshooter

@@ -14,7 +14,7 @@ class Window {
     Window(const char*, int, int);
     ~Window();
 
-    SDL_Window* get_window();
+    SDL_Window* sdl();
 };
 
 }; // namespace spaceshooter
