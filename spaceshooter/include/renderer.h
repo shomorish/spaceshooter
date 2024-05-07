@@ -15,7 +15,7 @@ class Renderer {
     Renderer(Window*);
     ~Renderer();
 
-    SDL_Renderer* get_renderer();
+    SDL_Renderer* sdl();
 };
 
 } // namespace spaceshooter

@@ -23,7 +23,7 @@ Game::~Game() {
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
-    SDL_Renderer* renderer = container_->get_renderer()->get_renderer();
+    SDL_Renderer* renderer = container_->get_renderer()->sdl();
     while (!quit) {
         // イベントループ
         while (SDL_PollEvent(&event) > 0) {

@@ -16,6 +16,6 @@ Renderer::~Renderer() {
     }
 }
 
-SDL_Renderer* Renderer::get_renderer() { return renderer_; }
+SDL_Renderer* Renderer::sdl() { return renderer_; }
 
 }; // namespace spaceshooter
