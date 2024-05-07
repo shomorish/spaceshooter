@@ -5,31 +5,25 @@
 
 namespace spaceshooter {
 
-Game::Game() : window_(NULL), renderer_(NULL) {
+Game::Game() : container_(NULL) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw std::runtime_error("Failed to initialize SDL.");
     }
-    window_ = new Window("Space Shooter", 640, 480);
-    renderer_ = new Renderer(window_);
+    container_ = new GameContainer("Space Shooter", 640, 480);
 }
 
 Game::~Game() {
-    if (window_ != NULL) {
-        delete (window_);
-        window_ = NULL;
+    if (container_ != NULL) {
+        delete (container_);
+        container_ = NULL;
     }
-
-    if (renderer_ != NULL) {
-        delete (renderer_);
-        renderer_ = NULL;
-    }
-
     SDL_Quit();
 }
 
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
+    SDL_Renderer* renderer = container_->get_renderer()->get_renderer();
     while (!quit) {
         // イベントループ
         while (SDL_PollEvent(&event) > 0) {
@@ -42,9 +36,9 @@ void Game::Run() {
             }
         }
 
-        SDL_SetRenderDrawColor(renderer_->get_renderer(), 0, 0, 0, 0xFF);
-        SDL_RenderClear(renderer_->get_renderer());
-        SDL_RenderPresent(renderer_->get_renderer());
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
 }
 

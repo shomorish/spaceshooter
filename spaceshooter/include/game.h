@@ -1,16 +1,14 @@
 #pragma once
 
-#include "window.h"
-#include "renderer.h"
+#include "game_container.h"
 
 namespace spaceshooter {
 
 class Game {
-private:
-    Window* window_;
-    Renderer* renderer_;
+ private:
+    GameContainer* container_;
 
-public:
+ public:
     Game();
     ~Game();
 
