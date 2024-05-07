@@ -1,0 +1,10 @@
+IndentWidth: 4
+Language: Cpp
+ColumnLimit: 100
+DerivePointerAlignment: false
+PointerAlignment: Left
+IndentAccessModifiers: false
+AccessModifierOffset: -3
+NamespaceIndentation: None
+SpaceBeforeInheritanceColon: true
+AllowShortIfStatementsOnASingleLine: true
