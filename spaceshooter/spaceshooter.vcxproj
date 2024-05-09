@@ -136,14 +136,28 @@
     <ClCompile Include="src\actor\player.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\game_container.cpp" />
+    <ClCompile Include="src\input\action\base\bool_input_action.cpp" />
+    <ClCompile Include="src\input\action\ia_fire.cpp" />
+    <ClCompile Include="src\input\action\ia_move.cpp" />
+    <ClCompile Include="src\input\action\base\vector2_input_action.cpp" />
+    <ClCompile Include="src\input\im_playing.cpp" />
+    <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\actor\player.h" />
+    <ClInclude Include="include\common\vector2.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\game_container.h" />
+    <ClInclude Include="include\input\action\base\bool_input_action.h" />
+    <ClInclude Include="include\input\action\ia_fire.h" />
+    <ClInclude Include="include\input\action\ia_move.h" />
+    <ClInclude Include="include\input\action\base\input_action.h" />
+    <ClInclude Include="include\input\action\base\vector2_input_action.h" />
+    <ClInclude Include="include\input\im_playing.h" />
+    <ClInclude Include="include\input\input_mapping.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>
