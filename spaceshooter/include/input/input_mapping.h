@@ -1,27 +1,28 @@
 #pragma once
 
 #include <SDL.h>
-#include <set>
-#include <stack>
+#include <vector>
 
 #include "action/base/input_action.h"
 
 namespace spaceshooter {
 
+static const int kKeyNum = 512;
+
 class InputMapping {
  protected:
-    const Uint8* keyboard_state_array_;
-    std::set<InputAction*> actions_;
+    Uint8 key_state_[kKeyNum];
+    std::vector<InputAction*> actions_;
 
  public:
     InputMapping();
     ~InputMapping();
 
-    std::set<InputAction*> get_actions();
+    void HandleInputEvent(const SDL_Event& event);
+    void UpdateInputState();
+    void ClearInputActions();
 
-    void Clear();
-
-    virtual void HandleKeyboardState() = 0;
+    virtual std::vector<InputAction*> GenerateInputAction() = 0;
 };
 
 } // namespace spaceshooter

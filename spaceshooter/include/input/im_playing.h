@@ -6,7 +6,7 @@ namespace spaceshooter {
 
 class IM_Playing : public InputMapping {
  public:
-    void HandleKeyboardState() override;
+    std::vector<InputAction*> GenerateInputAction() override;
 };
 
 } // namespace spaceshooter
