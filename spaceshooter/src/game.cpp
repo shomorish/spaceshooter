@@ -4,6 +4,9 @@
 #include <SDL_image.h>
 #include <stdexcept>
 
+#include "../include/input/im_playing.h"
+#include "../include/level/stage1.h"
+
 namespace spaceshooter {
 
 Game::Game() : container_(NULL) {
@@ -33,20 +36,45 @@ void Game::Run() {
     bool quit = false;
     SDL_Event event;
     SDL_Renderer* renderer = container_->get_renderer()->sdl();
+    InputMapping* input_mapping = NULL;
+    Stage1 level(container_, &input_mapping);
+
     while (!quit) {
+        if (input_mapping != NULL) {
+            // 全てのアクションをクリア
+            input_mapping->ClearInputActions();
+            // 入力状態を更新
+            input_mapping->UpdateInputState();
+        }
+
         // イベントループ
         while (SDL_PollEvent(&event) > 0) {
             switch (event.type) {
             case SDL_QUIT:
                 quit = true;
                 break;
-            default: // NOP
+            default:
+                // 入力状態をイベントから取得
+                if (input_mapping != NULL) {
+                    input_mapping->HandleInputEvent(event);
+                }
                 break;
             }
         }
 
+        // 入力状態からアクションを生成
+        auto actions = std::vector<InputAction*>();
+        if (input_mapping != NULL) {
+            actions = input_mapping->GenerateInputAction();
+        }
+
+        level.Tick(actions);
+
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
         SDL_RenderClear(renderer);
+
+        level.Render();
+
         SDL_RenderPresent(renderer);
     }
 }
