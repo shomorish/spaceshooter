@@ -137,6 +137,7 @@
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\game_container.cpp" />
     <ClCompile Include="src\input\action\base\bool_input_action.cpp" />
+    <ClCompile Include="src\input\action\base\input_action.cpp" />
     <ClCompile Include="src\input\action\ia_fire.cpp" />
     <ClCompile Include="src\input\action\ia_move.cpp" />
     <ClCompile Include="src\input\action\base\vector2_input_action.cpp" />

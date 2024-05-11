@@ -2,6 +2,9 @@
 
 namespace spaceshooter {
 
-class InputAction {};
+class InputAction {
+ public:
+    virtual ~InputAction();
+};
 
 } // namespace spaceshooter

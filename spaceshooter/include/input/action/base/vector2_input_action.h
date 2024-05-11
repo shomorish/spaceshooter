@@ -11,6 +11,7 @@ class Vector2InputAction : public InputAction {
 
  public:
     Vector2InputAction(Vector2 value);
+    virtual ~Vector2InputAction();
     Vector2 get_value();
 };
 

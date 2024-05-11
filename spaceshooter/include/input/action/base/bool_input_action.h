@@ -10,6 +10,7 @@ class BoolInputAction : public InputAction {
 
  public:
     BoolInputAction(bool value);
+    virtual ~BoolInputAction();
     bool get_value();
 };
 
