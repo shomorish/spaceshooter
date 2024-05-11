@@ -16,7 +16,7 @@ class InputMapping {
 
  public:
     InputMapping();
-    ~InputMapping();
+    virtual ~InputMapping();
 
     void HandleInputEvent(const SDL_Event& event);
     void UpdateInputState();
