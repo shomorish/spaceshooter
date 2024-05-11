@@ -7,7 +7,7 @@ namespace spaceshooter {
 Stage1::Stage1(GameContainer* game_container, InputMapping** input_mapping)
     : game_container_(game_container), input_mapping_(input_mapping), player_(NULL) {
     *input_mapping_ = new IM_Playing();
-    player_ = new Player("assets/spaceship_1_blue.png", 64, 64, 0, 0, game_container_);
+    player_ = new Player(game_container, "assets/spaceship_1_blue.png");
 }
 
 Stage1::~Stage1() {
@@ -15,6 +15,7 @@ Stage1::~Stage1() {
 
     if (*input_mapping_ != NULL) {
         delete *input_mapping_;
+        *input_mapping_ = NULL;
         input_mapping_ = NULL;
     }
 
@@ -24,12 +25,13 @@ Stage1::~Stage1() {
     }
 }
 
-void Stage1::Tick(std::vector<InputAction*> actions) {
+void Stage1::Tick(std::vector<InputAction*> actions, float delta_time) {
     // プレイヤー衝突判定
 
     // 敵衝突判定
 
     // プレイヤー移動
+    player_->Tick(actions, delta_time);
 
     // プレイヤー弾移動
 

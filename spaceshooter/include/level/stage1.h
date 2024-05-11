@@ -16,7 +16,7 @@ class Stage1 {
     Stage1(GameContainer* game_container, InputMapping** input_mapping);
     ~Stage1();
 
-    void Tick(std::vector<InputAction*> actions);
+    void Tick(std::vector<InputAction*> actions, float delta_time);
     void Render();
 };
 
