@@ -25,9 +25,14 @@ class Player {
  public:
     Player(GameContainer* container, Texture*, float width = 64.f, float height = 64.f,
            float pos_x = 0.f, float pos_y = 0.f, float speed = 300);
+    Player(const Player&) = delete;
+
     ~Player();
+
     void Tick(std::vector<InputAction*> actions, float delta_time);
     void Render();
+
+    Player& operator=(const Player&) = delete;
 };
 
 } // namespace spaceshooter
