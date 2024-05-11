@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\player.cpp" />
+    <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\game_container.cpp" />
     <ClCompile Include="src\input\action\base\bool_input_action.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="src\level\stage1.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\time\timer.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,7 @@
     <ClInclude Include="include\input\input_mapping.h" />
     <ClInclude Include="include\level\stage1.h" />
     <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\time\timer.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
