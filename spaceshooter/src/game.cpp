@@ -9,7 +9,7 @@
 
 namespace spaceshooter {
 
-Game::Game() : container_(NULL), input_mapping_(NULL), timer_(NULL) {
+Game::Game() : container_(NULL), asset_manager_(NULL), timer_(NULL), input_mapping_(NULL) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw std::runtime_error("Failed to initialize SDL.");
     }
@@ -20,7 +20,7 @@ Game::Game() : container_(NULL), input_mapping_(NULL), timer_(NULL) {
     }
 
     container_ = new GameContainer("Space Shooter", 640, 480);
-
+    asset_manager_ = new AssetManager(container_->get_renderer()->sdl());
     timer_ = new Timer();
 }
 
@@ -30,14 +30,19 @@ Game::~Game() {
         container_ = NULL;
     }
 
-    if (input_mapping_ != NULL) {
-        delete input_mapping_;
-        input_mapping_ = NULL;
+    if (asset_manager_ != NULL) {
+        delete asset_manager_;
+        asset_manager_ = NULL;
     }
 
     if (timer_ != NULL) {
         delete timer_;
         timer_ = NULL;
+    }
+
+    if (input_mapping_ != NULL) {
+        delete input_mapping_;
+        input_mapping_ = NULL;
     }
 
     IMG_Quit();
@@ -47,7 +52,7 @@ Game::~Game() {
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
-    Stage1 level(container_, &input_mapping_);
+    Stage1 level(container_, asset_manager_, &input_mapping_);
 
     while (!quit) {
         timer_->UpdateTime();

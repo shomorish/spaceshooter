@@ -4,14 +4,18 @@
 
 namespace spaceshooter {
 
-Stage1::Stage1(GameContainer* game_container, InputMapping** input_mapping)
-    : game_container_(game_container), input_mapping_(input_mapping), player_(NULL) {
+Stage1::Stage1(GameContainer* game_container, AssetManager* asset_manager,
+               InputMapping** input_mapping)
+    : game_container_(game_container), asset_manager_(asset_manager), input_mapping_(input_mapping),
+      player_(NULL) {
     *input_mapping_ = new IM_Playing();
-    player_ = new Player(game_container, "assets/spaceship_1_blue.png");
+    player_ = new Player(game_container, asset_manager_->GetTexture(AssetKey::kSpaceship1Blue));
 }
 
 Stage1::~Stage1() {
     game_container_ = NULL;
+
+    asset_manager_ = NULL;
 
     if (*input_mapping_ != NULL) {
         delete *input_mapping_;

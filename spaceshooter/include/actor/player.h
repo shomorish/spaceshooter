@@ -6,6 +6,7 @@
 
 #include "../game_container.h"
 #include "../input/action/base/input_action.h"
+#include "../texture/texture.h"
 
 namespace spaceshooter {
 
@@ -22,8 +23,8 @@ class Player {
     float speed_;
 
  public:
-    Player(GameContainer* container, std::string texture_path, float width = 64.f,
-           float height = 64.f, float pos_x = 0.f, float pos_y = 0.f, float speed = 300);
+    Player(GameContainer* container, Texture*, float width = 64.f, float height = 64.f,
+           float pos_x = 0.f, float pos_y = 0.f, float speed = 300);
     ~Player();
     void Tick(std::vector<InputAction*> actions, float delta_time);
     void Render();
