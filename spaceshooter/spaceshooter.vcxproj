@@ -147,6 +147,8 @@
     <ClCompile Include="src\level\stage1.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\asset\asset_manager.cpp" />
+    <ClCompile Include="src\texture\texture.cpp" />
     <ClCompile Include="src\time\timer.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
@@ -164,6 +166,8 @@
     <ClInclude Include="include\input\input_mapping.h" />
     <ClInclude Include="include\level\stage1.h" />
     <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\asset\asset_manager.h" />
+    <ClInclude Include="include\texture\texture.h" />
     <ClInclude Include="include\time\timer.h" />
     <ClInclude Include="include\window.h" />
   </ItemGroup>
