@@ -2,6 +2,16 @@
 
 namespace spaceshooter {
 
+StraightBullet::StraightBullet() {
+    pos_ = Vector2{0.f, 0.f};
+    size_ = Vector2{0.f, 0.f};
+    direction_ = Vector2{0.f, 0.f};
+    speed_ = 0.f;
+    lifetime_ = 0.f;
+    texture_ = NULL;
+    is_alive_ = false;
+}
+
 StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, float speed,
                                float lifetime, SDL_Texture* texture, bool is_alive) {
     pos_ = pos;
@@ -11,22 +21,15 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
     lifetime_ = lifetime;
     texture_ = texture_;
     is_alive_ = is_alive_;
-    on_death_ = NULL;
 }
 
-StraightBullet::~StraightBullet() {
-    texture_ = NULL;
-    on_death_ = NULL;
-}
+StraightBullet::~StraightBullet() { texture_ = NULL; }
 
 void StraightBullet::Tick(float delta_time) {
     pos_ += direction_ * speed_ * delta_time;
     lifetime_ -= delta_time;
     if (lifetime_ <= 0) {
         is_alive_ = false;
-        if (on_death_ != NULL) {
-            on_death_();
-        }
     }
 }
 

@@ -9,6 +9,7 @@ namespace spaceshooter {
 
 class StraightBullet : public Projectile {
  public:
+    StraightBullet();
     StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
                    SDL_Texture* texture, bool is_alive = true);
     StraightBullet(const StraightBullet&) = delete;

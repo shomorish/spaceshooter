@@ -2,7 +2,6 @@
 
 #include "../../common/vector2.h"
 #include <SDL.h>
-#include <functional>
 
 namespace spaceshooter {
 
@@ -12,11 +11,14 @@ class Projectile {
 
     Vector2 get_pos();
     void set_pos(Vector2 pos);
+    void set_size(Vector2 size);
     Vector2 get_direction();
     void set_direction(Vector2 direction);
+    void set_speed(float speed);
+    void set_lifetime(float lifetime);
     bool get_is_alive();
     void set_is_alive(bool is_alive);
-    void set_on_death(void action());
+    void set_texture(SDL_Texture* texture);
 
     virtual void Tick(float delta_time) = 0;
     virtual void Render(SDL_Renderer* renderer) = 0;
@@ -29,8 +31,6 @@ class Projectile {
     float lifetime_;
     bool is_alive_;
     SDL_Texture* texture_;
-
-    std::function<void()> on_death_;
 };
 
 } // namespace spaceshooter
