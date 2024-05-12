@@ -134,7 +134,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\player.cpp" />
-    <ClCompile Include="src\actor\projectile\straight_bullet.cpp" />
     <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\game_container.cpp" />
@@ -155,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\actor\player.h" />
-    <ClInclude Include="include\actor\projectile\straight_bullet.h" />
     <ClInclude Include="include\common\vector2.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\game_container.h" />
