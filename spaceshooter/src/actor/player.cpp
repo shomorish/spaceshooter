@@ -4,9 +4,6 @@
 #include <stdexcept>
 #include <typeinfo>
 
-#include "../input/action/ia_fire.h"
-#include "../input/action/ia_move.h"
-
 namespace spaceshooter {
 
 Player::Player(Texture* texture, float width, float height, float pos_x, float pos_y, float speed)
@@ -24,32 +21,20 @@ Player::~Player() {
     speed_ = 0.f;
 }
 
-void Player::Tick(std::vector<InputAction*> actions, Range screen_width_limit,
-                  Range screen_height_limit, float delta_time) {
-    auto iter = actions.begin();
-    while (iter != actions.end()) {
-        InputAction* action = *iter;
-        if (typeid(*action) == typeid(IA_Move)) {
-            auto move = dynamic_cast<IA_Move*>(action);
-            auto normalized = move->get_value().Normalize();
-            pos_x_ += normalized.x * speed_ * delta_time;
-            pos_y_ += normalized.y * speed_ * delta_time;
+void Player::Move(Vector2 direction, Range x_limit, Range y_limit, float delta_time) {
+    pos_x_ += direction.x * speed_ * delta_time;
+    pos_y_ += direction.y * speed_ * delta_time;
 
-            // 画面外に出ないように位置を補正
-            if (pos_x_ < 0.f) {
-                pos_x_ = 0.f;
-            } else if (pos_x_ >= screen_width_limit.max - width_) {
-                pos_x_ = screen_width_limit.max - width_;
-            }
-            if (pos_y_ < 0.f) {
-                pos_y_ = 0.f;
-            } else if (pos_y_ >= screen_height_limit.max - height_) {
-                pos_y_ = screen_height_limit.max - height_;
-            }
-        } else if (typeid(*action) == typeid(IA_Fire)) {
-            // TODO: 攻撃
-        }
-        iter++;
+    // 画面外に出ないように位置を補正
+    if (pos_x_ < 0.f) {
+        pos_x_ = 0.f;
+    } else if (pos_x_ >= x_limit.max - width_) {
+        pos_x_ = x_limit.max - width_;
+    }
+    if (pos_y_ < 0.f) {
+        pos_y_ = 0.f;
+    } else if (pos_y_ >= y_limit.max - height_) {
+        pos_y_ = y_limit.max - height_;
     }
 }
 

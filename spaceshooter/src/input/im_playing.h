@@ -6,7 +6,7 @@ namespace spaceshooter {
 
 class IM_Playing : public InputMapping {
  public:
-    std::vector<InputAction*> GenerateInputAction() override;
+    std::vector<InputAction> GenerateInputAction() override;
 };
 
 } // namespace spaceshooter

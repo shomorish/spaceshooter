@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "../input/action/input_action.h"
-#include "../texture/texture.h"
 #include "../common/range.h"
+#include "../input/input_action.h"
+#include "../texture/texture.h"
 
 namespace spaceshooter {
 
@@ -28,7 +28,7 @@ class Player {
 
     ~Player();
 
-    void Tick(std::vector<InputAction*> actions, Range screen_width_limit, Range screen_height_limit, float delta_time);
+    void Move(Vector2 direction, Range x_limit, Range y_limit, float delta_time);
     void Render(SDL_Renderer* renderer);
 
     Player& operator=(const Player&) = delete;

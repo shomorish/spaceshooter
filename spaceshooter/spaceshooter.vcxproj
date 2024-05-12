@@ -136,11 +136,6 @@
     <ClCompile Include="src\actor\player.cpp" />
     <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\input\action\bool_input_action.cpp" />
-    <ClCompile Include="src\input\action\input_action.cpp" />
-    <ClCompile Include="src\input\action\ia_fire.cpp" />
-    <ClCompile Include="src\input\action\ia_move.cpp" />
-    <ClCompile Include="src\input\action\vector2_input_action.cpp" />
     <ClCompile Include="src\input\im_playing.cpp" />
     <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\level\level.cpp">
@@ -163,11 +158,7 @@
     </ClInclude>
     <ClInclude Include="src\common\vector2.h" />
     <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\input\action\bool_input_action.h" />
-    <ClInclude Include="src\input\action\ia_fire.h" />
-    <ClInclude Include="src\input\action\ia_move.h" />
-    <ClInclude Include="src\input\action\input_action.h" />
-    <ClInclude Include="src\input\action\vector2_input_action.h" />
+    <ClInclude Include="src\input\input_action.h" />
     <ClInclude Include="src\input\im_playing.h" />
     <ClInclude Include="src\input\input_mapping.h" />
     <ClInclude Include="src\level\level.h">

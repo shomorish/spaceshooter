@@ -65,8 +65,6 @@ void Game::Run() {
         timer_->UpdateTime();
 
         if (input_mapping_ != NULL) {
-            // 全てのアクションをクリア
-            input_mapping_->ClearInputActions();
             // 入力状態を更新
             input_mapping_->UpdateInputState();
         }
@@ -87,7 +85,7 @@ void Game::Run() {
         }
 
         // 入力状態からアクションを生成
-        auto actions = std::vector<InputAction*>();
+        auto actions = std::vector<InputAction>();
         if (input_mapping_ != NULL) {
             actions = input_mapping_->GenerateInputAction();
         }

@@ -18,22 +18,27 @@ Stage1::~Stage1() {
     }
 }
 
-void Stage1::Tick(std::vector<InputAction*> actions, float delta_time) {
+void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
     // プレイヤー衝突判定
 
     // 敵衝突判定
 
-    // プレイヤー移動
-    player_->Tick(actions, Range{0.f, (float)window_->get_width()},
-                  Range{0.f, (float)window_->get_height()}, delta_time);
+    for (auto iter = actions.begin(); iter != actions.end(); iter++) {
+        if (iter->type == kMove) {
+            // プレイヤー移動
+            player_->Move(iter->vec2_value.Normalize(), Range{0.f, (float)window_->get_width()},
+                          Range{0.f, (float)window_->get_height()}, delta_time);
+        } else if (iter->type == kFire) {
+            // プレイヤー攻撃
+            printf("kFire\n");
+        }
+    }
 
     // プレイヤー弾移動
 
     // 敵移動
 
     // 敵弾移動
-
-    // プレイヤー攻撃
 
     // 敵攻撃
 }

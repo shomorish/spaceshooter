@@ -16,7 +16,7 @@ class Stage1 : public Level {
            InputMapping** input_mapping);
     ~Stage1();
 
-    void Tick(std::vector<InputAction*> actions, float delta_time) override;
+    void Tick(std::vector<InputAction> actions, float delta_time) override;
     void Render() override;
 };
 

@@ -1,10 +1,9 @@
 #include "im_playing.h"
-#include "action/ia_fire.h"
-#include "action/ia_move.h"
 
 namespace spaceshooter {
 
-std::vector<InputAction*> IM_Playing::GenerateInputAction() {
+std::vector<InputAction> IM_Playing::GenerateInputAction() {
+    std::vector<InputAction> actions;
     auto move = Vector2({0.f, 0.f});
     // 上移動
     if (key_state_[SDL_SCANCODE_W] > 0 || key_state_[SDL_SCANCODE_UP] > 0) {
@@ -24,15 +23,19 @@ std::vector<InputAction*> IM_Playing::GenerateInputAction() {
     }
     // 移動アクション
     if (move.x != 0.f || move.y != 0.f) {
-        actions_.push_back(new IA_Move(move));
+        auto action = InputAction{kMove};
+        action.vec2_value = move;
+        actions.push_back(action);
     }
 
     // 攻撃アクション
     if (key_state_[SDL_SCANCODE_SPACE] == 1) {
-        actions_.push_back(new IA_Fire(true));
+        auto action = InputAction{kFire};
+        action.b_value = true;
+        actions.push_back(action);
     }
 
-    return actions_;
+    return actions;
 }
 
 } // namespace spaceshooter

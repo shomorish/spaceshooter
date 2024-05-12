@@ -16,7 +16,7 @@ class Level {
 
     virtual ~Level();
 
-    virtual void Tick(std::vector<InputAction*> actions, float delta_time) = 0;
+    virtual void Tick(std::vector<InputAction> actions, float delta_time) = 0;
     virtual void Render() = 0;
 
  protected:

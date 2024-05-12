@@ -4,7 +4,7 @@ namespace spaceshooter {
 
 InputMapping::InputMapping() : key_state_{0} {}
 
-InputMapping::~InputMapping() { ClearInputActions(); }
+InputMapping::~InputMapping() {}
 
 void InputMapping::HandleInputEvent(const SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
@@ -28,13 +28,6 @@ void InputMapping::UpdateInputState() {
             key_state_[i]++;
         }
     }
-}
-
-void InputMapping::ClearInputActions() {
-    for (auto iter = actions_.begin(); iter != actions_.end(); iter++) {
-        delete *iter;
-    }
-    actions_.clear();
 }
 
 } // namespace spaceshooter
