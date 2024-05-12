@@ -36,6 +36,18 @@ void Player::Tick(std::vector<InputAction*> actions, float delta_time) {
             auto normalized = move->get_value().Normalize();
             pos_x_ += normalized.x * speed_ * delta_time;
             pos_y_ += normalized.y * speed_ * delta_time;
+
+            // 画面外に出ないように位置を補正
+            if (pos_x_ < 0.f) {
+                pos_x_ = 0.f;
+            } else if (pos_x_ >= container_->get_window()->get_width() - width_) {
+                pos_x_ = container_->get_window()->get_width() - width_;
+            }
+            if (pos_y_ < 0.f) {
+                pos_y_ = 0.f;
+            } else if (pos_y_ >= container_->get_window()->get_height() - height_) {
+                pos_y_ = container_->get_window()->get_height() - height_;
+            }
         } else if (typeid(*action) == typeid(IA_Fire)) {
             // TODO: 攻撃
         }
