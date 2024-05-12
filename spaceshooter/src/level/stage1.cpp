@@ -12,16 +12,6 @@ Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
 }
 
 Stage1::~Stage1() {
-    window_ = NULL;
-    renderer_ = NULL;
-    asset_manager_ = NULL;
-
-    if (*input_mapping_ != NULL) {
-        delete *input_mapping_;
-        *input_mapping_ = NULL;
-        input_mapping_ = NULL;
-    }
-
     if (player_ != NULL) {
         delete player_;
         player_ = NULL;
