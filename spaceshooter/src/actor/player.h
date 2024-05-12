@@ -4,16 +4,15 @@
 #include <string>
 #include <vector>
 
-#include "../game_container.h"
 #include "../input/action/input_action.h"
 #include "../texture/texture.h"
+#include "../common/range.h"
 
 namespace spaceshooter {
 
 class Player {
 
  private:
-    GameContainer* container_;
     SDL_Texture* texture_;
     float width_;
     float height_;
@@ -23,14 +22,14 @@ class Player {
     float speed_;
 
  public:
-    Player(GameContainer* container, Texture*, float width = 64.f, float height = 64.f,
-           float pos_x = 0.f, float pos_y = 0.f, float speed = 300);
+    Player(Texture*, float width = 64.f, float height = 64.f, float pos_x = 0.f, float pos_y = 0.f,
+           float speed = 300);
     Player(const Player&) = delete;
 
     ~Player();
 
-    void Tick(std::vector<InputAction*> actions, float delta_time);
-    void Render();
+    void Tick(std::vector<InputAction*> actions, Range screen_width_limit, Range screen_height_limit, float delta_time);
+    void Render(SDL_Renderer* renderer);
 
     Player& operator=(const Player&) = delete;
 };

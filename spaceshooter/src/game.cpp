@@ -9,7 +9,8 @@
 
 namespace spaceshooter {
 
-Game::Game() : container_(NULL), asset_manager_(NULL), timer_(NULL), input_mapping_(NULL) {
+Game::Game()
+    : window_(NULL), renderer_(NULL), asset_manager_(NULL), timer_(NULL), input_mapping_(NULL) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw std::runtime_error("Failed to initialize SDL.");
     }
@@ -19,15 +20,21 @@ Game::Game() : container_(NULL), asset_manager_(NULL), timer_(NULL), input_mappi
         throw std::runtime_error("Failed to initialize SDL image.");
     }
 
-    container_ = new GameContainer("Space Shooter", 640, 480);
-    asset_manager_ = new AssetManager(container_->get_renderer()->sdl());
+    window_ = new Window("Space Shooter", 640, 480);
+    renderer_ = new Renderer(window_);
+    asset_manager_ = new AssetManager(renderer_->sdl());
     timer_ = new Timer();
 }
 
 Game::~Game() {
-    if (container_ != NULL) {
-        delete container_;
-        container_ = NULL;
+    if (renderer_ != NULL) {
+        delete renderer_;
+        renderer_ = NULL;
+    }
+
+    if (window_ != NULL) {
+        delete window_;
+        window_ = NULL;
     }
 
     if (asset_manager_ != NULL) {
@@ -52,7 +59,7 @@ Game::~Game() {
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
-    Stage1 level(container_, asset_manager_, &input_mapping_);
+    Stage1 level(window_, renderer_, asset_manager_, &input_mapping_);
 
     while (!quit) {
         timer_->UpdateTime();
@@ -87,12 +94,12 @@ void Game::Run() {
 
         level.Tick(actions, timer_->get_delta_time());
 
-        SDL_SetRenderDrawColor(container_->get_renderer()->sdl(), 0, 0, 0, 0xFF);
-        SDL_RenderClear(container_->get_renderer()->sdl());
+        SDL_SetRenderDrawColor(renderer_->sdl(), 0, 0, 0, 0xFF);
+        SDL_RenderClear(renderer_->sdl());
 
         level.Render();
 
-        SDL_RenderPresent(container_->get_renderer()->sdl());
+        SDL_RenderPresent(renderer_->sdl());
     }
 }
 
