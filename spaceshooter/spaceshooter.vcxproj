@@ -137,11 +137,11 @@
     <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\game_container.cpp" />
-    <ClCompile Include="src\input\action\base\bool_input_action.cpp" />
-    <ClCompile Include="src\input\action\base\input_action.cpp" />
+    <ClCompile Include="src\input\action\bool_input_action.cpp" />
+    <ClCompile Include="src\input\action\input_action.cpp" />
     <ClCompile Include="src\input\action\ia_fire.cpp" />
     <ClCompile Include="src\input\action\ia_move.cpp" />
-    <ClCompile Include="src\input\action\base\vector2_input_action.cpp" />
+    <ClCompile Include="src\input\action\vector2_input_action.cpp" />
     <ClCompile Include="src\input\im_playing.cpp" />
     <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\level\stage1.cpp" />
@@ -153,23 +153,23 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\actor\player.h" />
-    <ClInclude Include="include\common\vector2.h" />
-    <ClInclude Include="include\game.h" />
-    <ClInclude Include="include\game_container.h" />
-    <ClInclude Include="include\input\action\base\bool_input_action.h" />
-    <ClInclude Include="include\input\action\ia_fire.h" />
-    <ClInclude Include="include\input\action\ia_move.h" />
-    <ClInclude Include="include\input\action\base\input_action.h" />
-    <ClInclude Include="include\input\action\base\vector2_input_action.h" />
-    <ClInclude Include="include\input\im_playing.h" />
-    <ClInclude Include="include\input\input_mapping.h" />
-    <ClInclude Include="include\level\stage1.h" />
-    <ClInclude Include="include\renderer.h" />
-    <ClInclude Include="include\asset\asset_manager.h" />
-    <ClInclude Include="include\texture\texture.h" />
-    <ClInclude Include="include\time\timer.h" />
-    <ClInclude Include="include\window.h" />
+    <ClInclude Include="src\actor\player.h" />
+    <ClInclude Include="src\common\vector2.h" />
+    <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\game_container.h" />
+    <ClInclude Include="src\input\action\bool_input_action.h" />
+    <ClInclude Include="src\input\action\ia_fire.h" />
+    <ClInclude Include="src\input\action\ia_move.h" />
+    <ClInclude Include="src\input\action\input_action.h" />
+    <ClInclude Include="src\input\action\vector2_input_action.h" />
+    <ClInclude Include="src\input\im_playing.h" />
+    <ClInclude Include="src\input\input_mapping.h" />
+    <ClInclude Include="src\level\stage1.h" />
+    <ClInclude Include="src\renderer.h" />
+    <ClInclude Include="src\asset\asset_manager.h" />
+    <ClInclude Include="src\texture\texture.h" />
+    <ClInclude Include="src\time\timer.h" />
+    <ClInclude Include="src\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

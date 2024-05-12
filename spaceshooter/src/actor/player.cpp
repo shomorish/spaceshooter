@@ -1,11 +1,11 @@
-#include "../../include/actor/player.h"
+#include "player.h"
 
 #include <SDL_image.h>
 #include <stdexcept>
 #include <typeinfo>
 
-#include "../../include/input/action/ia_fire.h"
-#include "../../include/input/action/ia_move.h"
+#include "../input/action/ia_fire.h"
+#include "../input/action/ia_move.h"
 
 namespace spaceshooter {
 

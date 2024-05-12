@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/texture/texture.h"
+#include "../texture/texture.h"
 #include <SDL.h>
 #include <map>
 

@@ -1,11 +1,11 @@
-#include "../include/game.h"
+#include "game.h"
 
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdexcept>
 
-#include "../include/input/im_playing.h"
-#include "../include/level/stage1.h"
+#include "input/im_playing.h"
+#include "level/stage1.h"
 
 namespace spaceshooter {
 

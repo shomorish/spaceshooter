@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include <vector>
 
-#include "action/base/input_action.h"
+#include "action/input_action.h"
 
 namespace spaceshooter {
 

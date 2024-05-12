@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base/bool_input_action.h"
+#include "bool_input_action.h"
 
 namespace spaceshooter {
 

@@ -1,4 +1,4 @@
-#include "../../include/texture/texture.h"
+#include "texture.h"
 
 #include <SDL_image.h>
 #include <stdexcept>

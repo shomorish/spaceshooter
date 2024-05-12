@@ -1,4 +1,4 @@
-#include "../../include/asset/asset_manager.h"
+#include "asset_manager.h"
 
 #include <SDL.h>
 #include <SDL_image.h>

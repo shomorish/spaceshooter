@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../game_container.h"
-#include "../input/action/base/input_action.h"
+#include "../input/action/input_action.h"
 #include "../texture/texture.h"
 
 namespace spaceshooter {

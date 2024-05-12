@@ -1,6 +1,6 @@
-#include "../../include/level/stage1.h"
+#include "stage1.h"
 
-#include "../../include/input/im_playing.h"
+#include "../input/im_playing.h"
 
 namespace spaceshooter {
 

@@ -1,4 +1,4 @@
-#include "../../../include/input/action/base/input_action.h"
+#include "input_action.h"
 
 namespace spaceshooter {
 

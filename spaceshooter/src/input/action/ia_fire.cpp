@@ -1,4 +1,4 @@
-#include "../../../include/input/action/ia_fire.h"
+#include "ia_fire.h"
 
 namespace spaceshooter {
 

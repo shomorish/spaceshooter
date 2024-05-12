@@ -1,6 +1,6 @@
-#include "../../../include/input/im_playing.h"
-#include "../../../include/input/action/ia_fire.h"
-#include "../../../include/input/action/ia_move.h"
+#include "im_playing.h"
+#include "action/ia_fire.h"
+#include "action/ia_move.h"
 
 namespace spaceshooter {
 

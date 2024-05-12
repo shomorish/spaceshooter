@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../common/vector2.h"
+#include "../../common/vector2.h"
 #include "input_action.h"
 
 namespace spaceshooter {

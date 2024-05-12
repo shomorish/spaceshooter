@@ -1,4 +1,4 @@
-#include "../../include/time/timer.h"
+#include "timer.h"
 
 namespace spaceshooter {
 

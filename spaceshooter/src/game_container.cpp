@@ -1,4 +1,4 @@
-#include "../include/game_container.h"
+#include "game_container.h"
 
 namespace spaceshooter {
 

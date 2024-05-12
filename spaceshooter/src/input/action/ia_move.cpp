@@ -1,4 +1,4 @@
-#include "../../../include/input/action/ia_move.h"
+#include "ia_move.h"
 
 namespace spaceshooter {
 

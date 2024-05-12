@@ -1,4 +1,4 @@
-#include "../../../../include/input/action/base/vector2_input_action.h"
+#include "vector2_input_action.h"
 
 namespace spaceshooter {
 

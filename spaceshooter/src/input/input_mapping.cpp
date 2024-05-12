@@ -1,4 +1,4 @@
-#include "../../include/input/input_mapping.h"
+#include "input_mapping.h"
 
 namespace spaceshooter {
 
