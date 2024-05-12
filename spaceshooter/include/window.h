@@ -15,6 +15,8 @@ class Window {
     ~Window();
 
     SDL_Window* sdl();
+    int get_width();
+    int get_height();
 };
 
 }; // namespace spaceshooter

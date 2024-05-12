@@ -22,4 +22,8 @@ Window::~Window() {
 
 SDL_Window* Window::sdl() { return window_; }
 
+int Window::get_width() { return width_; }
+
+int Window::get_height() { return height_; }
+
 }; // namespace spaceshooter
