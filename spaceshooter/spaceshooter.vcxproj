@@ -133,6 +133,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\actor\bullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\actor\bullet_container.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\actor\player.cpp" />
     <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
@@ -151,6 +159,14 @@
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\actor\bullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\actor\bullet_container.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\actor\player.h" />
     <ClInclude Include="src\common\range.h">
       <SubType>
