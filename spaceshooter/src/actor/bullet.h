@@ -2,10 +2,15 @@
 
 #include <SDL.h>
 
+#include "../common/vector2.h"
+
 namespace spaceshooter {
 
 class Bullet {
  public:
+    Bullet();
+    Bullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
+           bool is_alive);
     Bullet(const Bullet&) = delete;
 
     virtual ~Bullet();
@@ -19,6 +24,11 @@ class Bullet {
     Bullet& operator=(const Bullet&) = delete;
 
  protected:
+    Vector2 pos_;
+    Vector2 size_;
+    Vector2 direction_;
+    float speed_;
+    float lifetime_;
     bool is_alive_;
 };
 

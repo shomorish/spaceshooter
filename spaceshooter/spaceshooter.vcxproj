@@ -142,6 +142,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\actor\player.cpp" />
+    <ClCompile Include="src\actor\straight_bullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\common\color.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\common\vector2.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\input\im_playing.cpp" />
@@ -168,6 +176,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\actor\player.h" />
+    <ClInclude Include="src\actor\straight_bullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\common\color.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\common\range.h">
       <SubType>
       </SubType>
