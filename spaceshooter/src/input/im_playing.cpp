@@ -29,7 +29,7 @@ std::vector<InputAction> IM_Playing::GenerateInputAction() {
     }
 
     // 攻撃アクション
-    if (key_state_[SDL_SCANCODE_SPACE] == 1) {
+    if (key_state_[SDL_SCANCODE_SPACE] > 0) {
         auto action = InputAction{kFire};
         action.b_value = true;
         actions.push_back(action);
