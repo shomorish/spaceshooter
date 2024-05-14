@@ -146,6 +146,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\actor\player.cpp" />
+    <ClCompile Include="src\actor\player_controller.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\actor\straight_bullet.cpp">
       <SubType>
       </SubType>
@@ -196,6 +200,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\actor\player.h" />
+    <ClInclude Include="src\actor\player_controller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\actor\straight_bullet.h">
       <SubType>
       </SubType>
