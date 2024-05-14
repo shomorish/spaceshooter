@@ -23,6 +23,7 @@ Stage1::~Stage1() {
         delete player_;
         player_ = NULL;
     }
+
     if (player_controller_ != NULL) {
         delete player_controller_;
         player_controller_ = NULL;
