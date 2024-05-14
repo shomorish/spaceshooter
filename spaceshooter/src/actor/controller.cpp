@@ -4,10 +4,8 @@ namespace spaceshooter {
 
 Controller::Controller() : character_(NULL) {}
 
-Controller::~Controller() { character_ = NULL; }
+Controller::~Controller() {}
 
-void Controller::AttachCharacter(Character* character) { character_ = character; }
-
-void Controller::DetachCharacter() { character_ = NULL; }
+Character* Controller::get_character() { return character_; }
 
 } // namespace spaceshooter
