@@ -4,7 +4,7 @@
 
 namespace spaceshooter {
 
-enum InputActionType { kMove, kFire };
+enum InputActionType { kMove, kRotate, kFire };
 
 struct InputAction {
     InputActionType type;

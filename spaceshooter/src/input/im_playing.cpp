@@ -4,27 +4,28 @@ namespace spaceshooter {
 
 std::vector<InputAction> IM_Playing::GenerateInputAction() {
     std::vector<InputAction> actions;
-    auto move = Vector2({0.f, 0.f});
-    // 上移動
+
+    auto rotate = Vector2::zero;
+    // 上へ回転
     if (key_state_[SDL_SCANCODE_W] > 0 || key_state_[SDL_SCANCODE_UP] > 0) {
-        move.y -= 1.f;
+        rotate.y -= 1.f;
     }
-    // 下移動
+    // 下へ回転
     if (key_state_[SDL_SCANCODE_S] > 0 || key_state_[SDL_SCANCODE_DOWN] > 0) {
-        move.y += 1.f;
+        rotate.y += 1.f;
     }
-    // 左移動
+    // 左へ回転
     if (key_state_[SDL_SCANCODE_A] > 0 || key_state_[SDL_SCANCODE_LEFT] > 0) {
-        move.x -= 1.f;
+        rotate.x -= 1.f;
     }
-    // 右移動
+    // 右へ回転
     if (key_state_[SDL_SCANCODE_D] > 0 || key_state_[SDL_SCANCODE_RIGHT] > 0) {
-        move.x += 1.f;
+        rotate.x += 1.f;
     }
-    // 移動アクション
-    if (move.x != 0.f || move.y != 0.f) {
-        auto action = InputAction{kMove};
-        action.vec2_value = move;
+    // 回転アクション
+    if (rotate.x != 0.f || rotate.y != 0) {
+        auto action = InputAction{kRotate};
+        action.vec2_value = rotate;
         actions.push_back(action);
     }
 
