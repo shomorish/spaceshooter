@@ -11,6 +11,15 @@ class Character : public Actor {
 
     virtual ~Character();
 
+    Vector2 get_pos();
+    void set_pos(Vector2 pos);
+    Vector2 get_size();
+    void set_size(Vector2 size);
+    Vector2 get_direction();
+    void set_direction(Vector2 direction);
+    SDL_Texture* get_texture();
+    void set_texture(SDL_Texture* texture);
+
  protected:
     Vector2 pos_;
     Vector2 size_;

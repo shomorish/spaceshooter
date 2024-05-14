@@ -9,18 +9,13 @@
 #include "../input/input_action.h"
 #include "../texture/texture.h"
 #include "bullet.h"
+#include "character.h"
 #include "weapon.h"
 
 namespace spaceshooter {
 
-class Player {
-
+class Player : public Character {
  private:
-    SDL_Texture* texture_;
-    Vector2 pos_;
-    Vector2 size_;
-    Vector2 direction_;
-
     float speed_;
     float angle_;
     float rotation_speed_;
@@ -28,19 +23,21 @@ class Player {
     Weapon* weapon_;
 
  public:
-    Player(Texture*, Vector2 pos = Vector2::zero, Vector2 size = Vector2{64.f, 64.f},
+    Player(Texture* texture, Vector2 pos = Vector2::zero, Vector2 size = Vector2{64.f, 64.f},
            Vector2 direction = Vector2::up, float speed = 300, float angle_ = 0.f,
            float rotation_speed = 120.f);
     Player(const Player&) = delete;
 
     ~Player();
 
-    void Move(Range x_limit, Range y_limit, float delta_time);
-    void Rotate(const Vector2& direction, float delta_time);
-    void Render(SDL_Renderer* renderer);
-    bool CanFire();
-    void CountdownFiringInterval(float delta_time);
-    Bullet* Fire();
+    float get_speed();
+    void set_speed(float speed);
+    float get_angle();
+    void set_angle(float angle);
+    float get_rotation_speed();
+    void set_rotation_speed(float rotation_speed);
+    Weapon* get_weapon();
+    void set_weapon(Weapon* weapon);
 
     Player& operator=(const Player&) = delete;
 };
