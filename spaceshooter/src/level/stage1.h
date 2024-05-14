@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../actor/player.h"
+#include "../actor/player_controller.h"
 #include "../asset/asset_manager.h"
 #include "../input/input_mapping.h"
 #include "level.h"
@@ -10,6 +11,7 @@ namespace spaceshooter {
 class Stage1 : public Level {
  private:
     Player* player_;
+    PlayerController* player_controller_;
 
  public:
     Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
