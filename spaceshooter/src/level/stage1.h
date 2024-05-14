@@ -9,10 +9,6 @@
 namespace spaceshooter {
 
 class Stage1 : public Level {
- private:
-    Player* player_;
-    PlayerController* player_controller_;
-
  public:
     Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
            InputMapping** input_mapping);
@@ -20,6 +16,9 @@ class Stage1 : public Level {
 
     void Tick(std::vector<InputAction> actions, float delta_time) override;
     void Render() override;
+
+ private:
+    PlayerController* player_controller_;
 };
 
 } // namespace spaceshooter
