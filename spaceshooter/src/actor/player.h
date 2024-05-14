@@ -17,7 +17,6 @@ namespace spaceshooter {
 class Player : public Character {
  private:
     float speed_;
-    float angle_;
     float rotation_speed_;
 
     Weapon* weapon_;

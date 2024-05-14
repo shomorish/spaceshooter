@@ -20,10 +20,13 @@ class Character : public Actor {
     SDL_Texture* get_texture();
     void set_texture(SDL_Texture* texture);
 
+    void Render(SDL_Renderer* renderer) override;
+
  protected:
     Vector2 pos_;
     Vector2 size_;
     Vector2 direction_;
     SDL_Texture* texture_;
+    float angle_;
 };
 } // namespace spaceshooter

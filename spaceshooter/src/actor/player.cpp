@@ -10,7 +10,7 @@ namespace spaceshooter {
 
 Player::Player(Texture* texture, Vector2 pos, Vector2 size, Vector2 direction, float speed,
                float angle, float rotation_speed)
-    : Character{pos, size, direction, texture->sdl()}, speed_(speed), angle_(angle),
+    : Character{pos, size, direction, texture->sdl()}, speed_(speed),
       rotation_speed_(rotation_speed) {
     weapon_ = new MachineGun(Vector2::zero, 0.1f);
 }
