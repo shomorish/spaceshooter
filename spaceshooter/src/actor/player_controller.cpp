@@ -95,6 +95,8 @@ void PlayerController::Rotate(const Vector2& direction, float delta_time) {
         // 誤差？で単位ベクトルにならないので、正規化して単位ベクトルにする
         player->set_direction((m * current_direction).Normalize());
     }
+
+    player->get_weapon()->set_direction(player->get_direction());
 }
 
 bool PlayerController::CanFire() { return ((Player*)character_)->get_weapon()->CanFire(); }
