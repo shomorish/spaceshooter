@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../actor/bullet_container.h"
 #include "../actor/player.h"
 #include "../asset/asset_manager.h"
 #include "../input/input_mapping.h"
@@ -11,7 +10,6 @@ namespace spaceshooter {
 class Stage1 : public Level {
  private:
     Player* player_;
-    BulletContainer* bullet_container_;
 
  public:
     Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,

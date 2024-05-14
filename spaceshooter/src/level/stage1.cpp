@@ -7,11 +7,9 @@ namespace spaceshooter {
 
 Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
                InputMapping** input_mapping)
-    : Level{window, renderer, asset_manager, input_mapping}, player_(NULL),
-      bullet_container_(NULL) {
+    : Level{window, renderer, asset_manager, input_mapping}, player_(NULL) {
     *input_mapping_ = new IM_Playing();
     player_ = new Player(asset_manager_->GetTexture(AssetKey::kSpaceship1Blue));
-    bullet_container_ = new BulletContainer();
 }
 
 Stage1::~Stage1() {
@@ -19,18 +17,17 @@ Stage1::~Stage1() {
         delete player_;
         player_ = NULL;
     }
-
-    if (bullet_container_ != NULL) {
-        delete bullet_container_;
-        bullet_container_ = NULL;
-    }
 }
 
 void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
+    // 削除マークが付いたアクタを削除
+    DeleteActorIfDestroyed();
+
     // 衝突判定
 
-    // 弾の更新
-    bullet_container_->TickEachBullet(delta_time);
+    for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
+        (*iter)->Tick(delta_time);
+    }
 
     /**
      * プレイヤーの更新処理
@@ -46,7 +43,7 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
         } else if (iter->type == kFire) {
             // 攻撃
             if (player_->CanFire()) {
-                bullet_container_->AddPlayerBullet(player_->Fire());
+                AddActor(player_->Fire());
             }
         }
     }
@@ -55,7 +52,9 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
 }
 
 void Stage1::Render() {
-    bullet_container_->RenderEachBullet(renderer_->sdl());
+    for (auto iter = actors_.begin(); iter < actors_.end(); iter++) {
+        (*iter)->Render(renderer_->sdl());
+    }
     player_->Render(renderer_->sdl());
 }
 
