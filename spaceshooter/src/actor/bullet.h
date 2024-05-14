@@ -3,10 +3,11 @@
 #include <SDL.h>
 
 #include "../common/vector2.h"
+#include "actor.h"
 
 namespace spaceshooter {
 
-class Bullet {
+class Bullet : public Actor {
  public:
     Bullet();
     Bullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
@@ -17,9 +18,6 @@ class Bullet {
 
     bool get_is_alive();
     void set_is_alive(bool is_alive);
-
-    virtual void Tick(float delta_time) = 0;
-    virtual void Render(SDL_Renderer* renderer) = 0;
 
     Bullet& operator=(const Bullet&) = delete;
 

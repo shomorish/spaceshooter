@@ -8,13 +8,14 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
                                float lifetime, bool is_alive, Color color)
     : Bullet{pos, size, direction, speed, lifetime, is_alive}, color_(color) {}
 
-StraightBullet::~StraightBullet() {}
+StraightBullet::~StraightBullet() { printf("~StraightBullet\n"); }
 
-void StraightBullet::Tick(float delta_time) {
+void StraightBullet::Tick(const float& delta_time) {
     pos_ += direction_ * speed_ * delta_time;
     lifetime_ -= delta_time;
     if (lifetime_ <= 0.f) {
-        is_alive_ = false;
+        // is_alive_ = false;
+        Destroy();
     }
 }
 

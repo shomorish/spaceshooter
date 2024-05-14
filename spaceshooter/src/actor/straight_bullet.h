@@ -14,7 +14,7 @@ class StraightBullet : public Bullet {
 
     ~StraightBullet();
 
-    void Tick(float delta_time) override;
+    void Tick(const float& delta_time) override;
     void Render(SDL_Renderer* renderer) override;
 
  private:
