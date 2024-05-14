@@ -12,7 +12,7 @@ Player::Player(Texture* texture, Vector2 pos, Vector2 size, Vector2 direction, f
                float angle, float rotation_speed)
     : Character{pos, size, direction, texture->sdl()}, speed_(speed),
       rotation_speed_(rotation_speed) {
-    weapon_ = new MachineGun(Vector2::zero, 0.1f);
+    weapon_ = new MachineGun(Vector2::zero, direction, 0.1f);
 }
 
 Player::~Player() {

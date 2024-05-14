@@ -8,7 +8,7 @@ namespace spaceshooter {
 
 class MachineGun : public Weapon {
  public:
-    MachineGun(Vector2 pos, float firing_interval);
+    MachineGun(Vector2 pos, Vector2 direction, float firing_interval);
 
     ~MachineGun();
 
