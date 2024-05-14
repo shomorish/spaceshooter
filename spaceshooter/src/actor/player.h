@@ -19,19 +19,24 @@ class Player {
     SDL_Texture* texture_;
     Vector2 pos_;
     Vector2 size_;
+    Vector2 direction_;
 
     float speed_;
+    float angle_;
+    float rotation_speed_;
 
     Weapon* weapon_;
 
  public:
     Player(Texture*, Vector2 pos = Vector2::zero, Vector2 size = Vector2{64.f, 64.f},
-           float speed = 300);
+           Vector2 direction = Vector2::up, float speed = 300, float angle_ = 0.f,
+           float rotation_speed = 120.f);
     Player(const Player&) = delete;
 
     ~Player();
 
-    void Move(Vector2 direction, Range x_limit, Range y_limit, float delta_time);
+    void Move(Range x_limit, Range y_limit, float delta_time);
+    void Rotate(const Vector2& direction, float delta_time);
     void Render(SDL_Renderer* renderer);
     bool CanFire();
     void CountdownFiringInterval(float delta_time);
