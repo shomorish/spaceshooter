@@ -7,9 +7,18 @@
 
 namespace spaceshooter {
 
-PlayerController::PlayerController(Level* level) : level_(level) {}
+PlayerController::PlayerController(Level* level) : level_(level) {
+    character_ = new Player(level->get_asset_manager()->GetTexture(AssetKey::kSpaceship1Blue));
+}
 
-PlayerController::~PlayerController() { level_ = NULL; }
+PlayerController::~PlayerController() {
+    level_ = NULL;
+
+    if (character_ != NULL) {
+        delete character_;
+        character_ = NULL;
+    }
+}
 
 void PlayerController::Tick(const std::vector<InputAction>& actions, const float& delta_time) {
     if (character_ != NULL) {
