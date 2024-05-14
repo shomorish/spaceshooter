@@ -17,6 +17,32 @@ Level::~Level() {
         *input_mapping_ = NULL;
         input_mapping_ = NULL;
     }
+
+    DeleteAllActors();
+}
+
+void Level::AddActor(Actor* actor) { actors_.push_back(actor); }
+
+void Level::DeleteActorIfDestroyed() {
+    auto iter = actors_.begin();
+    while (iter != actors_.end()) {
+        Actor* a = *iter;
+        if (a->get_is_destroyed()) {
+            delete a;
+            iter = actors_.erase(iter);
+        } else {
+            iter++;
+        }
+    }
+}
+
+void Level::DeleteAllActors() {
+    auto iter = actors_.begin();
+    while (iter != actors_.end()) {
+        Actor* a = *iter;
+        delete a;
+        iter = actors_.erase(iter);
+    }
 }
 
 } // namespace spaceshooter
