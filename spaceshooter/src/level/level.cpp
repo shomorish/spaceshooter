@@ -21,6 +21,8 @@ Level::~Level() {
     DeleteAllActors();
 }
 
+Window* Level::get_window() { return window_; }
+
 void Level::AddActor(Actor* actor) { actors_.push_back(actor); }
 
 void Level::DeleteActorIfDestroyed() {

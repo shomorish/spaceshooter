@@ -18,6 +18,8 @@ class Level {
 
     virtual ~Level();
 
+    Window* get_window();
+
     virtual void Tick(std::vector<InputAction> actions, float delta_time) = 0;
     virtual void Render() = 0;
     void AddActor(Actor* actor);
