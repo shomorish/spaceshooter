@@ -10,10 +10,14 @@ Vector2 Vector2::up = Vector2{0.f, -1.f};
 
 Vector2 Vector2::down = Vector2{0.f, 1.f};
 
+float Vector2::Length() { return std::sqrtf(x * x + y * y); }
+
 Vector2 Vector2::Normalize() {
-    float length = std::sqrtf(x * x + y * y);
+    float length = Length();
     return {x / length, y / length};
 }
+
+float Vector2::Dot(const Vector2& other) { return x * other.x + y * other.y; }
 
 Vector2 Vector2::operator+(const Vector2& other) { return Vector2{x + other.x, y + other.y}; }
 

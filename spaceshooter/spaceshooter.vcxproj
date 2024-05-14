@@ -158,7 +158,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\common\matrix2x2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\common\vector2.cpp" />
+    <ClCompile Include="src\common\vector3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\input\im_playing.cpp" />
     <ClCompile Include="src\input\input_mapping.cpp" />
@@ -200,11 +208,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="src\common\matrix2x2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\common\range.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="src\common\vector2.h" />
+    <ClInclude Include="src\common\vector3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\game.h" />
     <ClInclude Include="src\input\input_action.h" />
     <ClInclude Include="src\input\im_playing.h" />

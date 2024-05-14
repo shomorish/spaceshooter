@@ -10,7 +10,9 @@ struct Vector2 {
     static Vector2 up;
     static Vector2 down;
 
+    float Length();
     Vector2 Normalize();
+    float Dot(const Vector2& other);
 
     Vector2 operator+(const Vector2& other);
     Vector2 operator*(const float& f);
