@@ -137,6 +137,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\actor\asteroid.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\actor\background.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\actor\bullet.cpp">
       <SubType>
       </SubType>
@@ -196,6 +204,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\actor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\actor\asteroid.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\actor\background.h">
       <SubType>
       </SubType>
     </ClInclude>
