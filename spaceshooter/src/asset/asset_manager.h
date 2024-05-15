@@ -1,12 +1,13 @@
 #pragma once
 
-#include "../texture/texture.h"
 #include <SDL.h>
 #include <map>
 
+#include "../texture/texture.h"
+
 namespace spaceshooter {
 
-enum AssetKey { kSpaceship1Blue };
+enum AssetKey { kSpaceship1Blue, kSpin00 };
 
 class AssetManager {
  private:

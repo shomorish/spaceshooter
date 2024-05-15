@@ -12,6 +12,12 @@ AssetManager::AssetManager(SDL_Renderer* renderer) : textures_{} {
         throw std::runtime_error("Failed to create player texture.");
     }
     textures_.insert(std::make_pair(AssetKey::kSpaceship1Blue, texture));
+
+    texture = new Texture("assets/spin-00.png", renderer);
+    if (texture == NULL) {
+        throw std::runtime_error("Failed to create player texture.");
+    }
+    textures_.insert(std::make_pair(AssetKey::kSpin00, texture));
 }
 
 AssetManager::~AssetManager() {
