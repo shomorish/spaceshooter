@@ -7,7 +7,14 @@
 namespace spaceshooter {
 
 AssetManager::AssetManager(SDL_Renderer* renderer) : textures_{} {
-    Texture* texture = new Texture("assets/spaceship_1_blue.png", renderer);
+
+    Texture* texture = new Texture("assets/background.png", renderer);
+    if (texture == NULL) {
+        throw std::runtime_error("Failed to create player texture.");
+    }
+    textures_.insert(std::make_pair(AssetKey::kBackground, texture));
+
+    texture = new Texture("assets/spaceship_1_blue.png", renderer);
     if (texture == NULL) {
         throw std::runtime_error("Failed to create player texture.");
     }
