@@ -20,7 +20,7 @@ Game::Game()
         throw std::runtime_error("Failed to initialize SDL image.");
     }
 
-    window_ = new Window("Space Shooter", 640, 480);
+    window_ = new Window("Space Shooter", 800, 600);
     renderer_ = new Renderer(window_);
     asset_manager_ = new AssetManager(renderer_->sdl());
     timer_ = new Timer();
