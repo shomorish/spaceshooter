@@ -3,7 +3,7 @@
 namespace spaceshooter {
 
 Background::Background(Texture* texture, Vector2 pos, Vector2 size)
-    : pos_(pos), size_(size), texture_(texture->sdl()) {}
+    : Actor{pos, size}, texture_(texture->sdl()) {}
 
 Background::~Background() { texture_ = NULL; }
 

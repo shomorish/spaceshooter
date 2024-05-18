@@ -3,12 +3,12 @@
 namespace spaceshooter {
 
 Bullet::Bullet()
-    : pos_(Vector2::zero), size_(Vector2::zero), direction_(Vector2::zero), speed_(0.f),
-      lifetime_(0.f), is_alive_(false) {}
+    : Actor{Vector2::zero, Vector2::zero}, direction_(Vector2::zero), speed_(0.f), lifetime_(0.f),
+      is_alive_(false) {}
 
 Bullet::Bullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
                bool is_alive)
-    : pos_(pos), size_(size), direction_(direction), speed_(speed), lifetime_(lifetime),
+    : Actor{pos, size}, direction_(direction), speed_(speed), lifetime_(lifetime),
       is_alive_(is_alive) {}
 
 Bullet::~Bullet() {}

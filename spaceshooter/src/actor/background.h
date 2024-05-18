@@ -15,8 +15,6 @@ class Background : public Actor {
     void Render(SDL_Renderer* renderer) override;
 
  private:
-    Vector2 pos_;
-    Vector2 size_;
     SDL_Texture* texture_;
 };
 

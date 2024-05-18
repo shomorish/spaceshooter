@@ -22,8 +22,6 @@ class Bullet : public Actor {
     Bullet& operator=(const Bullet&) = delete;
 
  protected:
-    Vector2 pos_;
-    Vector2 size_;
     Vector2 direction_;
     float speed_;
     float lifetime_;

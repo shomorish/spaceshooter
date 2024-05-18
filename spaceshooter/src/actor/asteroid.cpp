@@ -5,8 +5,7 @@
 namespace spaceshooter {
 
 Asteroid::Asteroid(Texture* texture, Vector2 pos, Vector2 size, float angle, float rotation_speed)
-    : pos_(pos), size_(size), texture_(texture->sdl()), angle_(angle),
-      rotation_speed_(rotation_speed) {}
+    : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed) {}
 
 Asteroid::Asteroid(Texture* texture) {
     std::random_device seed_gen;

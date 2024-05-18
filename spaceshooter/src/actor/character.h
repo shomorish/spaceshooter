@@ -11,10 +11,6 @@ class Character : public Actor {
 
     virtual ~Character();
 
-    Vector2 get_pos();
-    void set_pos(Vector2 pos);
-    Vector2 get_size();
-    void set_size(Vector2 size);
     Vector2 get_direction();
     void set_direction(Vector2 direction);
     SDL_Texture* get_texture();
@@ -23,8 +19,6 @@ class Character : public Actor {
     void Render(SDL_Renderer* renderer) override;
 
  protected:
-    Vector2 pos_;
-    Vector2 size_;
     Vector2 direction_;
     SDL_Texture* texture_;
     float angle_;
