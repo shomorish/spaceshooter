@@ -2,8 +2,10 @@
 
 #include <cmath>
 
+#include "../common/cast.h"
 #include "../common/matrix2x2.h"
 #include "../common/vector3.h"
+#include "asteroid.h"
 #include "machine_gun.h"
 
 namespace spaceshooter {
@@ -12,6 +14,18 @@ Player::Player(Texture* texture, Vector2 pos, Vector2 size, Vector2 direction, f
                float angle, float rotation_speed)
     : Character{pos, size, direction, texture->sdl()}, speed_(speed),
       rotation_speed_(rotation_speed) {
+    collider_ = new Collider(pos_ + size.x / 2.f, size.x / 2.f, this);
+    collider_->RegistOnCollisionListener([this](Actor* other) {
+        const Asteroid* asteroid = SafeCast<Actor, Asteroid>(other);
+        if (asteroid != NULL) {
+            // printf("Collision the player and asteroid\n");
+        } else {
+            const Bullet* b = SafeCast<Actor, Bullet>(other);
+            if (b != NULL) {
+                // printf("Collision the bullet and asteroid\n");
+            }
+        }
+    });
     weapon_ = new MachineGun(Vector2::zero, direction, 0.1f);
 }
 

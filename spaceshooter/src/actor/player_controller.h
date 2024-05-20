@@ -15,7 +15,10 @@ class PlayerController : public Controller {
 
     ~PlayerController();
 
+    virtual Collider* get_collider() override;
+
     void Tick(const std::vector<InputAction>& actions, const float& delta_time) override;
+    virtual bool HasCollider() override;
 
  private:
     Level* level_;

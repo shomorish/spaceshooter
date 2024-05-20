@@ -2,9 +2,12 @@
 
 #include <SDL.h>
 
+#include "../collision/collider.h"
 #include "../common/vector2.h"
 
 namespace spaceshooter {
+
+class Collider;
 
 class Actor {
  public:
@@ -18,15 +21,18 @@ class Actor {
     Vector2 get_size();
     void set_size(Vector2 size);
     bool get_is_destroyed();
+    virtual Collider* get_collider();
 
     virtual void Tick(const float& delta_time);
     virtual void Render(SDL_Renderer* renderer);
     void Destroy();
+    virtual bool HasCollider();
 
  protected:
     Vector2 pos_;
     Vector2 size_;
     bool is_destroyed_;
+    Collider* collider_;
 };
 
 } // namespace spaceshooter

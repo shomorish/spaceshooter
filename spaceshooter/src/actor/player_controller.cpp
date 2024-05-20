@@ -20,6 +20,8 @@ PlayerController::~PlayerController() {
     }
 }
 
+Collider* PlayerController::get_collider() { return character_->get_collider(); }
+
 void PlayerController::Tick(const std::vector<InputAction>& actions, const float& delta_time) {
     if (character_ != NULL) {
         CountdownFiringInterval(delta_time);
@@ -41,24 +43,28 @@ void PlayerController::Tick(const std::vector<InputAction>& actions, const float
     }
 }
 
+bool PlayerController::HasCollider() { return character_->get_collider(); }
+
 void PlayerController::Move(Range x_limit, Range y_limit, float delta_time) {
     Player* player = (Player*)character_;
     Vector2 pos = player->get_pos() + player->get_direction() * player->get_speed() * delta_time;
     // 画面外に出ないように位置を補正
     Vector2 size = player->get_size();
-    if (pos.x < 0.f) {
-        pos.x = 0.f;
-    } else if (pos.x >= x_limit.max - size.x) {
-        pos.x = x_limit.max - size.x;
+    if (pos.x < (size.x / 2.f)) {
+        pos.x = size.x / 2.f;
+    } else if (pos.x >= x_limit.max - (size.x / 2.f)) {
+        pos.x = x_limit.max - (size.x / 2.f);
     }
-    if (pos.y < 0.f) {
-        pos.y = 0.f;
-    } else if (pos.y >= y_limit.max - size.y) {
-        pos.y = y_limit.max - size.y;
+    if (pos.y < (size.y / 2.f)) {
+        pos.y = size.y / 2.f;
+    } else if (pos.y >= y_limit.max - (size.y / 2.f)) {
+        pos.y = y_limit.max - (size.y / 2.f);
     }
     player->set_pos(pos);
 
     player->get_weapon()->set_pos(pos + size / 2.f);
+
+    player->get_collider()->set_pos(pos);
 }
 
 void PlayerController::Rotate(const Vector2& direction, float delta_time) {

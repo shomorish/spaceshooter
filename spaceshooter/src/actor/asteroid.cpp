@@ -2,10 +2,21 @@
 
 #include <random>
 
+#include "../common/cast.h"
+#include "player.h"
+
 namespace spaceshooter {
 
 Asteroid::Asteroid(Texture* texture, Vector2 pos, Vector2 size, float angle, float rotation_speed)
-    : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed) {}
+    : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed) {
+    collider_ = new Collider(pos + size.x / 2.f, size.x / 2.f, this);
+    collider_->RegistOnCollisionListener([this](Actor* other) {
+        Player* p = SafeCast<Actor, Player>(other);
+        if (p != NULL) {
+            this->Destroy();
+        }
+    });
+}
 
 Asteroid::Asteroid(Texture* texture) {
     std::random_device seed_gen;
@@ -22,6 +33,8 @@ Asteroid::Asteroid(Texture* texture) {
     angle_ = 0.f;
 
     rotation_speed_ = std::uniform_real_distribution<float>(-180.f, 180.f)(engine);
+
+    collider_ = new Collider(pos_ + size_.x / 2.f, size_.x / 2.f, this);
 }
 
 Asteroid::~Asteroid() { texture_ = NULL; }
