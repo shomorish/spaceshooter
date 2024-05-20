@@ -13,7 +13,7 @@ class Actor;
 
 class Collider {
  public:
-    Collider(float radius, Actor* actor);
+    Collider(Vector2 pos, float radius, Actor* actor);
 
     ~Collider();
 

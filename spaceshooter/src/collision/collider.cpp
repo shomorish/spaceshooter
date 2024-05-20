@@ -2,9 +2,9 @@
 
 namespace spaceshooter {
 
-Collider::Collider(float radius, Actor* actor)
-    : pos_(Vector2::zero), radius_(radius), actor_(actor), space_(NULL), previous_(NULL),
-      next_(NULL), on_collision_listener_(NULL) {}
+Collider::Collider(Vector2 pos, float radius, Actor* actor)
+    : pos_(pos), radius_(radius), actor_(actor), space_(NULL), previous_(NULL), next_(NULL),
+      on_collision_listener_(NULL) {}
 
 Collider::~Collider() {
     UnregistOnCollisionListener();
