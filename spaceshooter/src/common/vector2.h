@@ -15,6 +15,8 @@ struct Vector2 {
     float Dot(const Vector2& other);
 
     Vector2 operator+(const Vector2& other);
+    Vector2 operator+(const float& f);
+    Vector2 operator-(const float& f);
     Vector2 operator*(const float& f);
     Vector2 operator/(const float& f);
     Vector2& operator+=(const Vector2& other);

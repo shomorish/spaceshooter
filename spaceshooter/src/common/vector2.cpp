@@ -21,6 +21,10 @@ float Vector2::Dot(const Vector2& other) { return x * other.x + y * other.y; }
 
 Vector2 Vector2::operator+(const Vector2& other) { return Vector2{x + other.x, y + other.y}; }
 
+Vector2 Vector2::operator+(const float& f) { return Vector2{x + f, y + f}; }
+
+Vector2 Vector2::operator-(const float& f) { return Vector2{x - f, y - f}; }
+
 Vector2 Vector2::operator*(const float& f) { return Vector2{x * f, y * f}; }
 
 Vector2 Vector2::operator/(const float& f) { return Vector2{x / f, y / f}; }
