@@ -8,7 +8,25 @@
 
 namespace spaceshooter {
 
+LinearQuadtree::LinearQuadtree()
+    : spaces_(NULL), num_of_spaces_(0), left_(0.f), top_(0.f), right_(0.f), bottom_(0.f),
+      width_(0.f), height_(0.f), unit_width_(0.f), unit_height_(0.f), partition_level_(0),
+      collision_list_() {}
+
 LinearQuadtree::LinearQuadtree(int partition_level, Vector2 topLeft, Vector2 bottomRight) {
+    Init(partition_level, topLeft, bottomRight);
+}
+
+LinearQuadtree::~LinearQuadtree() {
+    for (int i = 0; i < num_of_spaces_; i++) {
+        if (spaces_[i] != NULL) {
+            delete spaces_[i];
+        }
+    }
+    delete[] spaces_;
+}
+
+void LinearQuadtree::Init(int partition_level, Vector2 topLeft, Vector2 bottomRight) {
     if (partition_level <= 0)
         throw std::invalid_argument("Partition level must be between 1 and 6.");
 
@@ -33,15 +51,6 @@ LinearQuadtree::LinearQuadtree(int partition_level, Vector2 topLeft, Vector2 bot
 
     // 分割レベルを設定
     partition_level_ = partition_level;
-}
-
-LinearQuadtree::~LinearQuadtree() {
-    for (int i = 0; i < num_of_spaces_; i++) {
-        if (spaces_[i] != NULL) {
-            delete spaces_[i];
-        }
-    }
-    delete[] spaces_;
 }
 
 unsigned int LinearQuadtree::GetMortonCode(unsigned int x, unsigned int y) {
@@ -96,6 +105,8 @@ void LinearQuadtree::Regist(Collider* collider) {
 }
 
 unsigned int LinearQuadtree::GetAllCollisionList(CollisionList** list) {
+    collision_list_.Clear();
+
     // ルート空間が存在するか確認
     if (spaces_[0] == NULL) return 0;
 

@@ -6,6 +6,8 @@ CollisionList::CollisionList() {}
 
 CollisionList::~CollisionList() { Clear(); }
 
+const std::vector<Collider*>& CollisionList::get_collision_list() { return collision_list_; }
+
 void CollisionList::Add(Collider* c1, Collider* c2) {
     collision_list_.push_back(c1);
     collision_list_.push_back(c2);

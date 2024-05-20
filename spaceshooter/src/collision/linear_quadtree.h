@@ -15,10 +15,12 @@ static const int MAX_PARTITION_LEVEL = 6;
 /// </summary>
 class LinearQuadtree {
  public:
+    LinearQuadtree();
     LinearQuadtree(int partition_level, Vector2 topLeft, Vector2 rightBottom);
 
     ~LinearQuadtree();
 
+    void Init(int partition_level, Vector2 topLeft, Vector2 rightBottom);
     unsigned int GetMortonCode(unsigned int x, unsigned int y);
     void CreateSpace(unsigned int index);
     void Regist(Collider* collider);

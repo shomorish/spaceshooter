@@ -3,14 +3,21 @@
 namespace spaceshooter {
 
 Collider::Collider(float radius, Actor* actor)
-    : pos_(Vector2::zero), radius_(radius), actor_(actor), space_(NULL), previous_(NULL), next_(NULL) {}
+    : pos_(Vector2::zero), radius_(radius), actor_(actor), space_(NULL), previous_(NULL),
+      next_(NULL), on_collision_listener_(NULL) {}
 
 Collider::~Collider() {
+    UnregistOnCollisionListener();
+    ExitSpace();
     actor_ = NULL;
     space_ = NULL;
     previous_ = NULL;
     next_ = NULL;
 }
+
+Vector2 Collider::get_pos() { return pos_; }
+
+void Collider::set_pos(Vector2 pos) { pos_ = pos; }
 
 float Collider::get_radius() { return radius_; }
 
@@ -59,5 +66,18 @@ void Collider::ExitSpace() {
     next_ = NULL;
     space_ = NULL;
 }
+
+void Collider::OnCollision(Actor* actor) {
+    if (on_collision_listener_) {
+        on_collision_listener_(actor);
+    }
+}
+
+void Collider::RegistOnCollisionListener(std::function<void(Actor*)> listener) {
+    UnregistOnCollisionListener();
+    on_collision_listener_ = listener;
+}
+
+void Collider::UnregistOnCollisionListener() { on_collision_listener_ = NULL; }
 
 } // namespace spaceshooter

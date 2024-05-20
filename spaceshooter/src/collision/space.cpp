@@ -37,6 +37,8 @@ void Space::OnRemove(Collider* collider) {
     if (collider == first_) {
         if (collider->get_next() != NULL) {
             first_ = collider->get_next();
+        } else {
+            first_ = NULL;
         }
     }
 }

@@ -12,6 +12,8 @@ class CollisionList {
 
     ~CollisionList();
 
+    const std::vector<Collider*>& get_collision_list();
+
     void Add(Collider* c1, Collider* c2);
     void Clear();
     size_t GetSize();
