@@ -67,14 +67,18 @@ void LinearQuadtree::CreateSpace(unsigned int index) {
 }
 
 void LinearQuadtree::Regist(Collider* collider) {
-    // 左上の頂点のモートンコードを計算
+    // 有効範囲外の場合は処理しないようにする
     auto topLeft = collider->GetTopLeft();
+    auto bottomRight = collider->GetBottomRight();
+    if (right_ < topLeft.x || bottom_ < topLeft.y || bottomRight.x < left_ || bottomRight.y < top_)
+        return;
+
+    // 左上の頂点のモートンコードを計算
     unsigned int x = topLeft.x / unit_width_;
     unsigned int y = topLeft.y / unit_height_;
     auto tl_morton_code = GetMortonCode(x, y);
 
     // 右上の頂点のモートンコードを計算
-    auto bottomRight = collider->GetBottomRight();
     x = bottomRight.x / unit_width_;
     y = bottomRight.y / unit_height_;
     auto br_morton_code = GetMortonCode(x, y);
