@@ -25,6 +25,8 @@ Window* Level::get_window() { return window_; }
 
 AssetManager* Level::get_asset_manager() { return asset_manager_; }
 
+Camera* Level::get_camera() { return &camera_; }
+
 void Level::AddActor(Actor* actor) { actors_.push_back(actor); }
 
 void Level::DeleteActorIfDestroyed() {

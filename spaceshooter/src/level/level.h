@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../actor/actor.h"
+#include "../actor/camera.h"
 #include "../asset/asset_manager.h"
 #include "../input/input_mapping.h"
 #include "../renderer.h"
@@ -20,6 +21,7 @@ class Level {
 
     Window* get_window();
     AssetManager* get_asset_manager();
+    Camera* get_camera();
 
     virtual void Tick(std::vector<InputAction> actions, float delta_time) = 0;
     virtual void Render() = 0;
@@ -33,6 +35,7 @@ class Level {
     AssetManager* asset_manager_;
     InputMapping** input_mapping_;
     std::vector<Actor*> actors_;
+    Camera camera_;
 };
 
 } // namespace spaceshooter
