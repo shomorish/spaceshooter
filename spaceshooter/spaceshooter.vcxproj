@@ -224,6 +224,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\gamestate\stage1_state.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\input\im_playing.cpp" />
     <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\level\level.cpp">
@@ -334,6 +338,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\gamestate\stage1_state.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\input\input_action.h" />
     <ClInclude Include="src\input\im_playing.h" />
     <ClInclude Include="src\input\input_mapping.h" />
