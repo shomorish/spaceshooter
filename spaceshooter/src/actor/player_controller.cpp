@@ -7,8 +7,14 @@
 
 namespace spaceshooter {
 
-PlayerController::PlayerController(Level* level) : level_(level) {
-    character_ = new Player(level->get_asset_manager()->GetTexture(AssetKey::kSpaceship1Blue));
+PlayerController::PlayerController(Level* level, Range area_x_range, Range area_y_range)
+    : level_(level) {
+    Player* player = new Player(level->get_asset_manager()->GetTexture(AssetKey::kSpaceship1Blue));
+    character_ = player;
+    auto size = player->get_size();
+    x_movable_range_ = Range{area_x_range.min + size.x / 2.f, area_x_range.max - size.x / 2.f};
+    y_movable_range_ = Range{area_y_range.min + size.y / 2.f, area_y_range.max - size.y / 2.f};
+    level->get_camera()->set_pos(character_->get_pos());
 }
 
 PlayerController::~PlayerController() {
@@ -26,8 +32,7 @@ void PlayerController::Tick(const std::vector<InputAction>& actions, const float
     if (character_ != NULL) {
         CountdownFiringInterval(delta_time);
         // 前進
-        Move(Range{0.f, (float)level_->get_window()->get_width()},
-             Range{0.f, (float)level_->get_window()->get_height()}, delta_time);
+        Move(delta_time);
         for (auto iter = actions.begin(); iter != actions.end(); iter++) {
             if (iter->type == kRotate) {
                 // 回転
@@ -45,26 +50,28 @@ void PlayerController::Tick(const std::vector<InputAction>& actions, const float
 
 bool PlayerController::HasCollider() { return character_->get_collider(); }
 
-void PlayerController::Move(Range x_limit, Range y_limit, float delta_time) {
+void PlayerController::Move(float delta_time) {
     Player* player = (Player*)character_;
     Vector2 pos = player->get_pos() + player->get_direction() * player->get_speed() * delta_time;
-    // 画面外に出ないように位置を補正
+    // 移動可能範囲外に出ないように位置を補正
     Vector2 size = player->get_size();
-    if (pos.x < (size.x / 2.f)) {
-        pos.x = size.x / 2.f;
-    } else if (pos.x >= x_limit.max - (size.x / 2.f)) {
-        pos.x = x_limit.max - (size.x / 2.f);
+    if (pos.x < x_movable_range_.min) {
+        pos.x = x_movable_range_.min;
+    } else if (pos.x > x_movable_range_.max) {
+        pos.x = x_movable_range_.max;
     }
-    if (pos.y < (size.y / 2.f)) {
-        pos.y = size.y / 2.f;
-    } else if (pos.y >= y_limit.max - (size.y / 2.f)) {
-        pos.y = y_limit.max - (size.y / 2.f);
+    if (pos.y < y_movable_range_.min) {
+        pos.y = y_movable_range_.min;
+    } else if (pos.y > y_movable_range_.max) {
+        pos.y = y_movable_range_.max;
     }
     player->set_pos(pos);
 
     player->get_weapon()->set_pos(pos + size / 2.f);
 
     player->get_collider()->set_pos(pos);
+
+    level_->get_camera()->set_pos(pos);
 }
 
 void PlayerController::Rotate(const Vector2& direction, float delta_time) {

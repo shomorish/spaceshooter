@@ -11,7 +11,7 @@ namespace spaceshooter {
 
 class PlayerController : public Controller {
  public:
-    PlayerController(Level* level);
+    PlayerController(Level* level, Range area_x_range, Range area_y_range);
 
     ~PlayerController();
 
@@ -22,8 +22,10 @@ class PlayerController : public Controller {
 
  private:
     Level* level_;
+    Range x_movable_range_;
+    Range y_movable_range_;
 
-    void Move(Range x_limit, Range y_limit, float delta_time);
+    void Move(float delta_time);
     void Rotate(const Vector2& direction, float delta_time);
     bool CanFire();
     void CountdownFiringInterval(float delta_time);
