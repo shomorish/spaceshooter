@@ -4,6 +4,7 @@
 
 #include "../collision/collider.h"
 #include "../common/vector2.h"
+#include "camera.h"
 
 namespace spaceshooter {
 
@@ -24,7 +25,7 @@ class Actor {
     virtual Collider* get_collider();
 
     virtual void Tick(const float& delta_time);
-    virtual void Render(SDL_Renderer* renderer);
+    virtual void Render(SDL_Renderer* renderer, Camera* camera);
     void Destroy();
     virtual bool HasCollider();
 

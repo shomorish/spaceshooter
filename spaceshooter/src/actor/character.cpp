@@ -15,9 +15,13 @@ SDL_Texture* Character::get_texture() { return texture_; }
 
 void Character::set_texture(SDL_Texture* texture) { texture_ = texture; }
 
-void Character::Render(SDL_Renderer* renderer) {
-    SDL_FRect rect{pos_.x - size_.x / 2.f, pos_.y - size_.y / 2.f, size_.x, size_.y};
-    SDL_RenderCopyExF(renderer, texture_, NULL, &rect, angle_, NULL, SDL_FLIP_NONE);
+void Character::Render(SDL_Renderer* renderer, Camera* camera) {
+    Vector2 pos;
+    bool result = camera->ConvertToWindowCoords(pos_, &pos);
+    if (result) {
+        SDL_FRect rect{pos.x - size_.x / 2.f, pos.y - size_.y / 2.f, size_.x, size_.y};
+        SDL_RenderCopyExF(renderer, texture_, NULL, &rect, angle_, NULL, SDL_FLIP_NONE);
+    }
 }
 
 } // namespace spaceshooter

@@ -16,7 +16,7 @@ class Character : public Actor {
     SDL_Texture* get_texture();
     void set_texture(SDL_Texture* texture);
 
-    void Render(SDL_Renderer* renderer) override;
+    void Render(SDL_Renderer* renderer, Camera* camera) override;
 
  protected:
     Vector2 direction_;

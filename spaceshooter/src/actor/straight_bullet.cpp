@@ -19,14 +19,14 @@ void StraightBullet::Tick(const float& delta_time) {
     }
 }
 
-void StraightBullet::Render(SDL_Renderer* renderer) {
-    SDL_FRect rect;
-    rect.x = pos_.x - size_.x / 2;
-    rect.y = pos_.y - size_.y / 2;
-    rect.w = size_.x;
-    rect.h = size_.y;
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
-    SDL_RenderFillRectF(renderer, &rect);
+void StraightBullet::Render(SDL_Renderer* renderer, Camera* camera) {
+    Vector2 pos;
+    bool result = camera->ConvertToWindowCoords(pos_, &pos);
+    if (result) {
+        SDL_FRect rect{pos.x - size_.x / 2, pos.y - size_.y / 2, size_.x, size_.y};
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
+        SDL_RenderFillRectF(renderer, &rect);
+    }
 }
 
 } // namespace spaceshooter

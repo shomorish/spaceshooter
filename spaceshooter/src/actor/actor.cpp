@@ -28,7 +28,7 @@ Collider* Actor::get_collider() { return collider_; }
 
 void Actor::Tick(const float& delta_time) {}
 
-void Actor::Render(SDL_Renderer* renderer) {}
+void Actor::Render(SDL_Renderer* renderer, Camera* camera) {}
 
 void Actor::Destroy() { is_destroyed_ = true; }
 

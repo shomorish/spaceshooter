@@ -12,7 +12,7 @@ class Background : public Actor {
 
     ~Background();
 
-    void Render(SDL_Renderer* renderer) override;
+    void Render(SDL_Renderer* renderer, Camera* camera) override;
 
  private:
     SDL_Texture* texture_;

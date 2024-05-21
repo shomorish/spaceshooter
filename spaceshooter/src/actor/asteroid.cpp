@@ -41,9 +41,13 @@ Asteroid::~Asteroid() { texture_ = NULL; }
 
 void Asteroid::Tick(const float& delta_time) { angle_ += rotation_speed_ * delta_time; }
 
-void Asteroid::Render(SDL_Renderer* renderer) {
-    SDL_FRect rect{pos_.x, pos_.y, size_.x, size_.y};
-    SDL_RenderCopyExF(renderer, texture_, NULL, &rect, angle_, NULL, SDL_FLIP_NONE);
+void Asteroid::Render(SDL_Renderer* renderer, Camera* camera) {
+    Vector2 pos;
+    bool result = camera->ConvertToWindowCoords(pos_, &pos);
+    if (result) {
+        SDL_FRect rect{pos.x, pos.y, size_.x, size_.y};
+        SDL_RenderCopyExF(renderer, texture_, NULL, &rect, angle_, NULL, SDL_FLIP_NONE);
+    }
 }
 
 } // namespace spaceshooter
