@@ -15,7 +15,10 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
         switch (owner_type_) {
         case kPlayer: {
             Asteroid* asteroid = SafeCast<Actor, Asteroid>(other);
-            if (asteroid != NULL) this->Destroy();
+            if (asteroid != NULL) {
+                this->Destroy();
+                other->ApplyDamage(5.f);
+            };
             break;
         }
         case kEnemy:
