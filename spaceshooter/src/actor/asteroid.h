@@ -15,11 +15,13 @@ class Asteroid : public Actor {
 
     void Tick(const float& delta_time) override;
     void Render(SDL_Renderer* renderer, Camera* camera) override;
+    void ApplyDamage(float damage) override;
 
  private:
     SDL_Texture* texture_;
     float angle_;
     float rotation_speed_;
+    float hp_;
 };
 
 } // namespace spaceshooter

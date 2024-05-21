@@ -8,14 +8,9 @@
 namespace spaceshooter {
 
 Asteroid::Asteroid(Texture* texture, Vector2 pos, Vector2 size, float angle, float rotation_speed)
-    : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed) {
+    : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed),
+      hp_(15.f) {
     collider_ = new Collider(pos + size.x / 2.f, size.x / 2.f, this);
-    collider_->RegistOnCollisionListener([this](Actor* other) {
-        Player* p = SafeCast<Actor, Player>(other);
-        if (p != NULL) {
-            this->Destroy();
-        }
-    });
 }
 
 Asteroid::Asteroid(Texture* texture) {
@@ -35,6 +30,8 @@ Asteroid::Asteroid(Texture* texture) {
     rotation_speed_ = std::uniform_real_distribution<float>(-180.f, 180.f)(engine);
 
     collider_ = new Collider(pos_ + size_.x / 2.f, size_.x / 2.f, this);
+
+    hp_ = 15.f;
 }
 
 Asteroid::~Asteroid() { texture_ = NULL; }
@@ -47,6 +44,13 @@ void Asteroid::Render(SDL_Renderer* renderer, Camera* camera) {
     if (result) {
         SDL_FRect rect{pos.x, pos.y, size_.x, size_.y};
         SDL_RenderCopyExF(renderer, texture_, NULL, &rect, angle_, NULL, SDL_FLIP_NONE);
+    }
+}
+
+void Asteroid::ApplyDamage(float damage) {
+    hp_ -= damage;
+    if (hp_ <= 0.f) {
+        Destroy();
     }
 }
 
