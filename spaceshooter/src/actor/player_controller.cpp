@@ -9,7 +9,7 @@ namespace spaceshooter {
 
 PlayerController::PlayerController(Level* level, Range area_x_range, Range area_y_range)
     : level_(level) {
-    Player* player = new Player(level->get_asset_manager()->GetTexture(AssetKey::kSpaceship1Blue));
+    Player* player = new Player(level->get_asset_manager()->GetTexture(AssetKey::kShip1));
     character_ = player;
     auto size = player->get_size();
     x_movable_range_ = Range{area_x_range.min + size.x / 2.f, area_x_range.max - size.x / 2.f};
