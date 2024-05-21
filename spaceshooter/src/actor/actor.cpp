@@ -34,4 +34,6 @@ void Actor::Destroy() { is_destroyed_ = true; }
 
 bool Actor::HasCollider() { return collider_ != NULL; }
 
+void Actor::ApplyDamage(float damage) {}
+
 } // namespace spaceshooter

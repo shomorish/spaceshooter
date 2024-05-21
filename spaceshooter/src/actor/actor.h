@@ -28,6 +28,7 @@ class Actor {
     virtual void Render(SDL_Renderer* renderer, Camera* camera);
     void Destroy();
     virtual bool HasCollider();
+    virtual void ApplyDamage(float damage);
 
  protected:
     Vector2 pos_;
