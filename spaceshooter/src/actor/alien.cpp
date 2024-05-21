@@ -9,4 +9,8 @@ Alien::Alien(Texture* texture, Vector2 pos, Vector2 size = Vector2{64.f, 64.f}, 
 
 Alien::~Alien() { texture_ = NULL; }
 
-}
+float Alien::get_speed() { return speed_; }
+
+float Alien::get_rotation_speed() { return rotation_speed_; }
+
+} // namespace spaceshooter
