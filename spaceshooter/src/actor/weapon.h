@@ -7,7 +7,7 @@ namespace spaceshooter {
 
 class Weapon {
  public:
-    Weapon(Vector2 pos, Vector2 direction, float firing_interval, float interval_count);
+    Weapon(Vector2 pos, Vector2 direction, float firing_interval, float interval_count, BulletOwnerType owner_type);
 
     virtual ~Weapon();
 
@@ -25,6 +25,7 @@ class Weapon {
     Vector2 direction_;
     float firing_interval_;
     float interval_count_;
+    BulletOwnerType owner_type_;
 };
 
 } // namespace spaceshooter

@@ -67,10 +67,6 @@ void PlayerController::Move(float delta_time) {
     }
     player->set_pos(pos);
 
-    player->get_weapon()->set_pos(pos);
-
-    player->get_collider()->set_pos(pos);
-
     level_->get_camera()->set_pos(pos);
 }
 

@@ -10,7 +10,7 @@ namespace spaceshooter {
 class StraightBullet : public Bullet {
  public:
     StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
-                   bool is_alive, Color color);
+                   bool is_alive, BulletOwnerType owner_type, Color color);
 
     ~StraightBullet();
 

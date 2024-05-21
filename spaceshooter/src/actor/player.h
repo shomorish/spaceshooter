@@ -29,6 +29,7 @@ class Player : public Character {
 
     ~Player();
 
+    void set_pos(Vector2 pos) override;
     float get_speed();
     void set_speed(float speed);
     float get_angle();

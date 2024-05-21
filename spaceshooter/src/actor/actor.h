@@ -18,7 +18,7 @@ class Actor {
     virtual ~Actor();
 
     Vector2 get_pos();
-    void set_pos(Vector2 pos);
+    virtual void set_pos(Vector2 pos);
     Vector2 get_size();
     void set_size(Vector2 size);
     bool get_is_destroyed();

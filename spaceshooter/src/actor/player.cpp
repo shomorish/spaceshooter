@@ -26,7 +26,7 @@ Player::Player(Texture* texture, Vector2 pos, Vector2 size, Vector2 direction, f
             }
         }
     });
-    weapon_ = new MachineGun(Vector2::zero, direction, 0.1f);
+    weapon_ = new MachineGun(pos_, direction, 0.1f, BulletOwnerType::kPlayer);
 }
 
 Player::~Player() {
@@ -36,6 +36,12 @@ Player::~Player() {
         delete weapon_;
         weapon_ = NULL;
     }
+}
+
+void Player::set_pos(Vector2 pos) {
+    Actor::set_pos(pos);
+    collider_->set_pos(pos);
+    weapon_->set_pos(pos);
 }
 
 float Player::get_speed() { return speed_; }

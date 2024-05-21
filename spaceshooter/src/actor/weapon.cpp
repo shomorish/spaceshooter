@@ -2,9 +2,10 @@
 
 namespace spaceshooter {
 
-Weapon::Weapon(Vector2 pos, Vector2 direction, float firing_interval, float interval_count)
+Weapon::Weapon(Vector2 pos, Vector2 direction, float firing_interval, float interval_count,
+               BulletOwnerType owner_type)
     : pos_(pos), direction_(direction), firing_interval_(firing_interval),
-      interval_count_(interval_count) {}
+      interval_count_(interval_count), owner_type_(owner_type) {}
 
 Weapon::~Weapon() {}
 

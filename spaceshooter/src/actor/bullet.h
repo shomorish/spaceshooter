@@ -7,11 +7,13 @@
 
 namespace spaceshooter {
 
+enum BulletOwnerType { kPlayer, kEnemy, kUnknown };
+
 class Bullet : public Actor {
  public:
     Bullet();
     Bullet(Vector2 pos, Vector2 size, Vector2 direction, float speed, float lifetime,
-           bool is_alive);
+           bool is_alive, BulletOwnerType owner_type);
     Bullet(const Bullet&) = delete;
 
     virtual ~Bullet();
@@ -26,6 +28,7 @@ class Bullet : public Actor {
     float speed_;
     float lifetime_;
     bool is_alive_;
+    BulletOwnerType owner_type_;
 };
 
 } // namespace spaceshooter
