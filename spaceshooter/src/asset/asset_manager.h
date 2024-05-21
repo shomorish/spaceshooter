@@ -7,12 +7,9 @@
 
 namespace spaceshooter {
 
-enum AssetKey { kBackground, kSpaceship1Blue, kSpin00 };
+enum AssetKey { kBackground, kSpaceship1Blue, kSpin00, kAsteroid, kShip1, kAlien1 };
 
 class AssetManager {
- private:
-    std::map<AssetKey, Texture*> textures_;
-
  public:
     AssetManager(SDL_Renderer* renderer);
     AssetManager(const AssetManager&) = delete;
@@ -22,6 +19,11 @@ class AssetManager {
     Texture* GetTexture(AssetKey key);
 
     AssetManager& operator=(const AssetManager&) = delete;
+
+ private:
+    std::map<AssetKey, Texture*> textures_;
+
+    void LoadTexture(std::string path, AssetKey key, SDL_Renderer* renderer);
 };
 
 } // namespace spaceshooter

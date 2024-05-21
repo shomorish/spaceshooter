@@ -7,24 +7,12 @@
 namespace spaceshooter {
 
 AssetManager::AssetManager(SDL_Renderer* renderer) : textures_{} {
-
-    Texture* texture = new Texture("assets/background.png", renderer);
-    if (texture == NULL) {
-        throw std::runtime_error("Failed to create player texture.");
-    }
-    textures_.insert(std::make_pair(AssetKey::kBackground, texture));
-
-    texture = new Texture("assets/spaceship_1_blue.png", renderer);
-    if (texture == NULL) {
-        throw std::runtime_error("Failed to create player texture.");
-    }
-    textures_.insert(std::make_pair(AssetKey::kSpaceship1Blue, texture));
-
-    texture = new Texture("assets/spin-00.png", renderer);
-    if (texture == NULL) {
-        throw std::runtime_error("Failed to create player texture.");
-    }
-    textures_.insert(std::make_pair(AssetKey::kSpin00, texture));
+    LoadTexture("assets/background.png", AssetKey::kBackground, renderer);
+    LoadTexture("assets/spaceship_1_blue.png", AssetKey::kSpaceship1Blue, renderer);
+    LoadTexture("assets/spin-00.png", AssetKey::kSpin00, renderer);
+    LoadTexture("assets/ship-1.png", AssetKey::kShip1, renderer);
+    LoadTexture("assets/alien-1.png", AssetKey::kAlien1, renderer);
+    LoadTexture("assets/asteroid.png", AssetKey::kAsteroid, renderer);
 }
 
 AssetManager::~AssetManager() {
@@ -35,5 +23,13 @@ AssetManager::~AssetManager() {
 }
 
 Texture* AssetManager::GetTexture(AssetKey key) { return textures_.at(key); }
+
+void AssetManager::LoadTexture(std::string path, AssetKey key, SDL_Renderer* renderer) {
+    Texture* texture = new Texture(path, renderer);
+    if (texture == NULL) {
+        throw std::runtime_error("Failed to create player texture.");
+    }
+    textures_.insert(std::make_pair(key, texture));
+}
 
 } // namespace spaceshooter
