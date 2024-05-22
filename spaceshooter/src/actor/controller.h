@@ -8,6 +8,8 @@
 
 namespace spaceshooter {
 
+class Character;
+
 class Controller : public Actor {
  public:
     Controller();
@@ -18,6 +20,7 @@ class Controller : public Actor {
 
     virtual void Tick(const std::vector<InputAction>& actions, const float& delta_time) = 0;
     Character** GetCharacterRef();
+    virtual void DestroyCharacter();
 
  protected:
     Character* character_;
