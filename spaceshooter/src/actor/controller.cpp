@@ -8,4 +8,6 @@ Controller::~Controller() {}
 
 Character* Controller::get_character() { return character_; }
 
+Character** Controller::GetCharacterRef() { return &character_; }
+
 } // namespace spaceshooter

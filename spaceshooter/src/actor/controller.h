@@ -17,6 +17,7 @@ class Controller : public Actor {
     Character* get_character();
 
     virtual void Tick(const std::vector<InputAction>& actions, const float& delta_time) = 0;
+    Character** GetCharacterRef();
 
  protected:
     Character* character_;
