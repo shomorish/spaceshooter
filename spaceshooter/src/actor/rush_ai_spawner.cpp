@@ -4,27 +4,24 @@
 
 namespace spaceshooter {
 
-int RushAiSpawner::max_spawn_num = 0;
-
-int RushAiSpawner::num_of_spawned_ = 0;
-
-RushAiSpawner::RushAiSpawner(Level* level, Vector2 pos, float duration, Character** target)
+RushAiSpawner::RushAiSpawner(Level* level, Vector2 pos, float duration, Character** target,
+                             EnemyCounter* enemy_counter)
     : Actor{pos, Vector2::zero}, level_(level), duration_(duration), spawn_elapsed_time_(0.f),
-      target_(target) {}
+      target_(target), enemy_counter_(enemy_counter) {}
 
 RushAiSpawner::~RushAiSpawner() {
     level_ = NULL;
     target_ = NULL;
+    enemy_counter_ = NULL;
 }
-
-int RushAiSpawner::get_num_of_spawned() { return num_of_spawned_; }
 
 void RushAiSpawner::Tick(const float& delta_time) {
     if (*target_ == NULL) return;
-    if (num_of_spawned_ >= max_spawn_num) return;
+    if (enemy_counter_->num_of_spawned_enemies >= enemy_counter_->max_spawn_enemies) return;
 
     if (spawn_elapsed_time_ <= 0.f) {
         Spawn();
+        enemy_counter_->num_of_spawned_enemies++;
         spawn_elapsed_time_ = duration_;
     } else {
         spawn_elapsed_time_ -= delta_time;
@@ -32,8 +29,7 @@ void RushAiSpawner::Tick(const float& delta_time) {
 }
 
 void RushAiSpawner::Spawn() {
-    level_->AddActor(new RushAiController(level_, pos_, target_));
-    num_of_spawned_++;
+    level_->AddActor(new RushAiController(level_, pos_, target_, enemy_counter_));
 }
 
 } // namespace spaceshooter

@@ -8,12 +8,15 @@
 
 namespace spaceshooter {
 
-RushAiController::RushAiController(Level* level, Vector2 pos, Character** target) {
+RushAiController::RushAiController(Level* level, Vector2 pos, Character** target,
+                                   EnemyCounter* enemy_counter) {
     character_ = new Alien(this, level->get_asset_manager()->GetTexture(AssetKey::kAlien1), pos);
     target_ = target;
+    enemy_counter_ = enemy_counter;
 }
 
 RushAiController::~RushAiController() {
+    enemy_counter_ = NULL;
     target_ = NULL;
 
     if (character_) {
@@ -42,6 +45,7 @@ bool RushAiController::HasCollider() { return character_->get_collider() != NULL
 void RushAiController::DestroyCharacter() {
     character_->set_owner(NULL);
     Destroy();
+    enemy_counter_->num_of_destroy_enemies++;
 }
 
 void RushAiController::Move(const float& delta_time) {

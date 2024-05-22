@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../count/enemy_counter.h"
 #include "../level/level.h"
 #include "character.h"
 #include "controller.h"
@@ -8,7 +9,7 @@ namespace spaceshooter {
 
 class RushAiController : public Controller {
  public:
-    RushAiController(Level* level, Vector2 pos, Character** target);
+    RushAiController(Level* level, Vector2 pos, Character** target, EnemyCounter* enemy_counter);
 
     ~RushAiController();
 
@@ -22,6 +23,7 @@ class RushAiController : public Controller {
 
  private:
     Character** target_;
+    EnemyCounter* enemy_counter_;
 
     void Move(const float& delta_time);
     void Rotate(const float& delta_time);
