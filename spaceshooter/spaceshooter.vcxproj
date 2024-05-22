@@ -178,6 +178,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\actor\rush_ai_spawner.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\actor\straight_bullet.cpp">
       <SubType>
       </SubType>
@@ -285,6 +289,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\actor\rush_ai_controller.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\actor\rush_ai_spawner.h">
       <SubType>
       </SubType>
     </ClInclude>
