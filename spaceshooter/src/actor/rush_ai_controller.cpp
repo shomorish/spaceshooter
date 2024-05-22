@@ -9,7 +9,7 @@
 namespace spaceshooter {
 
 RushAiController::RushAiController(Level* level, Vector2 pos, Character** target) {
-    character_ = new Alien(level->get_asset_manager()->GetTexture(AssetKey::kAlien1), pos);
+    character_ = new Alien(this, level->get_asset_manager()->GetTexture(AssetKey::kAlien1), pos);
     target_ = target;
 }
 
@@ -21,6 +21,8 @@ RushAiController::~RushAiController() {
         character_ = NULL;
     }
 }
+
+Collider* RushAiController::get_collider() { return character_->get_collider(); }
 
 void RushAiController::Tick(const float& delta_time) {
     if (*target_ != NULL) {
@@ -35,10 +37,18 @@ void RushAiController::Render(SDL_Renderer* renderer, Camera* camera) {
     character_->Render(renderer, camera);
 }
 
+bool RushAiController::HasCollider() { return character_->get_collider() != NULL; }
+
+void RushAiController::DestroyCharacter() {
+    character_->set_owner(NULL);
+    Destroy();
+}
+
 void RushAiController::Move(const float& delta_time) {
     Alien* alien = (Alien*)character_;
     Vector2 pos = alien->get_pos() + alien->get_direction() * alien->get_speed() * delta_time;
     alien->set_pos(pos);
+    alien->get_collider()->set_pos(pos);
 }
 
 void RushAiController::Rotate(const float& delta_time) {
