@@ -19,6 +19,7 @@ class PlayerController : public Controller {
 
     void Tick(const std::vector<InputAction>& actions, const float& delta_time) override;
     virtual bool HasCollider() override;
+    void DestroyCharacter() override;
 
  private:
     Level* level_;

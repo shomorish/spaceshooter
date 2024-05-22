@@ -10,9 +10,9 @@
 
 namespace spaceshooter {
 
-Player::Player(Texture* texture, Vector2 pos, Vector2 size, Vector2 direction, float speed,
-               float angle, float rotation_speed)
-    : Character{pos, size, direction, texture->sdl()}, speed_(speed),
+Player::Player(Controller* owner, Texture* texture, Vector2 pos, Vector2 size, Vector2 direction,
+               float speed, float angle, float rotation_speed)
+    : Character{pos, size, direction, texture->sdl(), owner}, speed_(speed),
       rotation_speed_(rotation_speed) {
     collider_ = new Collider(pos_ + size.x / 2.f, size.x / 2.f, this);
     collider_->RegistOnCollisionListener([this](Actor* other) {
