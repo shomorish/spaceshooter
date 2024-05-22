@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <stdexcept>
 
 #include "input/im_playing.h"
@@ -18,6 +19,10 @@ Game::Game()
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
         throw std::runtime_error("Failed to initialize SDL image.");
+    }
+
+    if (TTF_Init() == -1) {
+        throw std::runtime_error("Failed to initialize SDL TTF.");
     }
 
     window_ = new Window("Space Shooter", 800, 600);
@@ -52,6 +57,7 @@ Game::~Game() {
         input_mapping_ = NULL;
     }
 
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
