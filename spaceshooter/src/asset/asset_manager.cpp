@@ -7,12 +7,12 @@
 namespace spaceshooter {
 
 AssetManager::AssetManager(SDL_Renderer* renderer) : textures_{} {
-    LoadTexture("assets/background.png", AssetKey::kBackground, renderer);
-    LoadTexture("assets/spaceship_1_blue.png", AssetKey::kSpaceship1Blue, renderer);
-    LoadTexture("assets/spin-00.png", AssetKey::kSpin00, renderer);
-    LoadTexture("assets/ship-1.png", AssetKey::kShip1, renderer);
-    LoadTexture("assets/alien-1.png", AssetKey::kAlien1, renderer);
-    LoadTexture("assets/asteroid.png", AssetKey::kAsteroid, renderer);
+    LoadTexture("assets/images/background.png", AssetKey::kBackground, renderer);
+    LoadTexture("assets/images/spaceship_1_blue.png", AssetKey::kSpaceship1Blue, renderer);
+    LoadTexture("assets/images/spin-00.png", AssetKey::kSpin00, renderer);
+    LoadTexture("assets/images/ship-1.png", AssetKey::kShip1, renderer);
+    LoadTexture("assets/images/alien-1.png", AssetKey::kAlien1, renderer);
+    LoadTexture("assets/images/asteroid.png", AssetKey::kAsteroid, renderer);
 }
 
 AssetManager::~AssetManager() {
