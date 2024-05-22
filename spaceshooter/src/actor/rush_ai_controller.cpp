@@ -8,12 +8,14 @@
 
 namespace spaceshooter {
 
-RushAiController::RushAiController(Level* level) {
-    character_ =
-        new Alien(level->get_asset_manager()->GetTexture(AssetKey::kAlien1), Vector2::zero);
+RushAiController::RushAiController(Level* level, Vector2 pos, Character** target) {
+    character_ = new Alien(level->get_asset_manager()->GetTexture(AssetKey::kAlien1), pos);
+    target_ = target;
 }
 
 RushAiController::~RushAiController() {
+    target_ = NULL;
+
     if (character_) {
         delete character_;
         character_ = NULL;
@@ -21,8 +23,16 @@ RushAiController::~RushAiController() {
 }
 
 void RushAiController::Tick(const float& delta_time) {
-    Rotate(delta_time);
-    Move(delta_time);
+    if (*target_ != NULL) {
+        Rotate(delta_time);
+        Move(delta_time);
+    }
+}
+
+void RushAiController::Tick(const std::vector<InputAction>& actions, const float& delta_time) {}
+
+void RushAiController::Render(SDL_Renderer* renderer, Camera* camera) {
+    character_->Render(renderer, camera);
 }
 
 void RushAiController::Move(const float& delta_time) {
@@ -34,7 +44,7 @@ void RushAiController::Move(const float& delta_time) {
 void RushAiController::Rotate(const float& delta_time) {
     Alien* alien = (Alien*)character_;
     Vector2 current_direction = alien->get_direction();
-    Vector2 target_direction = Vector2::zero; // FIXME: プレイヤーへの向き
+    Vector2 target_direction = ((*target_)->get_pos() - alien->get_pos()).Normalize();
     // 回転量（単位は度数法）の計算
     float radian = std::acosf(current_direction.Dot(target_direction));
     float angle = radian * 180.f / (float)M_PI;
