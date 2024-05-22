@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <string>
 
+#include "../font/font.h"
+
 namespace spaceshooter {
 
 class Texture {
@@ -11,6 +13,7 @@ class Texture {
 
  public:
     Texture(std::string path, SDL_Renderer* renderer);
+    Texture(Font* font, std::string text, SDL_Color text_color, SDL_Renderer* renderer);
     Texture(const Texture&) = delete;
 
     ~Texture();
