@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "../common/cast.h"
+#include "alien.h"
 #include "asteroid.h"
 
 namespace spaceshooter {
@@ -18,8 +19,14 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
             if (asteroid != NULL) {
                 this->Destroy();
                 other->ApplyDamage(5.f);
-            };
-            break;
+                return;
+            }
+            Alien* alien = SafeCast<Actor, Alien>(other);
+            if (alien != NULL) {
+                this->Destroy();
+                other->ApplyDamage(5.f);
+                return;
+            }
         }
         case kEnemy:
             break;
