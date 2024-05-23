@@ -15,13 +15,11 @@ namespace spaceshooter {
 static const Range AREA_X_RANGE = Range{0.f, 1600.f};
 static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 
-Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
-               InputMapping** input_mapping)
-    : Level{window, renderer, asset_manager, input_mapping}, player_controller_(NULL) {
+Stage1::Stage1(GameContext* game_context) : Level{game_context}, player_controller_(NULL) {
 
-    *input_mapping_ = new IM_Playing();
+    game_context_->set_input_mapping(new IM_Playing());
 
-    AddActor(new Background(asset_manager->GetTexture(AssetKey::kBackground),
+    AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBackground),
                             Vector2{-800.f, -600.f}, Vector2{1024.f * 4.f, 512.f * 4.f}));
 
     AddActor(new PlayerController(this, AREA_X_RANGE, AREA_Y_RANGE));
@@ -39,7 +37,7 @@ Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
         Vector2 pos = Vector2{std::uniform_real_distribution<float>(0.f, 1600.f - size.x)(engine),
                               std::uniform_real_distribution<float>(0.f, 1600.f - size.y)(engine)};
 
-        Texture* texture = asset_manager_->GetTexture(AssetKey::kAsteroid);
+        Texture* texture = game_context_->get_asset_manager()->GetTexture(AssetKey::kAsteroid);
 
         float angle = 0.f;
 
@@ -58,11 +56,9 @@ Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
     AddActor(new RushAiSpawner(this, Vector2{AREA_X_RANGE.max / 2.f, AREA_Y_RANGE.max - 100.f},
                                10.f, player_controller_->GetCharacterRef(), &enemy_counter_));
 
-    camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, window_);
+    camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, game_context_->get_window());
 
-    state_.Init(State::kRun, 30);
-
-    enemies_text_view_.set_window(window_);
+    enemies_text_view_.set_window(game_context_->get_window());
     enemies_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 20);
     enemies_text_view_.SetHViewType(ViewType::kWrapContent);
     enemies_text_view_.SetVViewType(ViewType::kWrapContent);
@@ -70,7 +66,7 @@ Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
     enemies_text_view_.SetPivot(Pivot::kTopCenter);
     enemies_text_view_.SetPos(Vector2{0.f, 10.f});
 
-    score_text_view_.set_window(window_);
+    score_text_view_.set_window(game_context_->get_window());
     score_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 20);
     score_text_view_.SetHViewType(ViewType::kWrapContent);
     score_text_view_.SetVViewType(ViewType::kWrapContent);
@@ -78,7 +74,7 @@ Stage1::Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
     score_text_view_.SetPivot(Pivot::kTopRight);
     score_text_view_.SetPos(Vector2{-10.f, 10.f});
 
-    hp_text_view_.set_window(window_);
+    hp_text_view_.set_window(game_context_->get_window());
     hp_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 24);
     hp_text_view_.SetHViewType(ViewType::kWrapContent);
     hp_text_view_.SetVViewType(ViewType::kWrapContent);
@@ -102,13 +98,15 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
     std::string enemies_text =
         std::to_string(enemy_counter_.max_spawn_enemies - enemy_counter_.num_of_destroy_enemies) +
         '/' + std::to_string(enemy_counter_.max_spawn_enemies);
-    enemies_text_view_.SetText(enemies_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF}, renderer_->sdl());
+    enemies_text_view_.SetText(enemies_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
+                               game_context_->get_renderer()->sdl());
 
     /**
      * スコアの更新
      */
     std::string score_text = "SCORE: " + std::to_string(CalcScore());
-    score_text_view_.SetText(score_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF}, renderer_->sdl());
+    score_text_view_.SetText(score_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
+                             game_context_->get_renderer()->sdl());
 
     /**
      * HPの更新
@@ -119,7 +117,8 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
         hp_bar += "[]";
     }
     std::string hp_text = "HP: " + hp_bar;
-    hp_text_view_.SetText(hp_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF}, renderer_->sdl());
+    hp_text_view_.SetText(hp_text, SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
+                          game_context_->get_renderer()->sdl());
 
     /**
      * 削除マークが付いたアクタを削除
@@ -165,12 +164,13 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
 }
 
 void Stage1::Render() {
+    auto renderer = game_context_->get_renderer()->sdl();
     for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
-        (*iter)->Render(renderer_->sdl(), &camera_);
+        (*iter)->Render(renderer, &camera_);
     }
-    enemies_text_view_.Render(renderer_->sdl());
-    score_text_view_.Render(renderer_->sdl());
-    hp_text_view_.Render(renderer_->sdl());
+    enemies_text_view_.Render(renderer);
+    score_text_view_.Render(renderer);
+    hp_text_view_.Render(renderer);
 }
 
 int Stage1::CalcScore() {

@@ -10,8 +10,7 @@
 
 namespace spaceshooter {
 
-Game::Game()
-    : window_(NULL), renderer_(NULL), asset_manager_(NULL), timer_(NULL), input_mapping_(NULL) {
+Game::Game() : timer_(NULL) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw std::runtime_error("Failed to initialize SDL.");
     }
@@ -25,36 +24,16 @@ Game::Game()
         throw std::runtime_error("Failed to initialize SDL TTF.");
     }
 
-    window_ = new Window("Space Shooter", 800, 600);
-    renderer_ = new Renderer(window_);
-    asset_manager_ = new AssetManager(renderer_->sdl());
+    game_context_.Init();
     timer_ = new Timer();
 }
 
 Game::~Game() {
-    if (renderer_ != NULL) {
-        delete renderer_;
-        renderer_ = NULL;
-    }
-
-    if (window_ != NULL) {
-        delete window_;
-        window_ = NULL;
-    }
-
-    if (asset_manager_ != NULL) {
-        delete asset_manager_;
-        asset_manager_ = NULL;
-    }
+    game_context_.Release();
 
     if (timer_ != NULL) {
         delete timer_;
         timer_ = NULL;
-    }
-
-    if (input_mapping_ != NULL) {
-        delete input_mapping_;
-        input_mapping_ = NULL;
     }
 
     TTF_Quit();
@@ -65,14 +44,14 @@ Game::~Game() {
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
-    Stage1 level(window_, renderer_, asset_manager_, &input_mapping_);
+    Stage1 level(&game_context_);
 
     while (!quit) {
         timer_->UpdateTime();
 
-        if (input_mapping_ != NULL) {
+        if (game_context_.get_input_mapping() != NULL) {
             // 入力状態を更新
-            input_mapping_->UpdateInputState();
+            game_context_.get_input_mapping()->UpdateInputState();
         }
 
         // イベントループ
@@ -83,8 +62,8 @@ void Game::Run() {
                 break;
             default:
                 // 入力状態をイベントから取得
-                if (input_mapping_ != NULL) {
-                    input_mapping_->HandleInputEvent(event);
+                if (game_context_.get_input_mapping() != NULL) {
+                    game_context_.get_input_mapping()->HandleInputEvent(event);
                 }
                 break;
             }
@@ -92,18 +71,19 @@ void Game::Run() {
 
         // 入力状態からアクションを生成
         auto actions = std::vector<InputAction>();
-        if (input_mapping_ != NULL) {
-            actions = input_mapping_->GenerateInputAction();
+        if (game_context_.get_input_mapping() != NULL) {
+            actions = game_context_.get_input_mapping()->GenerateInputAction();
         }
 
         level.Tick(actions, timer_->get_delta_time());
 
-        SDL_SetRenderDrawColor(renderer_->sdl(), 0, 0, 0, 0xFF);
-        SDL_RenderClear(renderer_->sdl());
+        auto renderer = game_context_.get_renderer()->sdl();
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+        SDL_RenderClear(renderer);
 
         level.Render();
 
-        SDL_RenderPresent(renderer_->sdl());
+        SDL_RenderPresent(renderer);
     }
 }
 

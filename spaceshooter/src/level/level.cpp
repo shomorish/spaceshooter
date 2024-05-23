@@ -2,28 +2,16 @@
 
 namespace spaceshooter {
 
-Level::Level(Window* window, Renderer* renderer, AssetManager* asset_manager,
-             InputMapping** input_mapping)
-    : window_(window), renderer_(renderer), asset_manager_(asset_manager),
-      input_mapping_(input_mapping) {}
+Level::Level(GameContext* game_context) : game_context_(game_context) {}
 
 Level::~Level() {
-    window_ = NULL;
-    renderer_ = NULL;
-    asset_manager_ = NULL;
-
-    if (*input_mapping_ != NULL) {
-        delete *input_mapping_;
-        *input_mapping_ = NULL;
-        input_mapping_ = NULL;
-    }
-
+    game_context_ = NULL;
     DeleteAllActors();
 }
 
-Window* Level::get_window() { return window_; }
+Window* Level::get_window() { return game_context_->get_window(); }
 
-AssetManager* Level::get_asset_manager() { return asset_manager_; }
+AssetManager* Level::get_asset_manager() { return game_context_->get_asset_manager(); }
 
 Camera* Level::get_camera() { return &camera_; }
 

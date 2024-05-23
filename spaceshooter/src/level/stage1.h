@@ -15,8 +15,7 @@ namespace spaceshooter {
 
 class Stage1 : public Level {
  public:
-    Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
-           InputMapping** input_mapping);
+    Stage1(GameContext* game_context);
 
     ~Stage1();
 
@@ -25,7 +24,6 @@ class Stage1 : public Level {
     int CalcScore();
 
  private:
-    Stage1State state_;
     PlayerController* player_controller_;
     LinearQuadtree quadtree_;
     CollisionList* collision_list_;

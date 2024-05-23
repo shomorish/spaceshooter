@@ -6,6 +6,7 @@
 #include "../actor/actor.h"
 #include "../actor/camera.h"
 #include "../asset/asset_manager.h"
+#include "../game_context.h"
 #include "../input/input_mapping.h"
 #include "../renderer.h"
 #include "../window.h"
@@ -14,8 +15,7 @@ namespace spaceshooter {
 
 class Level {
  public:
-    Level(Window* window, Renderer* renderer, AssetManager* asset_manager,
-          InputMapping** input_mapping);
+    Level(GameContext* game_context);
 
     virtual ~Level();
 
@@ -30,10 +30,7 @@ class Level {
     void DeleteAllActors();
 
  protected:
-    Window* window_;
-    Renderer* renderer_;
-    AssetManager* asset_manager_;
-    InputMapping** input_mapping_;
+    GameContext* game_context_;
     std::vector<Actor*> actors_;
     Camera camera_;
 };
