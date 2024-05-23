@@ -48,7 +48,16 @@ void PlayerController::Tick(const std::vector<InputAction>& actions, const float
     }
 }
 
-bool PlayerController::HasCollider() { return character_->get_collider(); }
+void PlayerController::Render(SDL_Renderer* renderer, Camera* camera) {
+    if (character_ != NULL) {
+        character_->Render(renderer, camera);
+    }
+}
+
+bool PlayerController::HasCollider() {
+    if (character_ == NULL) return false;
+    return character_->get_collider();
+}
 
 void PlayerController::DestroyCharacter() { character_ = NULL; }
 
