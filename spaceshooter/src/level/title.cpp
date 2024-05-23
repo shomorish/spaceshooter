@@ -1,12 +1,12 @@
 #include "title.h"
 
 #include "../animation/ease_in_out_sine.h"
+#include "../input/im_menu.h"
 
 namespace spaceshooter {
 
 Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animation_(NULL) {
-    // TODO: Change input mapping.
-    game_context_->set_input_mapping(NULL);
+    game_context_->set_input_mapping(new IM_Menu());
 
     // タイトルを設定
     title_text_view_.set_window(game_context_->get_window());
@@ -24,15 +24,13 @@ Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animat
     enter_text_view_.SetAnchor(Anchor::kBottomCenter);
     enter_text_view_.SetPivot(Pivot::kBottomCenter);
     enter_text_view_.SetPos(Vector2{0.f, -80.f});
-    enter_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 20);
+    enter_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 24);
     enter_text_view_.SetVViewType(ViewType::kWrapContent);
     enter_text_view_.SetHViewType(ViewType::kWrapContent);
-    enter_text_view_.SetText("PLEASE ENTER ANY KEY", SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
-                             game_context_->get_renderer()->sdl());
-
     enter_text_animation_ = new InfinityAnimation(new EaseInOutSine(), [this](float value) {
         Uint8 alpha = (Uint8)(0xFF * std::abs(value));
-        enter_text_view_.SetText("PLEASE ENTER ANY KEY", SDL_Color{0xFF, 0xFF, 0xFF, alpha},
+        enter_text_view_.SetText("PRESS THE \"ENTER\" TO START THE GAME",
+                                 SDL_Color{0xFF, 0xFF, 0xFF, alpha},
                                  game_context_->get_renderer()->sdl());
     });
 }
@@ -46,6 +44,14 @@ Title::~Title() {
 
 void Title::Tick(std::vector<InputAction> actions, float delta_time) {
     enter_text_animation_->Tick(delta_time);
+    for (auto iter = actions.begin(); iter != actions.end(); iter++) {
+        switch (iter->type) {
+        case InputActionType::kDecision:
+            // TODO: Change level
+            printf("kDecision Action\n");
+            break;
+        }
+    }
 }
 
 void Title::Render() {
