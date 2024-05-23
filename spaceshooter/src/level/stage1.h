@@ -3,6 +3,11 @@
 #include "../actor/player.h"
 #include "../actor/player_controller.h"
 #include "../asset/asset_manager.h"
+#include "../collision/collision_list.h"
+#include "../collision/linear_quadtree.h"
+#include "../count/enemy_counter.h"
+#include "../gamestate/stage1_state.h"
+#include "../gui/text_view.h"
 #include "../input/input_mapping.h"
 #include "level.h"
 
@@ -12,13 +17,22 @@ class Stage1 : public Level {
  public:
     Stage1(Window* window, Renderer* renderer, AssetManager* asset_manager,
            InputMapping** input_mapping);
+
     ~Stage1();
 
     void Tick(std::vector<InputAction> actions, float delta_time) override;
     void Render() override;
+    int CalcScore();
 
  private:
+    Stage1State state_;
     PlayerController* player_controller_;
+    LinearQuadtree quadtree_;
+    CollisionList* collision_list_;
+    EnemyCounter enemy_counter_;
+    TextView enemies_text_view_;
+    TextView score_text_view_;
+    TextView hp_text_view_;
 };
 
 } // namespace spaceshooter
