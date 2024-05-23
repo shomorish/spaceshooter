@@ -22,6 +22,7 @@ class Character : public Actor {
     void set_owner(Controller* owner);
 
     void Render(SDL_Renderer* renderer, Camera* camera) override;
+    void Destroy() override;
 
  protected:
     Vector2 direction_;

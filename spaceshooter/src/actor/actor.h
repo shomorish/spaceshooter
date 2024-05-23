@@ -26,7 +26,7 @@ class Actor {
 
     virtual void Tick(const float& delta_time);
     virtual void Render(SDL_Renderer* renderer, Camera* camera);
-    void Destroy();
+    virtual void Destroy();
     virtual bool HasCollider();
     virtual void ApplyDamage(float damage);
 

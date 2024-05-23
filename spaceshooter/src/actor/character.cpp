@@ -27,4 +27,12 @@ void Character::Render(SDL_Renderer* renderer, Camera* camera) {
     }
 }
 
+void Character::Destroy() {
+    Actor::Destroy();
+    if (owner_) {
+        owner_->DestroyCharacter();
+        owner_ = NULL;
+    }
+}
+
 } // namespace spaceshooter
