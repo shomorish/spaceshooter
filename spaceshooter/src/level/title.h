@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../animation/infinity_animation.h"
 #include "../gui/text_view.h"
 #include "level.h"
 
@@ -15,6 +16,7 @@ class Title : public Level {
     void Render();
 
  private:
+    InfinityAnimation* enter_text_animation_;
     TextView title_text_view_;
     TextView enter_text_view_;
 };

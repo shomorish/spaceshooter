@@ -1,8 +1,10 @@
 #include "title.h"
 
+#include "../animation/ease_in_out_sine.h"
+
 namespace spaceshooter {
 
-Title::Title(GameContext* game_context) : Level{game_context} {
+Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animation_(NULL) {
     // TODO: Change input mapping.
     game_context_->set_input_mapping(NULL);
 
@@ -27,11 +29,24 @@ Title::Title(GameContext* game_context) : Level{game_context} {
     enter_text_view_.SetHViewType(ViewType::kWrapContent);
     enter_text_view_.SetText("PLEASE ENTER ANY KEY", SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
                              game_context_->get_renderer()->sdl());
+
+    enter_text_animation_ = new InfinityAnimation(new EaseInOutSine(), [this](float value) {
+        Uint8 alpha = (Uint8)(0xFF * std::abs(value));
+        enter_text_view_.SetText("PLEASE ENTER ANY KEY", SDL_Color{0xFF, 0xFF, 0xFF, alpha},
+                                 game_context_->get_renderer()->sdl());
+    });
 }
 
-Title::~Title() {}
+Title::~Title() {
+    if (enter_text_animation_) {
+        delete enter_text_animation_;
+        enter_text_animation_ = NULL;
+    }
+}
 
-void Title::Tick(std::vector<InputAction> actions, float delta_time) {}
+void Title::Tick(std::vector<InputAction> actions, float delta_time) {
+    enter_text_animation_->Tick(delta_time);
+}
 
 void Title::Render() {
     auto renderer = game_context_->get_renderer()->sdl();
