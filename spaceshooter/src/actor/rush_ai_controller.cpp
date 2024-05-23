@@ -43,7 +43,6 @@ void RushAiController::Render(SDL_Renderer* renderer, Camera* camera) {
 bool RushAiController::HasCollider() { return character_->get_collider() != NULL; }
 
 void RushAiController::DestroyCharacter() {
-    character_->set_owner(NULL);
     Destroy();
     enemy_counter_->num_of_destroy_enemies++;
 }
