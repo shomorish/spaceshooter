@@ -190,6 +190,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\animation\ease_in_out_sine.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\animation\infinity_animation.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\collision\collider.cpp">
       <SubType>
       </SubType>
@@ -317,6 +325,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\actor\weapon.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\animation\ease_in_out_sine.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\animation\easing.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\animation\infinity_animation.h">
       <SubType>
       </SubType>
     </ClInclude>
