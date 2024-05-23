@@ -15,16 +15,10 @@
 namespace spaceshooter {
 
 class Player : public Character {
- private:
-    float speed_;
-    float rotation_speed_;
-
-    Weapon* weapon_;
-
  public:
-    Player(Controller* owner, Texture* texture, Vector2 pos = Vector2::zero, Vector2 size = Vector2{64.f, 64.f},
-           Vector2 direction = Vector2::up, float speed = 200, float angle_ = 0.f,
-           float rotation_speed = 120.f);
+    Player(Controller* owner, Texture* texture, Vector2 pos = Vector2::zero,
+           Vector2 size = Vector2{64.f, 64.f}, Vector2 direction = Vector2::up, float speed = 200,
+           float angle_ = 0.f, float rotation_speed = 120.f, float hp = 20.f);
     Player(const Player&) = delete;
 
     ~Player();
@@ -36,10 +30,19 @@ class Player : public Character {
     void set_angle(float angle);
     float get_rotation_speed();
     void set_rotation_speed(float rotation_speed);
+    float get_hp();
     Weapon* get_weapon();
     void set_weapon(Weapon* weapon);
 
+    void ApplyDamage(float damage) override;
+
     Player& operator=(const Player&) = delete;
+
+ private:
+    float speed_;
+    float rotation_speed_;
+    float hp_;
+    Weapon* weapon_;
 };
 
 } // namespace spaceshooter

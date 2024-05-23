@@ -11,9 +11,9 @@
 namespace spaceshooter {
 
 Player::Player(Controller* owner, Texture* texture, Vector2 pos, Vector2 size, Vector2 direction,
-               float speed, float angle, float rotation_speed)
+               float speed, float angle, float rotation_speed, float hp)
     : Character{pos, size, direction, texture->sdl(), owner}, speed_(speed),
-      rotation_speed_(rotation_speed) {
+      rotation_speed_(rotation_speed), hp_(hp) {
     collider_ = new Collider(pos_ + size.x / 2.f, size.x / 2.f, this);
     collider_->RegistOnCollisionListener([this](Actor* other) {
         const Asteroid* asteroid = SafeCast<Actor, Asteroid>(other);
@@ -56,8 +56,17 @@ float Player::get_rotation_speed() { return rotation_speed_; }
 
 void Player::set_rotation_speed(float rotation_speed) { rotation_speed_ = rotation_speed; }
 
+float Player::get_hp() { return hp_; }
+
 Weapon* Player::get_weapon() { return weapon_; }
 
 void Player::set_weapon(Weapon* weapon) { weapon_ = weapon; }
+
+void Player::ApplyDamage(float damage) {
+    hp_ -= damage;
+    if (hp_ <= 0.f) owner_->DestroyCharacter();
+    owner_ = NULL;
+    Destroy();
+}
 
 } // namespace spaceshooter

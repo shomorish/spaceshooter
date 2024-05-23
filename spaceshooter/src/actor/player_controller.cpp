@@ -50,7 +50,14 @@ void PlayerController::Tick(const std::vector<InputAction>& actions, const float
 
 bool PlayerController::HasCollider() { return character_->get_collider(); }
 
-void PlayerController::DestroyCharacter() {}
+void PlayerController::DestroyCharacter() { character_ = NULL; }
+
+float PlayerController::GetPlayerHp() {
+    if (character_) {
+        return ((Player*)character_)->get_hp();
+    }
+    return 0.f;
+}
 
 void PlayerController::Move(float delta_time) {
     Player* player = (Player*)character_;
