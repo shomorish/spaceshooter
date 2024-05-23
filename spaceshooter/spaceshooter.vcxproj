@@ -252,6 +252,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\input\im_menu.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\input\im_playing.cpp" />
     <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\level\level.cpp">
@@ -395,6 +399,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\gui\text_view.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\input\im_menu.h">
       <SubType>
       </SubType>
     </ClInclude>
