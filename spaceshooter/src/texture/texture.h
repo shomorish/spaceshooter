@@ -8,9 +8,6 @@
 namespace spaceshooter {
 
 class Texture {
- private:
-    SDL_Texture* texture_;
-
  public:
     Texture(std::string path, SDL_Renderer* renderer);
     Texture(Font* font, std::string text, SDL_Color text_color, SDL_Renderer* renderer);
@@ -18,9 +15,17 @@ class Texture {
 
     ~Texture();
 
+    float get_width();
+    float get_height();
+
     SDL_Texture* sdl();
 
     Texture& operator=(const Texture&) = delete;
+
+ private:
+    SDL_Texture* texture_;
+    float width_;
+    float height_;
 };
 
 } // namespace spaceshooter
