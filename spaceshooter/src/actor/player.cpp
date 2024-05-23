@@ -64,9 +64,9 @@ void Player::set_weapon(Weapon* weapon) { weapon_ = weapon; }
 
 void Player::ApplyDamage(float damage) {
     hp_ -= damage;
-    if (hp_ <= 0.f) owner_->DestroyCharacter();
-    owner_ = NULL;
-    Destroy();
+    if (hp_ <= 0.f) {
+        Destroy();
+    }
 }
 
 } // namespace spaceshooter
