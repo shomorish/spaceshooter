@@ -251,6 +251,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\level\stage1.cpp" />
+    <ClCompile Include="src\level\title.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\asset\asset_manager.cpp" />
@@ -386,6 +390,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\level\stage1.h" />
+    <ClInclude Include="src\level\title.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\asset\asset_manager.h" />
     <ClInclude Include="src\texture\texture.h" />
