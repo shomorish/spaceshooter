@@ -29,22 +29,21 @@ PlayerController::~PlayerController() {
 
 Collider* PlayerController::get_collider() { return character_->get_collider(); }
 
-void PlayerController::Tick(const std::vector<InputAction>& actions, const float& delta_time) {
+void PlayerController::Tick(const InputActionContainer* action_container, const float& delta_time) {
     if (character_ != NULL) {
         CountdownFiringInterval(delta_time);
+
         // 前進
         Move(delta_time);
-        for (auto iter = actions.begin(); iter != actions.end(); iter++) {
-            if (iter->type == kRotate) {
-                // 回転
-                InputAction input_action = *iter;
-                Rotate(input_action.vec2_value.Normalize(), delta_time);
-            } else if (iter->type == kFire) {
-                // 攻撃
-                if (CanFire()) {
-                    level_->AddActor(Fire());
-                }
-            }
+
+        if (action_container) {
+            // 回転
+            auto rotate_action = action_container->GetActionOrNull(InputActionType::kRotate);
+            if (rotate_action) Rotate(rotate_action->vec2_value.Normalize(), delta_time);
+
+            // 攻撃
+            auto fire_action = action_container->GetActionOrNull(InputActionType::kFire);
+            if (fire_action && CanFire()) level_->AddActor(Fire());
         }
     }
 }

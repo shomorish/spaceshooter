@@ -7,6 +7,7 @@
 
 #include "input/im_playing.h"
 #include "level/stage1.h"
+#include "level/title.h"
 
 namespace spaceshooter {
 
@@ -45,14 +46,16 @@ void Game::Run() {
     bool quit = false;
     SDL_Event event;
     Stage1 level(&game_context_);
+    // Title level(&game_context_);
 
     while (!quit) {
         timer_->UpdateTime();
 
-        if (game_context_.get_input_mapping() != NULL) {
-            // 入力状態を更新
-            game_context_.get_input_mapping()->UpdateInputState();
-        }
+        // 入力アクションをクリア
+        level.ClearInputActions();
+
+        // 入力状態を更新
+        level.UpdateInputState();
 
         // イベントループ
         while (SDL_PollEvent(&event) > 0) {
@@ -62,25 +65,19 @@ void Game::Run() {
                 break;
             default:
                 // 入力状態をイベントから取得
-                if (game_context_.get_input_mapping() != NULL) {
-                    game_context_.get_input_mapping()->HandleInputEvent(event);
-                }
+                level.HandleInputEvent(event);
                 break;
             }
         }
 
-        // 入力状態からアクションを生成
-        auto actions = std::vector<InputAction>();
-        if (game_context_.get_input_mapping() != NULL) {
-            actions = game_context_.get_input_mapping()->GenerateInputAction();
-        }
-
-        level.Tick(actions, timer_->get_delta_time());
+        // レベルの更新
+        level.Tick(timer_->get_delta_time());
 
         auto renderer = game_context_.get_renderer()->sdl();
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
         SDL_RenderClear(renderer);
 
+        // レベルの描画
         level.Render();
 
         SDL_RenderPresent(renderer);

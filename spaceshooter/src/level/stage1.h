@@ -17,7 +17,7 @@ class Stage1 : public Level {
 
     ~Stage1();
 
-    void Tick(std::vector<InputAction> actions, float delta_time) override;
+    void Tick(float delta_time) override;
     void Render() override;
     int CalcScore();
 
@@ -32,8 +32,8 @@ class Stage1 : public Level {
     TextView hp_text_view_;
 
     void Intro(const float& delta_time);
-    void Play(const std::vector<InputAction>& actions, const float& delta_time);
-    void Pause(const std::vector<InputAction>& actions,const float& delta_time);
+    void Play(const float& delta_time);
+    void Pause(const float& delta_time);
     void GameClear(const float& delta_time);
     void GameOver(const float& delta_time);
 };

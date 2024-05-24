@@ -23,14 +23,18 @@ class Level {
     AssetManager* get_asset_manager();
     Camera* get_camera();
 
-    virtual void Tick(std::vector<InputAction> actions, float delta_time) = 0;
+    virtual void Tick(float delta_time) = 0;
     virtual void Render() = 0;
+    void UpdateInputState();
+    void HandleInputEvent(const SDL_Event& event);
+    void ClearInputActions();
     void AddActor(Actor* actor);
     void DeleteActorIfDestroyed();
     void DeleteAllActors();
 
  protected:
     GameContext* game_context_;
+    InputMapping* input_mapping_;
     std::vector<Actor*> actors_;
     Camera camera_;
 };

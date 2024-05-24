@@ -34,8 +34,6 @@ void RushAiController::Tick(const float& delta_time) {
     }
 }
 
-void RushAiController::Tick(const std::vector<InputAction>& actions, const float& delta_time) {}
-
 void RushAiController::Render(SDL_Renderer* renderer, Camera* camera) {
     character_->Render(renderer, camera);
 }

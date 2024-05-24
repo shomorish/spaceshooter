@@ -17,7 +17,7 @@ class PlayerController : public Controller {
 
     virtual Collider* get_collider() override;
 
-    void Tick(const std::vector<InputAction>& actions, const float& delta_time) override;
+    void Tick(const InputActionContainer* action_container, const float& delta_time) override;
     void Render(SDL_Renderer* renderer, Camera* camera) override;
     virtual bool HasCollider() override;
     void DestroyCharacter() override;

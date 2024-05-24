@@ -10,9 +10,9 @@ Vector2 Vector2::up = Vector2{0.f, -1.f};
 
 Vector2 Vector2::down = Vector2{0.f, 1.f};
 
-float Vector2::Length() { return std::sqrtf(x * x + y * y); }
+float Vector2::Length() const { return std::sqrtf(x * x + y * y); }
 
-Vector2 Vector2::Normalize() {
+Vector2 Vector2::Normalize() const {
     float length = Length();
     return {x / length, y / length};
 }

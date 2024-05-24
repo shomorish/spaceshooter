@@ -18,7 +18,7 @@ static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 Stage1::Stage1(GameContext* game_context)
     : Level{game_context}, state_(State::kPlay), player_controller_(NULL) {
 
-    game_context_->set_input_mapping(new IM_Playing());
+    input_mapping_ = new IM_Playing();
 
     AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBackground),
                             Vector2{-800.f, -600.f}, Vector2{1024.f * 4.f, 512.f * 4.f}));
@@ -92,16 +92,16 @@ Stage1::~Stage1() {
     }
 }
 
-void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
+void Stage1::Tick(float delta_time) {
     switch (state_) {
     case State::kIntro:
         Intro(delta_time);
         break;
     case State::kPlay:
-        Play(actions, delta_time);
+        Play(delta_time);
         break;
     case State::kPause:
-        Pause(actions, delta_time);
+        Pause(delta_time);
         break;
     case State::kGameClear:
         GameClear(delta_time);
@@ -130,7 +130,7 @@ int Stage1::CalcScore() {
 
 void Stage1::Intro(const float& delta_time) {}
 
-void Stage1::Play(const std::vector<InputAction>& actions, const float& delta_time) {
+void Stage1::Play(const float& delta_time) {
     /**
      * 残りの敵数の更新
      */
@@ -199,10 +199,14 @@ void Stage1::Play(const std::vector<InputAction>& actions, const float& delta_ti
     /**
      * プレイヤーの更新処理
      */
-    player_controller_->Tick(actions, delta_time);
+    const InputActionContainer* action_container = NULL;
+    if (input_mapping_) {
+        action_container = &input_mapping_->GenerateInputAction();
+    }
+    player_controller_->Tick(action_container, delta_time);
 }
 
-void Stage1::Pause(const std::vector<InputAction>& actions, const float& delta_time) {}
+void Stage1::Pause(const float& delta_time) {}
 
 void Stage1::GameClear(const float& delta_time) {}
 

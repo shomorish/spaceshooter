@@ -6,7 +6,7 @@
 namespace spaceshooter {
 
 Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animation_(NULL) {
-    game_context_->set_input_mapping(new IM_Menu());
+    input_mapping_ = new IM_Menu();
 
     // タイトルを設定
     title_text_view_.set_window(game_context_->get_window());
@@ -42,14 +42,13 @@ Title::~Title() {
     }
 }
 
-void Title::Tick(std::vector<InputAction> actions, float delta_time) {
+void Title::Tick(float delta_time) {
     enter_text_animation_->Tick(delta_time);
-    for (auto iter = actions.begin(); iter != actions.end(); iter++) {
-        switch (iter->type) {
-        case InputActionType::kDecision:
-            // TODO: Change level
+    if (input_mapping_) {
+        const InputActionContainer& action_container = input_mapping_->GenerateInputAction();
+        auto decision = action_container.GetActionOrNull(InputActionType::kDecision);
+        if (decision) {
             printf("kDecision Action\n");
-            break;
         }
     }
 }

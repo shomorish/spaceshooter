@@ -2,8 +2,7 @@
 
 namespace spaceshooter {
 
-GameContext::GameContext()
-    : window_(NULL), renderer_(NULL), asset_manager_(NULL), input_mapping_(NULL) {}
+GameContext::GameContext() : window_(NULL), renderer_(NULL), asset_manager_(NULL) {}
 
 GameContext::~GameContext() { Release(); }
 
@@ -12,15 +11,6 @@ Window* GameContext::get_window() { return window_; }
 Renderer* GameContext::get_renderer() { return renderer_; }
 
 AssetManager* GameContext::get_asset_manager() { return asset_manager_; }
-
-InputMapping* GameContext::get_input_mapping() { return input_mapping_; }
-
-void GameContext::set_input_mapping(InputMapping* input_mapping) {
-    if (input_mapping_) {
-        delete input_mapping_;
-    }
-    input_mapping_ = input_mapping;
-}
 
 void GameContext::Init() {
     window_ = new Window("Space Shooter", 800, 600);
@@ -42,11 +32,6 @@ void GameContext::Release() {
     if (asset_manager_ != NULL) {
         delete asset_manager_;
         asset_manager_ = NULL;
-    }
-
-    if (input_mapping_ != NULL) {
-        delete input_mapping_;
-        input_mapping_ = NULL;
     }
 }
 

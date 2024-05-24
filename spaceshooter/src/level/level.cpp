@@ -2,10 +2,14 @@
 
 namespace spaceshooter {
 
-Level::Level(GameContext* game_context) : game_context_(game_context) {}
+Level::Level(GameContext* game_context) : game_context_(game_context), input_mapping_(NULL) {}
 
 Level::~Level() {
     game_context_ = NULL;
+    if (input_mapping_) {
+        delete input_mapping_;
+        input_mapping_ = NULL;
+    }
     DeleteAllActors();
 }
 
@@ -14,6 +18,24 @@ Window* Level::get_window() { return game_context_->get_window(); }
 AssetManager* Level::get_asset_manager() { return game_context_->get_asset_manager(); }
 
 Camera* Level::get_camera() { return &camera_; }
+
+void Level::UpdateInputState() {
+    if (input_mapping_) {
+        input_mapping_->UpdateInputState();
+    }
+}
+
+void Level::HandleInputEvent(const SDL_Event& event) {
+    if (input_mapping_) {
+        input_mapping_->HandleInputEvent(event);
+    }
+}
+
+void Level::ClearInputActions() {
+    if (input_mapping_) {
+        input_mapping_->ClearInputActions();
+    }
+}
 
 void Level::AddActor(Actor* actor) { actors_.push_back(actor); }
 

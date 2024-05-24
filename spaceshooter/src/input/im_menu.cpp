@@ -2,28 +2,26 @@
 
 namespace spaceshooter {
 
-std::vector<InputAction> IM_Menu::GenerateInputAction() {
-    std::vector<InputAction> actions;
-
+const InputActionContainer& IM_Menu::GenerateInputAction() {
     if (key_state_[SDL_SCANCODE_UP] == 1) {
-        auto action = InputAction();
-        action.type = InputActionType::kGoUp;
-        actions.push_back(action);
+        auto action = new InputAction();
+        action->type = InputActionType::kGoUp;
+        action_container_.Add(action);
     }
 
     if (key_state_[SDL_SCANCODE_DOWN] == 1) {
-        auto action = InputAction();
-        action.type = InputActionType::kGoDown;
-        actions.push_back(action);
+        auto action = new InputAction();
+        action->type = InputActionType::kGoDown;
+        action_container_.Add(action);
     }
 
     if (key_state_[SDL_SCANCODE_RETURN] == 1) {
-        auto action = InputAction();
-        action.type = InputActionType::kDecision;
-        actions.push_back(action);
+        auto action = new InputAction();
+        action->type = InputActionType::kDecision;
+        action_container_.Add(action);
     }
 
-    return actions;
+    return action_container_;
 }
 
 } // namespace spaceshooter

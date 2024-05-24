@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../input/input_action.h"
+#include "../input/input_action_container.h"
 #include "actor.h"
 #include "character.h"
 
@@ -18,7 +19,7 @@ class Controller : public Actor {
 
     Character* get_character();
 
-    virtual void Tick(const std::vector<InputAction>& actions, const float& delta_time) = 0;
+    virtual void Tick(const InputActionContainer* action_container, const float& delta_time);
     Character** GetCharacterRef();
     virtual void DestroyCharacter();
 

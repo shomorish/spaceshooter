@@ -12,7 +12,7 @@ class Title : public Level {
 
     ~Title();
 
-    void Tick(std::vector<InputAction> actions, float delta_time);
+    void Tick(float delta_time) override;
     void Render();
 
  private:

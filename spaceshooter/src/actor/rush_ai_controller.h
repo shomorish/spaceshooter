@@ -16,7 +16,6 @@ class RushAiController : public Controller {
     Collider* get_collider() override;
 
     void Tick(const float& delta_time) override;
-    void Tick(const std::vector<InputAction>& actions, const float& delta_time) override;
     void Render(SDL_Renderer* renderer, Camera* camera) override;
     bool HasCollider() override;
     void DestroyCharacter() override;

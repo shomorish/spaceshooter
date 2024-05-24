@@ -253,6 +253,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\input\im_playing.cpp" />
+    <ClCompile Include="src\input\input_action_container.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\input\input_mapping.cpp" />
     <ClCompile Include="src\level\level.cpp">
       <SubType>
@@ -400,6 +404,10 @@
     </ClInclude>
     <ClInclude Include="src\input\input_action.h" />
     <ClInclude Include="src\input\im_playing.h" />
+    <ClInclude Include="src\input\input_action_container.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\input\input_mapping.h" />
     <ClInclude Include="src\level\level.h">
       <SubType>
