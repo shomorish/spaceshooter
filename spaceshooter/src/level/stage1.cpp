@@ -15,7 +15,8 @@ namespace spaceshooter {
 static const Range AREA_X_RANGE = Range{0.f, 1600.f};
 static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 
-Stage1::Stage1(GameContext* game_context) : Level{game_context}, player_controller_(NULL) {
+Stage1::Stage1(GameContext* game_context)
+    : Level{game_context}, state_(State::kPlay), player_controller_(NULL) {
 
     game_context_->set_input_mapping(new IM_Playing());
 
@@ -92,6 +93,44 @@ Stage1::~Stage1() {
 }
 
 void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
+    switch (state_) {
+    case State::kIntro:
+        Intro(delta_time);
+        break;
+    case State::kPlay:
+        Play(actions, delta_time);
+        break;
+    case State::kPause:
+        Pause(actions, delta_time);
+        break;
+    case State::kGameClear:
+        GameClear(delta_time);
+        break;
+    case State::kGameOver:
+        GameOver(delta_time);
+        break;
+    }
+}
+
+void Stage1::Render() {
+    auto renderer = game_context_->get_renderer()->sdl();
+    for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
+        (*iter)->Render(renderer, &camera_);
+    }
+    enemies_text_view_.Render(renderer);
+    score_text_view_.Render(renderer);
+    hp_text_view_.Render(renderer);
+}
+
+int Stage1::CalcScore() {
+    int score = 0;
+    score += enemy_counter_.num_of_destroy_enemies * 100;
+    return score;
+}
+
+void Stage1::Intro(const float& delta_time) {}
+
+void Stage1::Play(const std::vector<InputAction>& actions, const float& delta_time) {
     /**
      * 残りの敵数の更新
      */
@@ -163,20 +202,10 @@ void Stage1::Tick(std::vector<InputAction> actions, float delta_time) {
     player_controller_->Tick(actions, delta_time);
 }
 
-void Stage1::Render() {
-    auto renderer = game_context_->get_renderer()->sdl();
-    for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
-        (*iter)->Render(renderer, &camera_);
-    }
-    enemies_text_view_.Render(renderer);
-    score_text_view_.Render(renderer);
-    hp_text_view_.Render(renderer);
-}
+void Stage1::Pause(const std::vector<InputAction>& actions, const float& delta_time) {}
 
-int Stage1::CalcScore() {
-    int score = 0;
-    score += enemy_counter_.num_of_destroy_enemies * 100;
-    return score;
-}
+void Stage1::GameClear(const float& delta_time) {}
+
+void Stage1::GameOver(const float& delta_time) {}
 
 } // namespace spaceshooter

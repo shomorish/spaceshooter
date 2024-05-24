@@ -1,17 +1,15 @@
 #pragma once
 
-#include "../actor/player.h"
 #include "../actor/player_controller.h"
-#include "../asset/asset_manager.h"
 #include "../collision/collision_list.h"
 #include "../collision/linear_quadtree.h"
 #include "../count/enemy_counter.h"
-#include "../gamestate/stage1_state.h"
 #include "../gui/text_view.h"
-#include "../input/input_mapping.h"
 #include "level.h"
 
 namespace spaceshooter {
+
+enum State { kIntro, kPlay, kPause, kGameClear, kGameOver };
 
 class Stage1 : public Level {
  public:
@@ -24,6 +22,7 @@ class Stage1 : public Level {
     int CalcScore();
 
  private:
+    State state_;
     PlayerController* player_controller_;
     LinearQuadtree quadtree_;
     CollisionList* collision_list_;
@@ -31,6 +30,12 @@ class Stage1 : public Level {
     TextView enemies_text_view_;
     TextView score_text_view_;
     TextView hp_text_view_;
+
+    void Intro(const float& delta_time);
+    void Play(const std::vector<InputAction>& actions, const float& delta_time);
+    void Pause(const std::vector<InputAction>& actions,const float& delta_time);
+    void GameClear(const float& delta_time);
+    void GameOver(const float& delta_time);
 };
 
 } // namespace spaceshooter

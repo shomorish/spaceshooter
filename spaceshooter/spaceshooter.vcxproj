@@ -240,10 +240,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\game.cpp" />
-    <ClCompile Include="src\gamestate\stage1_state.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="src\game_context.cpp">
       <SubType>
       </SubType>
@@ -394,10 +390,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\game.h" />
-    <ClInclude Include="src\gamestate\stage1_state.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="src\gui\text_view.h">
       <SubType>
       </SubType>
