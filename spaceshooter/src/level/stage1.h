@@ -13,7 +13,7 @@ enum State { kIntro, kPlay, kPause, kGameClear, kGameOver };
 
 class Stage1 : public Level {
  public:
-    Stage1(GameContext* game_context);
+    Stage1(GameContext* game_context, OpenLevelInterface* open_level_interface);
 
     ~Stage1();
 

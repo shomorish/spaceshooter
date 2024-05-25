@@ -11,12 +11,14 @@
 #include "../renderer.h"
 #include "../window.h"
 #include "level_door.h"
+#include "level_type.h"
+#include "open_level_interface.h"
 
 namespace spaceshooter {
 
 class Level {
  public:
-    Level(GameContext* game_context);
+    Level(GameContext* game_context, OpenLevelInterface* open_level_interface);
 
     virtual ~Level();
 
@@ -37,6 +39,7 @@ class Level {
 
  protected:
     GameContext* game_context_;
+    OpenLevelInterface* open_level_interface_;
     std::vector<Actor*> actors_;
     Camera camera_;
     LevelDoor door_;

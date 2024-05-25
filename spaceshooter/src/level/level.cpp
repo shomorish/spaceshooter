@@ -2,11 +2,14 @@
 
 namespace spaceshooter {
 
-Level::Level(GameContext* game_context) : game_context_(game_context), input_mapping_(NULL) {
+Level::Level(GameContext* game_context, OpenLevelInterface* open_level_interface)
+    : game_context_(game_context), open_level_interface_(open_level_interface) {
     door_.set_texture(game_context_->get_asset_manager()->GetTexture(AssetKey::kOverlay));
+    input_mapping_ = NULL;
 }
 
 Level::~Level() {
+    open_level_interface_ = NULL;
     game_context_ = NULL;
     if (input_mapping_) {
         delete input_mapping_;

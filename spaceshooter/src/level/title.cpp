@@ -5,8 +5,17 @@
 
 namespace spaceshooter {
 
-Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animation_(NULL) {
+Title::Title(GameContext* game_context, OpenLevelInterface* open_level_interface)
+    : Level{game_context, open_level_interface}, state_(TitleState::kEnter),
+      enter_text_animation_(NULL) {
     set_input_mapping(new IM_Menu());
+
+    door_.Init(
+        [this]() {
+            state_ = TitleState::kPlay;
+            door_.ResetOpenAnimation();
+        },
+        [this]() { open_level_interface_->OpenLevel(LevelType::kStage1); });
 
     // タイトルを設定
     title_text_view_.set_window(game_context_->get_window());
@@ -27,12 +36,17 @@ Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animat
     enter_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 24);
     enter_text_view_.SetVViewType(ViewType::kWrapContent);
     enter_text_view_.SetHViewType(ViewType::kWrapContent);
-    enter_text_animation_ = new InfinityAnimation(new EaseInOutSine(), [this](float value) {
-        Uint8 alpha = (Uint8)(0xFF * std::abs(value));
-        enter_text_view_.SetText("PRESS THE \"ENTER\" TO START THE GAME",
-                                 SDL_Color{0xFF, 0xFF, 0xFF, alpha},
-                                 game_context_->get_renderer()->sdl());
-    });
+    enter_text_animation_ = new InfinityAnimation(
+        new EaseInOutSine(),
+        [this](float value) {
+            Uint8 alpha = (Uint8)(0xFF * value);
+            // 0だと透明にならないので、0のときは一番透明に近い1に設定する
+            if (alpha == 0) alpha = 1;
+            enter_text_view_.SetText("PRESS THE \"ENTER\" TO START THE GAME",
+                                     SDL_Color{0xFF, 0xFF, 0xFF, alpha},
+                                     game_context_->get_renderer()->sdl());
+        },
+        1.f);
 }
 
 Title::~Title() {
@@ -43,19 +57,25 @@ Title::~Title() {
 }
 
 void Title::Tick(float delta_time) {
-    enter_text_animation_->Tick(delta_time);
-    if (get_input_mapping()) {
-        const InputActionContainer& action_container = get_input_mapping()->GenerateInputAction();
-        auto decision = action_container.GetActionOrNull(InputActionType::kDecision);
-        if (decision) {
-            printf("kDecision Action\n");
-            /*
-            TODO: レベル遷移
-            画面の暗転アニメーションを開始
-            画面の暗転アニメーションが完了
-            次のレベルをGameのlevelに設定
-            */
+    switch (state_) {
+    case TitleState::kEnter:
+        door_.OpenTick(delta_time);
+        break;
+    case TitleState::kExit:
+        door_.CloseTick(delta_time);
+        break;
+    case TitleState::kPlay:
+        enter_text_animation_->Tick(delta_time);
+        if (get_input_mapping()) {
+            const InputActionContainer& action_container =
+                get_input_mapping()->GenerateInputAction();
+            auto decision = action_container.GetActionOrNull(InputActionType::kDecision);
+            if (decision) {
+                printf("kDecision Action\n");
+                state_ = TitleState::kExit;
+            }
         }
+        break;
     }
 }
 
@@ -63,6 +83,16 @@ void Title::Render() {
     auto renderer = game_context_->get_renderer()->sdl();
     title_text_view_.Render(renderer);
     enter_text_view_.Render(renderer);
+
+    /**
+     * オーバーレイの描画
+     */
+    switch (state_) {
+    case TitleState::kEnter:
+    case TitleState::kExit:
+        door_.Render(renderer);
+        break;
+    }
 }
 
 } // namespace spaceshooter

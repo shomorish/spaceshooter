@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <stdexcept>
 
+#include "level/stage1.h"
 #include "level/title.h"
 
 namespace spaceshooter {
@@ -25,7 +26,7 @@ Game::Game() : timer_(NULL) {
 
     game_context_.Init();
     timer_ = new Timer();
-    level_ = new Title(&game_context_);
+    level_ = new Title(&game_context_, this);
 }
 
 Game::~Game() {
@@ -86,12 +87,19 @@ void Game::Run() {
     }
 }
 
-void Game::OpenLevel(Level* level) {
+void Game::OpenLevel(LevelType level_type) {
     if (level_) {
         delete level_;
         level_ = NULL;
     }
-    level_ = level;
+    switch (level_type) {
+    case LevelType::kTitle:
+        level_ = new Title(&game_context_, this);
+        break;
+    case LevelType::kStage1:
+        level_ = new Stage1(&game_context_, this);
+        break;
+    }
 }
 
 } // namespace spaceshooter

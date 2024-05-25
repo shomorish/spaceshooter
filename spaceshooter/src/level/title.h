@@ -6,9 +6,15 @@
 
 namespace spaceshooter {
 
+enum class TitleState {
+    kEnter,
+    kPlay,
+    kExit,
+};
+
 class Title : public Level {
  public:
-    Title(GameContext* game_context);
+    Title(GameContext* game_context, OpenLevelInterface* open_level_interface);
 
     ~Title();
 
@@ -16,6 +22,7 @@ class Title : public Level {
     void Render();
 
  private:
+    TitleState state_;
     InfinityAnimation* enter_text_animation_;
     TextView title_text_view_;
     TextView enter_text_view_;

@@ -15,8 +15,8 @@ namespace spaceshooter {
 static const Range AREA_X_RANGE = Range{0.f, 1600.f};
 static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 
-Stage1::Stage1(GameContext* game_context)
-    : Level{game_context}, state_(State::kPlay), player_controller_(NULL) {
+Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interface)
+    : Level{game_context, open_level_interface}, state_(State::kPlay), player_controller_(NULL) {
 
     set_input_mapping(new IM_Playing());
 
