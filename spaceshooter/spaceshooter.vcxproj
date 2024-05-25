@@ -441,6 +441,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="src\level\level_type.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\level\open_level_interface.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\level\stage1.h" />
     <ClInclude Include="src\level\title.h">
       <SubType>
