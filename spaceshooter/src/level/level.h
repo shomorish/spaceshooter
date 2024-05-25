@@ -21,6 +21,8 @@ class Level {
 
     Window* get_window();
     AssetManager* get_asset_manager();
+    InputMapping* get_input_mapping();
+    void set_input_mapping(InputMapping* input_mapping);
     Camera* get_camera();
 
     virtual void Tick(float delta_time) = 0;
@@ -34,9 +36,11 @@ class Level {
 
  protected:
     GameContext* game_context_;
-    InputMapping* input_mapping_;
     std::vector<Actor*> actors_;
     Camera camera_;
+
+ private:
+    InputMapping* input_mapping_;
 };
 
 } // namespace spaceshooter

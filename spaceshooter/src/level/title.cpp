@@ -6,7 +6,7 @@
 namespace spaceshooter {
 
 Title::Title(GameContext* game_context) : Level{game_context}, enter_text_animation_(NULL) {
-    input_mapping_ = new IM_Menu();
+    set_input_mapping(new IM_Menu());
 
     // タイトルを設定
     title_text_view_.set_window(game_context_->get_window());
@@ -44,11 +44,17 @@ Title::~Title() {
 
 void Title::Tick(float delta_time) {
     enter_text_animation_->Tick(delta_time);
-    if (input_mapping_) {
-        const InputActionContainer& action_container = input_mapping_->GenerateInputAction();
+    if (get_input_mapping()) {
+        const InputActionContainer& action_container = get_input_mapping()->GenerateInputAction();
         auto decision = action_container.GetActionOrNull(InputActionType::kDecision);
         if (decision) {
             printf("kDecision Action\n");
+            /*
+            TODO: レベル遷移
+            画面の暗転アニメーションを開始
+            画面の暗転アニメーションが完了
+            次のレベルをGameのlevelに設定
+            */
         }
     }
 }

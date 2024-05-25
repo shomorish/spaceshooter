@@ -18,7 +18,7 @@ static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 Stage1::Stage1(GameContext* game_context)
     : Level{game_context}, state_(State::kPlay), player_controller_(NULL) {
 
-    input_mapping_ = new IM_Playing();
+    set_input_mapping(new IM_Playing());
 
     AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBackground),
                             Vector2{-800.f, -600.f}, Vector2{1024.f * 4.f, 512.f * 4.f}));
@@ -200,8 +200,8 @@ void Stage1::Play(const float& delta_time) {
      * プレイヤーの更新処理
      */
     const InputActionContainer* action_container = NULL;
-    if (input_mapping_) {
-        action_container = &input_mapping_->GenerateInputAction();
+    if (get_input_mapping()) {
+        action_container = &get_input_mapping()->GenerateInputAction();
     }
     player_controller_->Tick(action_container, delta_time);
 }
