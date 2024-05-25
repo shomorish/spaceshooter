@@ -1,8 +1,12 @@
 #pragma once
 
+#include <functional>
+
 #include "animation.h"
 
 namespace spaceshooter {
+
+using OnCompleteListener = std::function<void(void)>;
 
 class FiniteAnimation : public Animation {
  public:
@@ -12,6 +16,11 @@ class FiniteAnimation : public Animation {
     ~FiniteAnimation();
 
     void Tick(const float& delta_time) override;
+    void RegistOnCompleteListener(OnCompleteListener listener);
+    void UnregistOnCompleteListener();
+
+ private:
+    OnCompleteListener on_complete_listener_;
 };
 
 } // namespace spaceshooter
