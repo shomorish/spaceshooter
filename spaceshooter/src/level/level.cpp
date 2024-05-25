@@ -2,7 +2,9 @@
 
 namespace spaceshooter {
 
-Level::Level(GameContext* game_context) : game_context_(game_context), input_mapping_(NULL) {}
+Level::Level(GameContext* game_context) : game_context_(game_context), input_mapping_(NULL) {
+    door_.set_texture(game_context_->get_asset_manager()->GetTexture(AssetKey::kOverlay));
+}
 
 Level::~Level() {
     game_context_ = NULL;

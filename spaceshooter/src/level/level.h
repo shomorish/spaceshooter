@@ -10,6 +10,7 @@
 #include "../input/input_mapping.h"
 #include "../renderer.h"
 #include "../window.h"
+#include "level_door.h"
 
 namespace spaceshooter {
 
@@ -38,6 +39,7 @@ class Level {
     GameContext* game_context_;
     std::vector<Actor*> actors_;
     Camera camera_;
+    LevelDoor door_;
 
  private:
     InputMapping* input_mapping_;
