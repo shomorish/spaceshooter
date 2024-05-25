@@ -16,15 +16,25 @@ static const Range AREA_X_RANGE = Range{0.f, 1600.f};
 static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 
 Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interface)
-    : Level{game_context, open_level_interface}, state_(State::kPlay), player_controller_(NULL) {
+    : Level{game_context, open_level_interface}, state_(Stage1State::kPlay),
+      player_controller_(NULL) {
 
     set_input_mapping(new IM_Playing());
+
+    door_.Init([this]() { state_ = Stage1State::kIntro; },
+               [this]() { open_level_interface_->OpenLevel(LevelType::kTitle); });
+
+    camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, game_context_->get_window());
 
     AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBackground),
                             Vector2{-800.f, -600.f}, Vector2{1024.f * 4.f, 512.f * 4.f}));
 
     AddActor(new PlayerController(this, AREA_X_RANGE, AREA_Y_RANGE));
     player_controller_ = (PlayerController*)actors_.back();
+    auto player = new Player(player_controller_, get_asset_manager()->GetTexture(AssetKey::kShip1),
+                             Vector2{AREA_X_RANGE.max / 2.f, AREA_Y_RANGE.max / 2.f});
+    player_controller_->Attach(player);
+    AddActor(player);
 
     quadtree_.Init(3, Vector2::zero, Vector2{AREA_X_RANGE.max, AREA_Y_RANGE.max});
     collision_list_ = NULL;
@@ -56,8 +66,6 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
                                player_controller_->GetCharacterRef(), &enemy_counter_));
     AddActor(new RushAiSpawner(this, Vector2{AREA_X_RANGE.max / 2.f, AREA_Y_RANGE.max - 100.f},
                                10.f, player_controller_->GetCharacterRef(), &enemy_counter_));
-
-    camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, game_context_->get_window());
 
     enemies_text_view_.set_window(game_context_->get_window());
     enemies_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 20);
@@ -94,20 +102,23 @@ Stage1::~Stage1() {
 
 void Stage1::Tick(float delta_time) {
     switch (state_) {
-    case State::kIntro:
-        Intro(delta_time);
+    case Stage1State::kEnter:
+        Enter(delta_time);
         break;
-    case State::kPlay:
+    case Stage1State::kPlay:
         Play(delta_time);
         break;
-    case State::kPause:
+    case Stage1State::kPause:
         Pause(delta_time);
         break;
-    case State::kGameClear:
+    case Stage1State::kGameClear:
         GameClear(delta_time);
         break;
-    case State::kGameOver:
+    case Stage1State::kGameOver:
         GameOver(delta_time);
+        break;
+    case Stage1State::kExit:
+        Exit(delta_time);
         break;
     }
 }
@@ -120,6 +131,13 @@ void Stage1::Render() {
     enemies_text_view_.Render(renderer);
     score_text_view_.Render(renderer);
     hp_text_view_.Render(renderer);
+
+    switch (state_) {
+    case Stage1State::kEnter:
+    case Stage1State::kExit:
+        door_.Render(renderer);
+        break;
+    }
 }
 
 int Stage1::CalcScore() {
@@ -128,7 +146,7 @@ int Stage1::CalcScore() {
     return score;
 }
 
-void Stage1::Intro(const float& delta_time) {}
+void Stage1::Enter(const float& delta_time) { door_.OpenTick(delta_time); }
 
 void Stage1::Play(const float& delta_time) {
     /**
@@ -189,6 +207,10 @@ void Stage1::Play(const float& delta_time) {
         }
     }
 
+    if (player_controller_->GetPlayerHp() <= 0.f) {
+        state_ = Stage1State::kExit;
+    }
+
     /**
      * プレイヤー以外の更新処理
      */
@@ -211,5 +233,7 @@ void Stage1::Pause(const float& delta_time) {}
 void Stage1::GameClear(const float& delta_time) {}
 
 void Stage1::GameOver(const float& delta_time) {}
+
+void Stage1::Exit(const float& delta_time) { door_.CloseTick(delta_time); }
 
 } // namespace spaceshooter

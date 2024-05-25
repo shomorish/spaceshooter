@@ -8,23 +8,11 @@
 namespace spaceshooter {
 
 PlayerController::PlayerController(Level* level, Range area_x_range, Range area_y_range)
-    : level_(level) {
-    Player* player = new Player(this, level->get_asset_manager()->GetTexture(AssetKey::kShip1),
-                                Vector2{area_x_range.max / 2.f, area_y_range.max / 2.f});
-    character_ = player;
-    auto size = player->get_size();
-    x_movable_range_ = Range{area_x_range.min + size.x / 2.f, area_x_range.max - size.x / 2.f};
-    y_movable_range_ = Range{area_y_range.min + size.y / 2.f, area_y_range.max - size.y / 2.f};
-    level->get_camera()->set_pos(character_->get_pos());
-}
+    : level_(level), area_x_range_(area_x_range), area_y_range_(area_y_range) {}
 
 PlayerController::~PlayerController() {
     level_ = NULL;
-
-    if (character_ != NULL) {
-        delete character_;
-        character_ = NULL;
-    }
+    character_ = NULL;
 }
 
 Collider* PlayerController::get_collider() { return character_->get_collider(); }
@@ -54,6 +42,11 @@ void PlayerController::Render(SDL_Renderer* renderer, Camera* camera) {
     }
 }
 
+void PlayerController::Attach(Player* player) {
+    character_ = player;
+    level_->get_camera()->set_pos(character_->get_pos());
+}
+
 bool PlayerController::HasCollider() {
     if (character_ == NULL) return false;
     return character_->get_collider();
@@ -73,15 +66,19 @@ void PlayerController::Move(float delta_time) {
     Vector2 pos = player->get_pos() + player->get_direction() * player->get_speed() * delta_time;
     // 移動可能範囲外に出ないように位置を補正
     Vector2 size = player->get_size();
-    if (pos.x < x_movable_range_.min) {
-        pos.x = x_movable_range_.min;
-    } else if (pos.x > x_movable_range_.max) {
-        pos.x = x_movable_range_.max;
+    Range x_movable_range =
+        Range{area_x_range_.min + size.x / 2.f, area_x_range_.max - size.x / 2.f};
+    Range y_movable_range =
+        Range{area_y_range_.min + size.y / 2.f, area_y_range_.max - size.y / 2.f};
+    if (pos.x < x_movable_range.min) {
+        pos.x = x_movable_range.min;
+    } else if (pos.x > x_movable_range.max) {
+        pos.x = x_movable_range.max;
     }
-    if (pos.y < y_movable_range_.min) {
-        pos.y = y_movable_range_.min;
-    } else if (pos.y > y_movable_range_.max) {
-        pos.y = y_movable_range_.max;
+    if (pos.y < y_movable_range.min) {
+        pos.y = y_movable_range.min;
+    } else if (pos.y > y_movable_range.max) {
+        pos.y = y_movable_range.max;
     }
     player->set_pos(pos);
 

@@ -9,7 +9,15 @@
 
 namespace spaceshooter {
 
-enum State { kIntro, kPlay, kPause, kGameClear, kGameOver };
+enum class Stage1State {
+    kEnter,
+    kIntro,
+    kPlay,
+    kPause,
+    kGameClear,
+    kGameOver,
+    kExit,
+};
 
 class Stage1 : public Level {
  public:
@@ -22,7 +30,7 @@ class Stage1 : public Level {
     int CalcScore();
 
  private:
-    State state_;
+    Stage1State state_;
     PlayerController* player_controller_;
     LinearQuadtree quadtree_;
     CollisionList* collision_list_;
@@ -31,11 +39,12 @@ class Stage1 : public Level {
     TextView score_text_view_;
     TextView hp_text_view_;
 
-    void Intro(const float& delta_time);
+    void Enter(const float& delta_time);
     void Play(const float& delta_time);
     void Pause(const float& delta_time);
     void GameClear(const float& delta_time);
     void GameOver(const float& delta_time);
+    void Exit(const float& delta_time);
 };
 
 } // namespace spaceshooter

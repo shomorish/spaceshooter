@@ -19,14 +19,15 @@ class PlayerController : public Controller {
 
     void Tick(const InputActionContainer* action_container, const float& delta_time) override;
     void Render(SDL_Renderer* renderer, Camera* camera) override;
+    void Attach(Player* player);
     virtual bool HasCollider() override;
     void DestroyCharacter() override;
     float GetPlayerHp();
 
  private:
     Level* level_;
-    Range x_movable_range_;
-    Range y_movable_range_;
+    Range area_x_range_;
+    Range area_y_range_;
 
     void Move(float delta_time);
     void Rotate(const Vector2& direction, float delta_time);
