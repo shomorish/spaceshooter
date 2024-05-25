@@ -40,6 +40,7 @@ class Stage1 : public Level {
     TextView hp_text_view_;
 
     void Enter(const float& delta_time);
+    void Intro(const float& delta_time);
     void Play(const float& delta_time);
     void Pause(const float& delta_time);
     void GameClear(const float& delta_time);

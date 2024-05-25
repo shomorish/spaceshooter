@@ -105,6 +105,9 @@ void Stage1::Tick(float delta_time) {
     case Stage1State::kEnter:
         Enter(delta_time);
         break;
+    case Stage1State::kIntro:
+        Intro(delta_time);
+        break;
     case Stage1State::kPlay:
         Play(delta_time);
         break;
@@ -147,6 +150,8 @@ int Stage1::CalcScore() {
 }
 
 void Stage1::Enter(const float& delta_time) { door_.OpenTick(delta_time); }
+
+void Stage1::Intro(const float& delta_time) {}
 
 void Stage1::Play(const float& delta_time) {
     /**
