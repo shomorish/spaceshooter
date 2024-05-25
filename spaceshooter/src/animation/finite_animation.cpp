@@ -12,12 +12,17 @@ void FiniteAnimation::Tick(const float& delta_time) {
     elapsed_time_ += delta_time;
     if (completion_time_ < elapsed_time_) {
         elapsed_time_ = completion_time_;
+        float progress = elapsed_time_ / completion_time_ + offset_;
+        callback_((*easing_)(progress));
+
+        // 完了リスナーがあれば実行
         if (on_complete_listener_) {
             on_complete_listener_();
         }
+    } else {
+        float progress = elapsed_time_ / completion_time_ + offset_;
+        callback_((*easing_)(progress));
     }
-    float progress = elapsed_time_ / completion_time_ + offset_;
-    callback_((*easing_)(progress));
 }
 
 void FiniteAnimation::RegistOnCompleteListener(OnCompleteListener listener) {
