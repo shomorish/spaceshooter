@@ -7,7 +7,7 @@
 
 namespace spaceshooter {
 
-enum AssetKey { kBackground, kSpaceship1Blue, kSpin00, kAsteroid, kShip1, kAlien1 };
+enum AssetKey { kBackground, kOverlay, kSpaceship1Blue, kSpin00, kAsteroid, kShip1, kAlien1 };
 
 class AssetManager {
  public:
