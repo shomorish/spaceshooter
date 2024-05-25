@@ -15,6 +15,7 @@ class Animation {
     virtual ~Animation();
 
     virtual void Tick(const float& delta_time) = 0;
+    void Reset();
 
  protected:
     Easing* easing_;

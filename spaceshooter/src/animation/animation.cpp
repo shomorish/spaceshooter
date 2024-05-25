@@ -23,4 +23,6 @@ Animation::~Animation() {
     callback_ = NULL;
 }
 
+void Animation::Reset() { elapsed_time_ = 0.f; }
+
 } // namespace spaceshooter
