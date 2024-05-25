@@ -5,8 +5,6 @@
 #include <SDL_ttf.h>
 #include <stdexcept>
 
-#include "input/im_playing.h"
-#include "level/stage1.h"
 #include "level/title.h"
 
 namespace spaceshooter {
@@ -27,9 +25,15 @@ Game::Game() : timer_(NULL) {
 
     game_context_.Init();
     timer_ = new Timer();
+    level_ = new Title(&game_context_);
 }
 
 Game::~Game() {
+    if (level_) {
+        delete level_;
+        level_ = NULL;
+    }
+
     game_context_.Release();
 
     if (timer_ != NULL) {
@@ -45,17 +49,15 @@ Game::~Game() {
 void Game::Run() {
     bool quit = false;
     SDL_Event event;
-    Stage1 level(&game_context_);
-    // Title level(&game_context_);
 
     while (!quit) {
         timer_->UpdateTime();
 
         // 入力アクションをクリア
-        level.ClearInputActions();
+        level_->ClearInputActions();
 
         // 入力状態を更新
-        level.UpdateInputState();
+        level_->UpdateInputState();
 
         // イベントループ
         while (SDL_PollEvent(&event) > 0) {
@@ -65,23 +67,31 @@ void Game::Run() {
                 break;
             default:
                 // 入力状態をイベントから取得
-                level.HandleInputEvent(event);
+                level_->HandleInputEvent(event);
                 break;
             }
         }
 
         // レベルの更新
-        level.Tick(timer_->get_delta_time());
+        level_->Tick(timer_->get_delta_time());
 
         auto renderer = game_context_.get_renderer()->sdl();
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
         SDL_RenderClear(renderer);
 
         // レベルの描画
-        level.Render();
+        level_->Render();
 
         SDL_RenderPresent(renderer);
     }
+}
+
+void Game::OpenLevel(Level* level) {
+    if (level_) {
+        delete level_;
+        level_ = NULL;
+    }
+    level_ = level;
 }
 
 } // namespace spaceshooter
