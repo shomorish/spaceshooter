@@ -9,7 +9,8 @@ namespace spaceshooter {
 class Animation {
 
  public:
-    Animation(Easing* easing, std::function<void(float)> callback, float completion_time = 1.f);
+    Animation(Easing* easing, std::function<void(float)> callback, float completion_time = 1.f,
+              float offset = 0.f);
 
     virtual ~Animation();
 
@@ -20,6 +21,7 @@ class Animation {
     std::function<void(float)> callback_;
     float completion_time_;
     float elapsed_time_;
+    float offset_;
 };
 
 } // namespace spaceshooter
