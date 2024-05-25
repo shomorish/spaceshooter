@@ -18,13 +18,13 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
             Asteroid* asteroid = SafeCast<Actor, Asteroid>(other);
             if (asteroid != NULL) {
                 this->Destroy();
-                other->ApplyDamage(5.f);
+                other->ApplyDamage(1.f);
                 return;
             }
             Alien* alien = SafeCast<Actor, Alien>(other);
             if (alien != NULL) {
                 this->Destroy();
-                other->ApplyDamage(5.f);
+                other->ApplyDamage(1.f);
                 return;
             }
         }

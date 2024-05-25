@@ -9,7 +9,7 @@ namespace spaceshooter {
 
 Asteroid::Asteroid(Texture* texture, Vector2 pos, Vector2 size, float angle, float rotation_speed)
     : Actor{pos, size}, texture_(texture->sdl()), angle_(angle), rotation_speed_(rotation_speed),
-      hp_(15.f) {
+      hp_(5.f) {
     collider_ = new Collider(pos + size.x / 2.f, size.x / 2.f, this);
 }
 
@@ -31,7 +31,7 @@ Asteroid::Asteroid(Texture* texture) {
 
     collider_ = new Collider(pos_ + size_.x / 2.f, size_.x / 2.f, this);
 
-    hp_ = 15.f;
+    hp_ = 5.f;
 }
 
 Asteroid::~Asteroid() { texture_ = NULL; }

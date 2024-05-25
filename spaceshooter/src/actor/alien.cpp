@@ -13,7 +13,7 @@ Alien::Alien(Controller* owner, Texture* texture, Vector2 pos, Vector2 size, flo
     collider_->RegistOnCollisionListener([this](Actor* other) {
         const Player* player = SafeCast<Actor, Player>(other);
         if (player != NULL) {
-            other->ApplyDamage(2.f);
+            other->ApplyDamage(1.f);
             Destroy();
             return;
         }
