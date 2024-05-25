@@ -190,7 +190,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\animation\animation.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\animation\ease_in_out_sine.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\animation\finite_animation.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -332,11 +340,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="src\animation\animation.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\animation\ease_in_out_sine.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="src\animation\easing.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\animation\finite_animation.h">
       <SubType>
       </SubType>
     </ClInclude>

@@ -1,23 +1,16 @@
 #pragma once
 
-#include <functional>
-
-#include "easing.h"
+#include "animation.h"
 
 namespace spaceshooter {
 
-class InfinityAnimation {
+class InfinityAnimation : public Animation {
  public:
-    InfinityAnimation(Easing* easing, std::function<void(float)> callback);
+    InfinityAnimation(Easing* easing, std::function<void(float)> callback, float lap_time);
 
     ~InfinityAnimation();
 
-    void Tick(const float& delta_time);
-
- private:
-    Easing* easing_;
-    std::function<void(float)> callback_;
-    float value_;
+    void Tick(const float& delta_time) override;
 };
 
 } // namespace spaceshooter
