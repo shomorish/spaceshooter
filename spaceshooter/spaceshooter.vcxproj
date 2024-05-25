@@ -270,6 +270,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\level\level_door.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\level\stage1.cpp" />
     <ClCompile Include="src\level\title.cpp">
       <SubType>
@@ -430,6 +434,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\game_context.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\level\level_door.h">
       <SubType>
       </SubType>
     </ClInclude>
