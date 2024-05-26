@@ -66,14 +66,11 @@ void Title::Tick(float delta_time) {
         break;
     case TitleState::kPlay:
         enter_text_animation_->Tick(delta_time);
-        if (get_input_mapping()) {
-            const InputActionContainer& action_container =
-                get_input_mapping()->GenerateInputAction();
-            auto decision = action_container.GetActionOrNull(InputActionType::kDecision);
-            if (decision) {
-                printf("kDecision Action\n");
-                state_ = TitleState::kExit;
-            }
+        const InputActionContainer* action_container = GetInputActionContainer();
+        auto decision = action_container->GetActionOrNull(InputActionType::kDecision);
+        if (decision) {
+            printf("kDecision Action\n");
+            state_ = TitleState::kExit;
         }
         break;
     }

@@ -8,6 +8,7 @@ enum InputActionType {
     kMove,
     kRotate,
     kFire,
+    kPause,
     kGoUp,
     kGoDown,
     kDecision,

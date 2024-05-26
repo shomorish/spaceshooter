@@ -48,6 +48,4 @@ void InputMapping::UpdateInputState() {
     }
 }
 
-void InputMapping::ClearInputActions() { action_container_.Clear(); }
-
 } // namespace spaceshooter

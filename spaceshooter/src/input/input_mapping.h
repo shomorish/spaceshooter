@@ -18,14 +18,12 @@ class InputMapping {
 
     void HandleInputEvent(const SDL_Event& event);
     void UpdateInputState();
-    void ClearInputActions();
 
-    virtual const InputActionContainer& GenerateInputAction() = 0;
+    virtual void GenerateInputAction(InputActionContainer* action_container) = 0;
 
  protected:
     Uint8 key_state_[kKeyNum];
     Uint8 mouse_button_state_[kMouseButtonNum];
-    InputActionContainer action_container_;
 };
 
 } // namespace spaceshooter

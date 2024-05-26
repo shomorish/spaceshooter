@@ -4,6 +4,7 @@
 #include "../collision/collision_list.h"
 #include "../collision/linear_quadtree.h"
 #include "../count/enemy_counter.h"
+#include "../gui/pause_menu.h"
 #include "../gui/text_view.h"
 #include "level.h"
 
@@ -16,7 +17,8 @@ enum class Stage1State {
     kPause,
     kGameClear,
     kGameOver,
-    kExit,
+    kExiting,
+    kExited,
 };
 
 class Stage1 : public Level {
@@ -38,6 +40,7 @@ class Stage1 : public Level {
     TextView enemies_text_view_;
     TextView score_text_view_;
     TextView hp_text_view_;
+    PauseMenu pause_menu_;
 
     void Enter(const float& delta_time);
     void Intro(const float& delta_time);
@@ -45,7 +48,7 @@ class Stage1 : public Level {
     void Pause(const float& delta_time);
     void GameClear(const float& delta_time);
     void GameOver(const float& delta_time);
-    void Exit(const float& delta_time);
+    void Exiting(const float& delta_time);
 };
 
 } // namespace spaceshooter

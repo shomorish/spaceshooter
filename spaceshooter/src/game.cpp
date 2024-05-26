@@ -73,6 +73,9 @@ void Game::Run() {
             }
         }
 
+        // 入力アクションの生成
+        level_->GenerateInputActions();
+
         // レベルの更新
         level_->Tick(timer_->get_delta_time());
 

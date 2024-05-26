@@ -7,6 +7,7 @@
 #include "../actor/camera.h"
 #include "../asset/asset_manager.h"
 #include "../game_context.h"
+#include "../input/input_action_container.h"
 #include "../input/input_mapping.h"
 #include "../renderer.h"
 #include "../window.h"
@@ -36,6 +37,8 @@ class Level {
     void AddActor(Actor* actor);
     void DeleteActorIfDestroyed();
     void DeleteAllActors();
+    void GenerateInputActions();
+    const InputActionContainer* GetInputActionContainer();
 
  protected:
     GameContext* game_context_;
@@ -46,6 +49,7 @@ class Level {
 
  private:
     InputMapping* input_mapping_;
+    InputActionContainer action_container_;
 };
 
 } // namespace spaceshooter

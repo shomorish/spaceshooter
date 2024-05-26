@@ -2,7 +2,7 @@
 
 namespace spaceshooter {
 
-const InputActionContainer& IM_Playing::GenerateInputAction() {
+void IM_Playing::GenerateInputAction(InputActionContainer* action_container) {
     auto rotate = Vector2::zero;
     // 上へ回転
     if (key_state_[SDL_SCANCODE_W] > 0 || key_state_[SDL_SCANCODE_UP] > 0) {
@@ -25,17 +25,22 @@ const InputActionContainer& IM_Playing::GenerateInputAction() {
         auto action = new InputAction{kRotate};
         action->type = InputActionType::kRotate;
         action->vec2_value = rotate;
-        action_container_.Add(action);
+        action_container->Add(action);
     }
 
     // 攻撃アクション
     if (key_state_[SDL_SCANCODE_SPACE] > 0 || mouse_button_state_[SDL_BUTTON_LEFT] > 0) {
         auto action = new InputAction{kFire};
         action->b_value = true;
-        action_container_.Add(action);
+        action_container->Add(action);
     }
 
-    return action_container_;
+    // ポーズ
+    if (key_state_[SDL_SCANCODE_ESCAPE] == 1) {
+        auto action = new InputAction;
+        action->type = InputActionType::kPause;
+        action_container->Add(action);
+    }
 }
 
 } // namespace spaceshooter

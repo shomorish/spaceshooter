@@ -8,6 +8,7 @@
 #include "../actor/rush_ai_spawner.h"
 #include "../actor/straight_bullet.h"
 #include "../collision/linear_quadtree.h"
+#include "../input/im_menu.h"
 #include "../input/im_playing.h"
 
 namespace spaceshooter {
@@ -22,7 +23,7 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
     set_input_mapping(new IM_Playing());
 
     door_.Init([this]() { state_ = Stage1State::kIntro; },
-               [this]() { open_level_interface_->OpenLevel(LevelType::kTitle); });
+               [this]() { state_ = Stage1State::kExited; });
 
     camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, game_context_->get_window());
 
@@ -90,6 +91,10 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
     hp_text_view_.SetAnchor(Anchor::kBottomLeft);
     hp_text_view_.SetPivot(Pivot::kBottomLeft);
     hp_text_view_.SetPos(Vector2{24.f, -24.f});
+
+    pause_menu_.Init(game_context_->get_asset_manager()->GetTexture(AssetKey::kFrame1),
+                     game_context_->get_asset_manager()->GetTexture(AssetKey::kCursor1),
+                     game_context_->get_window(), game_context_->get_renderer()->sdl());
 }
 
 Stage1::~Stage1() {
@@ -120,8 +125,11 @@ void Stage1::Tick(float delta_time) {
     case Stage1State::kGameOver:
         GameOver(delta_time);
         break;
-    case Stage1State::kExit:
-        Exit(delta_time);
+    case Stage1State::kExiting:
+        Exiting(delta_time);
+        break;
+    case Stage1State::kExited:
+        open_level_interface_->OpenLevel(LevelType::kTitle);
         break;
     }
 }
@@ -137,8 +145,12 @@ void Stage1::Render() {
 
     switch (state_) {
     case Stage1State::kEnter:
-    case Stage1State::kExit:
+    case Stage1State::kExiting:
+    case Stage1State::kExited:
         door_.Render(renderer);
+        break;
+    case Stage1State::kPause:
+        pause_menu_.Render(renderer);
         break;
     }
 }
@@ -213,7 +225,7 @@ void Stage1::Play(const float& delta_time) {
     }
 
     if (player_controller_->GetPlayerHp() <= 0.f) {
-        state_ = Stage1State::kExit;
+        state_ = Stage1State::kExiting;
     }
 
     /**
@@ -223,22 +235,56 @@ void Stage1::Play(const float& delta_time) {
         actors_[i]->Tick(delta_time);
     }
 
+    const InputActionContainer* action_container = GetInputActionContainer();
+
     /**
      * プレイヤーの更新処理
      */
-    const InputActionContainer* action_container = NULL;
-    if (get_input_mapping()) {
-        action_container = &get_input_mapping()->GenerateInputAction();
-    }
     player_controller_->Tick(action_container, delta_time);
+
+    /**
+     * ポーズメニュー
+     */
+    auto pause = action_container->GetActionOrNull(InputActionType::kPause);
+    if (pause) {
+        state_ = Stage1State::kPause;
+        pause_menu_.Open();
+        set_input_mapping(new IM_Menu());
+    }
 }
 
-void Stage1::Pause(const float& delta_time) {}
+void Stage1::Pause(const float& delta_time) {
+    if (pause_menu_.IsDuringAnimation()) {
+        pause_menu_.Animation(delta_time);
+    } else {
+        if (!pause_menu_.IsOpen()) {
+            // ポーズメニューは閉じているのでゲームを再開
+            state_ = Stage1State::kPlay;
+            set_input_mapping(new IM_Playing());
+            return;
+        }
+
+        auto action_container = GetInputActionContainer();
+        if (action_container->GetActionOrNull(InputActionType::kDecision)) {
+            auto menu_item = pause_menu_.Determine();
+            if (menu_item == PauseMenuItem::kYes) {
+                // タイトルに戻る
+                state_ = Stage1State::kExiting;
+            } else {
+                pause_menu_.Close();
+            }
+        } else if (action_container->GetActionOrNull(InputActionType::kGoUp)) {
+            pause_menu_.MoveCursorUp();
+        } else if (action_container->GetActionOrNull(InputActionType::kGoDown)) {
+            pause_menu_.MoveCursourDown();
+        }
+    }
+}
 
 void Stage1::GameClear(const float& delta_time) {}
 
 void Stage1::GameOver(const float& delta_time) {}
 
-void Stage1::Exit(const float& delta_time) { door_.CloseTick(delta_time); }
+void Stage1::Exiting(const float& delta_time) { door_.CloseTick(delta_time); }
 
 } // namespace spaceshooter

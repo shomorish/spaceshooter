@@ -6,7 +6,7 @@ namespace spaceshooter {
 
 class IM_Playing : public InputMapping {
  public:
-    const InputActionContainer& GenerateInputAction() override;
+    void GenerateInputAction(InputActionContainer* action_container) override;
 };
 
 } // namespace spaceshooter

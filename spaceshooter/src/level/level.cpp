@@ -46,11 +46,7 @@ void Level::HandleInputEvent(const SDL_Event& event) {
     }
 }
 
-void Level::ClearInputActions() {
-    if (input_mapping_) {
-        input_mapping_->ClearInputActions();
-    }
-}
+void Level::ClearInputActions() { action_container_.Clear(); }
 
 void Level::AddActor(Actor* actor) { actors_.push_back(actor); }
 
@@ -75,5 +71,13 @@ void Level::DeleteAllActors() {
         iter = actors_.erase(iter);
     }
 }
+
+void Level::GenerateInputActions() {
+    if (input_mapping_) {
+        input_mapping_->GenerateInputAction(&action_container_);
+    }
+}
+
+const InputActionContainer* Level::GetInputActionContainer() { return &action_container_; }
 
 } // namespace spaceshooter
