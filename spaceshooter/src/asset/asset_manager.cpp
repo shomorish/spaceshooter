@@ -10,6 +10,7 @@ AssetManager::AssetManager(SDL_Renderer* renderer) : textures_{} {
     LoadTexture("assets/images/background.png", AssetKey::kBackground, renderer);
     LoadTexture("assets/images/overlay.png", AssetKey::kOverlay, renderer);
     LoadTexture("assets/images/frame-1.png", AssetKey::kFrame1, renderer);
+    LoadTexture("assets/images/cursor-1.png", AssetKey::kCursor1, renderer);
     LoadTexture("assets/images/spaceship_1_blue.png", AssetKey::kSpaceship1Blue, renderer);
     LoadTexture("assets/images/spin-00.png", AssetKey::kSpin00, renderer);
     LoadTexture("assets/images/ship-1.png", AssetKey::kShip1, renderer);
