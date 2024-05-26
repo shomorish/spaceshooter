@@ -60,4 +60,6 @@ float Texture::get_height() { return height_; }
 
 SDL_Texture* Texture::sdl() { return texture_; }
 
+void Texture::SetAlpha(Uint8 alpha) { SDL_SetTextureAlphaMod(texture_, alpha); }
+
 } // namespace spaceshooter

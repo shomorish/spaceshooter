@@ -20,6 +20,8 @@ class Texture {
 
     SDL_Texture* sdl();
 
+    void SetAlpha(Uint8 alpha);
+
     Texture& operator=(const Texture&) = delete;
 
  private:
