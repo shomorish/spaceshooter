@@ -4,14 +4,7 @@ namespace spaceshooter {
 
 View::View() : view_info_(ViewInfo()), texture_(NULL), window_(NULL) {}
 
-View::~View() {
-    window_ = NULL;
-
-    if (texture_) {
-        delete texture_;
-        texture_ = NULL;
-    }
-}
+View::~View() { window_ = NULL; }
 
 void View::set_window(Window* window) { window_ = window; }
 

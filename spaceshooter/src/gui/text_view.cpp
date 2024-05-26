@@ -9,6 +9,12 @@ TextView::~TextView() {
         delete font_;
         font_ = NULL;
     }
+
+    // テキストビューはテクスチャを作成するのでここで削除する
+    if (texture_) {
+        delete texture_;
+        texture_ = NULL;
+    }
 }
 
 void TextView::set_font(std::string path, int point_size) { font_ = new Font(path, point_size); }
