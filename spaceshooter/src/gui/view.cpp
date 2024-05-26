@@ -27,6 +27,8 @@ void View::SetAnchor(Anchor anchor) { view_info_.anchor = anchor; }
 
 void View::SetPivot(Pivot pivot) { view_info_.pivot = pivot; }
 
+void View::SetAlpha(Uint8 alpha) { texture_->SetAlpha(alpha); }
+
 void View::Render(SDL_Renderer* renderer) {
     if (window_ == NULL) return;
 

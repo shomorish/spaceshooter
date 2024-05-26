@@ -59,6 +59,7 @@ class View {
     void SetVViewType(ViewType view_type);
     void SetAnchor(Anchor anchor);
     void SetPivot(Pivot pivot);
+    void SetAlpha(Uint8 alpha);
     void Render(SDL_Renderer* renderer);
 
  protected:
