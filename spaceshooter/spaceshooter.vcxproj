@@ -252,7 +252,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\gui\image_view.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\gui\pause_menu.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\gui\text_view.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\gui\view.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -414,7 +426,19 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\gui\image_view.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\gui\pause_menu.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\gui\text_view.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\gui\view.h">
       <SubType>
       </SubType>
     </ClInclude>
