@@ -36,15 +36,15 @@ Title::Title(GameContext* game_context, OpenLevelInterface* open_level_interface
     enter_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 24);
     enter_text_view_.SetVViewType(ViewType::kWrapContent);
     enter_text_view_.SetHViewType(ViewType::kWrapContent);
+    enter_text_view_.SetText("PRESS THE \"ENTER\" TO START THE GAME",
+                             SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
+                             game_context_->get_renderer()->sdl());
+    enter_text_view_.SetAlpha(0); // 最初は透明に設定
     enter_text_animation_ = new InfinityAnimation(
         new EaseInOutSine(),
         [this](float value) {
             Uint8 alpha = (Uint8)(0xFF * value);
-            // 0だと透明にならないので、0のときは一番透明に近い1に設定する
-            if (alpha == 0) alpha = 1;
-            enter_text_view_.SetText("PRESS THE \"ENTER\" TO START THE GAME",
-                                     SDL_Color{0xFF, 0xFF, 0xFF, alpha},
-                                     game_context_->get_renderer()->sdl());
+            enter_text_view_.SetAlpha(alpha);
         },
         1.f);
 }
