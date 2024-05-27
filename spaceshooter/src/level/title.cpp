@@ -69,7 +69,6 @@ void Title::Tick(float delta_time) {
         const InputActionContainer* action_container = GetInputActionContainer();
         auto decision = action_container->GetActionOrNull(InputActionType::kDecision);
         if (decision) {
-            printf("kDecision Action\n");
             state_ = TitleState::kExit;
         }
         break;

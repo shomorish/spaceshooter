@@ -36,7 +36,7 @@ StraightBullet::StraightBullet(Vector2 pos, Vector2 size, Vector2 direction, flo
     });
 }
 
-StraightBullet::~StraightBullet() { printf("~StraightBullet\n"); }
+StraightBullet::~StraightBullet() {}
 
 void StraightBullet::Tick(const float& delta_time) {
     pos_ += direction_ * speed_ * delta_time;
