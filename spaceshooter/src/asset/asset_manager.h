@@ -9,7 +9,8 @@
 namespace spaceshooter {
 
 enum AssetKey {
-    kBackground,
+    kBg1,
+    kBg2,
     kOverlay,
     kFrame1,
     kCursor1,

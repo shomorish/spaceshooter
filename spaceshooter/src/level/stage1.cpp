@@ -27,8 +27,8 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
 
     camera_.Init(AREA_X_RANGE, AREA_Y_RANGE, game_context_->get_window());
 
-    AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBackground),
-                            Vector2{-800.f, -600.f}, Vector2{1024.f * 4.f, 512.f * 4.f}));
+    AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBg2),
+                            Vector2{-624.f, -212.f}, Vector2{1024.f * 2.f, 512.f * 2.f}));
 
     AddActor(new PlayerController(this, AREA_X_RANGE, AREA_Y_RANGE));
     player_controller_ = (PlayerController*)actors_.back();

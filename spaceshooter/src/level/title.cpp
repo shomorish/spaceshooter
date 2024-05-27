@@ -1,5 +1,6 @@
 #include "title.h"
 
+#include "../actor/background.h"
 #include "../animation/ease_in_out_sine.h"
 #include "../input/im_menu.h"
 
@@ -9,6 +10,9 @@ Title::Title(GameContext* game_context, OpenLevelInterface* open_level_interface
     : Level{game_context, open_level_interface}, state_(TitleState::kEnter),
       enter_text_animation_(NULL) {
     set_input_mapping(new IM_Menu());
+
+    AddActor(new Background(game_context_->get_asset_manager()->GetTexture(AssetKey::kBg1),
+                            Vector2{0.f, -100.f}, Vector2{800, 800}));
 
     door_.Init(
         [this]() {
@@ -77,6 +81,9 @@ void Title::Tick(float delta_time) {
 
 void Title::Render() {
     auto renderer = game_context_->get_renderer()->sdl();
+    for (auto iter = actors_.begin(); iter != actors_.end(); iter++) {
+        (*iter)->Render(renderer, &camera_);
+    }
     title_text_view_.Render(renderer);
     enter_text_view_.Render(renderer);
 
