@@ -17,7 +17,7 @@ static const Range AREA_X_RANGE = Range{0.f, 1600.f};
 static const Range AREA_Y_RANGE = Range{0.f, 1600.f};
 
 Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interface)
-    : Level{game_context, open_level_interface}, state_(Stage1State::kPlay),
+    : Level{game_context, open_level_interface}, state_(Stage1State::kEnter),
       player_controller_(NULL) {
 
     set_input_mapping(new IM_Playing());
@@ -92,9 +92,38 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
     hp_text_view_.SetPivot(Pivot::kBottomLeft);
     hp_text_view_.SetPos(Vector2{24.f, -24.f});
 
+    time_count_text_view_.set_window(game_context_->get_window());
+    time_count_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 80);
+    time_count_text_view_.SetHViewType(ViewType::kWrapContent);
+    time_count_text_view_.SetVViewType(ViewType::kWrapContent);
+    time_count_text_view_.SetAnchor(Anchor::kCenterCenter);
+    time_count_text_view_.SetPivot(Pivot::kCenterCenter);
+
+    game_clear_text_view_.set_window(game_context_->get_window());
+    game_clear_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 80);
+    game_clear_text_view_.SetHViewType(ViewType::kWrapContent);
+    game_clear_text_view_.SetVViewType(ViewType::kWrapContent);
+    game_clear_text_view_.SetAnchor(Anchor::kCenterCenter);
+    game_clear_text_view_.SetPivot(Pivot::kCenterCenter);
+    game_clear_text_view_.SetText("GAME CLEAR", SDL_Color{0xFF, 0xFF, 0, 0xFF},
+                                  game_context_->get_renderer()->sdl());
+    game_clear_text_view_.SetAlpha(0);
+
+    game_over_text_view_.set_window(game_context_->get_window());
+    game_over_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 80);
+    game_over_text_view_.SetHViewType(ViewType::kWrapContent);
+    game_over_text_view_.SetVViewType(ViewType::kWrapContent);
+    game_over_text_view_.SetAnchor(Anchor::kCenterCenter);
+    game_over_text_view_.SetPivot(Pivot::kCenterCenter);
+    game_over_text_view_.SetText("GAME OVER", SDL_Color{0xFF, 0, 0, 0xFF},
+                                 game_context_->get_renderer()->sdl());
+    game_over_text_view_.SetAlpha(0);
+
     pause_menu_.Init(game_context_->get_asset_manager()->GetTexture(AssetKey::kFrame1),
                      game_context_->get_asset_manager()->GetTexture(AssetKey::kCursor1),
                      game_context_->get_window(), game_context_->get_renderer()->sdl());
+
+    timer_ = 0.f;
 }
 
 Stage1::~Stage1() {
@@ -147,10 +176,17 @@ void Stage1::Render() {
     case Stage1State::kEnter:
     case Stage1State::kExiting:
     case Stage1State::kExited:
+    case Stage1State::kGameClear:
+    case Stage1State::kGameOver:
+        game_clear_text_view_.Render(renderer);
+        game_over_text_view_.Render(renderer);
         door_.Render(renderer);
         break;
     case Stage1State::kPause:
         pause_menu_.Render(renderer);
+        break;
+    case Stage1State::kIntro:
+        time_count_text_view_.Render(renderer);
         break;
     }
 }
@@ -163,7 +199,16 @@ int Stage1::CalcScore() {
 
 void Stage1::Enter(const float& delta_time) { door_.OpenTick(delta_time); }
 
-void Stage1::Intro(const float& delta_time) {}
+void Stage1::Intro(const float& delta_time) {
+    timer_ += delta_time;
+    if (timer_ >= 3.f) {
+        state_ = Stage1State::kPlay;
+        timer_ = 0.f;
+    }
+    time_count_text_view_.SetText(std::to_string((int)(std::ceil(3.f - timer_))),
+                                  SDL_Color{0xFF, 0xFF, 0, 0xFF},
+                                  game_context_->get_renderer()->sdl());
+}
 
 void Stage1::Play(const float& delta_time) {
     /**
@@ -199,6 +244,18 @@ void Stage1::Play(const float& delta_time) {
      */
     DeleteActorIfDestroyed();
 
+    // TODO:
+    // 爆発エフェクト、オーディオ、チュートリアル（or操作方法）
+    if (player_controller_->GetPlayerHp() <= 0.f) {
+        state_ = Stage1State::kGameOver;
+        game_over_text_view_.SetAlpha(0xFF);
+        return;
+    } else if (enemy_counter_.num_of_destroy_enemies == enemy_counter_.max_spawn_enemies) {
+        state_ = Stage1State::kGameClear;
+        game_clear_text_view_.SetAlpha(0xFF);
+        return;
+    }
+
     /**
      * 衝突判定
      */
@@ -222,10 +279,6 @@ void Stage1::Play(const float& delta_time) {
             list[index * 2]->OnCollision(list[index * 2 + 1]->get_actor());
             list[index * 2 + 1]->OnCollision(list[index * 2]->get_actor());
         }
-    }
-
-    if (player_controller_->GetPlayerHp() <= 0.f) {
-        state_ = Stage1State::kExiting;
     }
 
     /**
@@ -281,9 +334,21 @@ void Stage1::Pause(const float& delta_time) {
     }
 }
 
-void Stage1::GameClear(const float& delta_time) {}
+void Stage1::GameClear(const float& delta_time) {
+    timer_ += delta_time;
+    if (timer_ >= 3.f) {
+        state_ = Stage1State::kExiting;
+        timer_ = 0.f;
+    }
+}
 
-void Stage1::GameOver(const float& delta_time) {}
+void Stage1::GameOver(const float& delta_time) {
+    timer_ += delta_time;
+    if (timer_ >= 3.f) {
+        state_ = Stage1State::kExiting;
+        timer_ = 0.f;
+    }
+}
 
 void Stage1::Exiting(const float& delta_time) { door_.CloseTick(delta_time); }
 

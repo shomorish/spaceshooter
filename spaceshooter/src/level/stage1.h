@@ -40,7 +40,11 @@ class Stage1 : public Level {
     TextView enemies_text_view_;
     TextView score_text_view_;
     TextView hp_text_view_;
+    TextView time_count_text_view_;
+    TextView game_clear_text_view_;
+    TextView game_over_text_view_;
     PauseMenu pause_menu_;
+    float timer_;
 
     void Enter(const float& delta_time);
     void Intro(const float& delta_time);
