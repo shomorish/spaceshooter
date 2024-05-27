@@ -256,8 +256,6 @@ void Stage1::Play(const float& delta_time) {
      */
     DeleteActorIfDestroyed();
 
-    // TODO:
-    // オーディオ、チュートリアル（or操作方法）
     if (player_controller_->GetPlayerHp() <= 0.f) {
         state_ = Stage1State::kGameOver;
         game_over_text_view_.SetAlpha(0xFF);
