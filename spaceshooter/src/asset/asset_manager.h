@@ -13,8 +13,6 @@ enum AssetKey {
     kOverlay,
     kFrame1,
     kCursor1,
-    kSpaceship1Blue,
-    kSpin00,
     kAsteroid,
     kShip1,
     kAlien1,
