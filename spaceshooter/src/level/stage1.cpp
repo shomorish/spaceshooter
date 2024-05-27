@@ -55,7 +55,7 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
 
         float rotation_speed = std::uniform_real_distribution<float>(-180.f, 180.f)(engine);
 
-        AddActor(new Asteroid(texture, pos, size, angle, rotation_speed));
+        AddActor(new Asteroid(this, texture, pos, size, angle, rotation_speed));
     }
 
     enemy_counter_.max_spawn_enemies = 30;

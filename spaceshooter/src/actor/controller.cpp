@@ -2,9 +2,9 @@
 
 namespace spaceshooter {
 
-Controller::Controller() : character_(NULL) {}
+Controller::Controller(Level* level) : level_(level), character_(NULL) {}
 
-Controller::~Controller() {}
+Controller::~Controller() { level_ = NULL; }
 
 Character* Controller::get_character() { return character_; }
 

@@ -4,16 +4,14 @@
 
 #include "../common/matrix2x2.h"
 #include "../common/vector3.h"
+#include "../effect/explosion.h"
 
 namespace spaceshooter {
 
 PlayerController::PlayerController(Level* level, Range area_x_range, Range area_y_range)
-    : level_(level), area_x_range_(area_x_range), area_y_range_(area_y_range) {}
+    : Controller{level}, area_x_range_(area_x_range), area_y_range_(area_y_range) {}
 
-PlayerController::~PlayerController() {
-    level_ = NULL;
-    character_ = NULL;
-}
+PlayerController::~PlayerController() { character_ = NULL; }
 
 Collider* PlayerController::get_collider() { return character_->get_collider(); }
 
@@ -52,7 +50,12 @@ bool PlayerController::HasCollider() {
     return character_->get_collider();
 }
 
-void PlayerController::DestroyCharacter() { character_ = NULL; }
+void PlayerController::DestroyCharacter() {
+    level_->AddActor(
+        new Explosion(character_->get_pos(), character_->get_size(),
+                      level_->get_asset_manager()->GetSpriteSheet(AssetKey::kExplosion1)));
+    character_ = NULL;
+}
 
 float PlayerController::GetPlayerHp() {
     if (character_) {

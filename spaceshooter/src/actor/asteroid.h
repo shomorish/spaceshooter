@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../common/vector2.h"
+#include "../level/level.h"
 #include "../texture/texture.h"
 #include "actor.h"
 
@@ -8,8 +9,8 @@ namespace spaceshooter {
 
 class Asteroid : public Actor {
  public:
-    Asteroid(Texture* texture, Vector2 pos, Vector2 size, float angle, float rotation_speed);
-    Asteroid(Texture* texture);
+    Asteroid(Level* level, Texture* texture, Vector2 pos, Vector2 size, float angle,
+             float rotation_speed);
 
     ~Asteroid();
 
@@ -18,6 +19,7 @@ class Asteroid : public Actor {
     void ApplyDamage(float damage) override;
 
  private:
+    Level* level_;
     SDL_Texture* texture_;
     float angle_;
     float rotation_speed_;

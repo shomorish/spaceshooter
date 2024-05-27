@@ -4,12 +4,14 @@
 
 #include "../common/matrix2x2.h"
 #include "../common/vector3.h"
+#include "../effect/explosion.h"
 #include "alien.h"
 
 namespace spaceshooter {
 
 RushAiController::RushAiController(Level* level, Vector2 pos, Character** target,
-                                   EnemyCounter* enemy_counter) {
+                                   EnemyCounter* enemy_counter)
+    : Controller{level} {
     character_ = new Alien(this, level->get_asset_manager()->GetTexture(AssetKey::kAlien1), pos);
     target_ = target;
     enemy_counter_ = enemy_counter;
@@ -42,6 +44,9 @@ bool RushAiController::HasCollider() { return character_->get_collider() != NULL
 
 void RushAiController::DestroyCharacter() {
     Destroy();
+    level_->AddActor(
+        new Explosion(character_->get_pos(), character_->get_size(),
+                      level_->get_asset_manager()->GetSpriteSheet(AssetKey::kExplosion1)));
     enemy_counter_->num_of_destroy_enemies++;
 }
 

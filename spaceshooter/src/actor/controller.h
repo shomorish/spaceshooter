@@ -4,6 +4,7 @@
 
 #include "../input/input_action.h"
 #include "../input/input_action_container.h"
+#include "../level/level.h"
 #include "actor.h"
 #include "character.h"
 
@@ -13,7 +14,7 @@ class Character;
 
 class Controller : public Actor {
  public:
-    Controller();
+    Controller(Level* level);
 
     virtual ~Controller();
 
@@ -24,6 +25,7 @@ class Controller : public Actor {
     virtual void DestroyCharacter();
 
  protected:
+    Level* level_;
     Character* character_;
 };
 

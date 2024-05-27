@@ -25,7 +25,6 @@ class PlayerController : public Controller {
     float GetPlayerHp();
 
  private:
-    Level* level_;
     Range area_x_range_;
     Range area_y_range_;
 
