@@ -119,6 +119,17 @@ Stage1::Stage1(GameContext* game_context, OpenLevelInterface* open_level_interfa
                                  game_context_->get_renderer()->sdl());
     game_over_text_view_.SetAlpha(0);
 
+    operation_text_view_.set_window(game_context_->get_window());
+    operation_text_view_.set_font("assets/fonts/PixelifySans-Bold.ttf", 18);
+    operation_text_view_.SetHViewType(ViewType::kWrapContent);
+    operation_text_view_.SetVViewType(ViewType::kWrapContent);
+    operation_text_view_.SetAnchor(Anchor::kBottomRight);
+    operation_text_view_.SetPivot(Pivot::kBottomRight);
+    operation_text_view_.SetText("W/A/S/D: Roate   SPACE/L-CLICK: Fire   ESC: Pause",
+                                 SDL_Color{0xFF, 0xFF, 0xFF, 0xFF},
+                                 game_context_->get_renderer()->sdl());
+    operation_text_view_.SetPos(Vector2{-24.f, -24});
+
     pause_menu_.Init(game_context_->get_asset_manager()->GetTexture(AssetKey::kFrame1),
                      game_context_->get_asset_manager()->GetTexture(AssetKey::kCursor1),
                      game_context_->get_window(), game_context_->get_renderer()->sdl());
@@ -171,6 +182,7 @@ void Stage1::Render() {
     enemies_text_view_.Render(renderer);
     score_text_view_.Render(renderer);
     hp_text_view_.Render(renderer);
+    operation_text_view_.Render(renderer);
 
     switch (state_) {
     case Stage1State::kEnter:
@@ -245,7 +257,7 @@ void Stage1::Play(const float& delta_time) {
     DeleteActorIfDestroyed();
 
     // TODO:
-    // 爆発エフェクト、オーディオ、チュートリアル（or操作方法）
+    // オーディオ、チュートリアル（or操作方法）
     if (player_controller_->GetPlayerHp() <= 0.f) {
         state_ = Stage1State::kGameOver;
         game_over_text_view_.SetAlpha(0xFF);

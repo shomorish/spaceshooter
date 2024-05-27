@@ -43,6 +43,7 @@ class Stage1 : public Level {
     TextView time_count_text_view_;
     TextView game_clear_text_view_;
     TextView game_over_text_view_;
+    TextView operation_text_view_;
     PauseMenu pause_menu_;
     float timer_;
 
